@@ -67,7 +67,5 @@ Add an entry to both `en` and `fr` arrays in `src/data/projects.ts`. Done.
 - `L` — toggle language (EN ↔ FR)
 - `0`–`6` — jump to section
 - `↑` `↓` — scroll
-
-## Old mockups
-
-The 7 HTML exploration mockups (terminal, synthwave, brutalist, boot, cyberpunk, editorial + theme picker) are kept in `/mockups/` for reference but are not part of the build.
+- `⌘K` — command palette
+- Type `sudo` / `hack` / `help` for easter eggs
