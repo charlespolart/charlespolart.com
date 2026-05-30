@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Builder — Profile of Charles Polart · The Charles Times</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Lora:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:    #f7f3eb;
+    --paper-2:  #efeadf;
+    --ink:      #14110d;
+    --ink-soft: #4a443a;
+    --ink-mute: #807a6e;
+    --ink-faint:#b0a99b;
+    --accent:   #8b1e08;
+    --hl:       #f4e6c8;
+    --rule:     rgba(20, 17, 13, 0.6);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  html, body { min-height: 100%; }
+
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    font-feature-settings: "kern", "liga", "calt";
+  }
+
+  /* Paper texture + warm vignette */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+      radial-gradient(circle at 25% 30%, rgba(20, 17, 13, 0.025), transparent 60%),
+      radial-gradient(circle at 75% 70%, rgba(20, 17, 13, 0.03), transparent 60%);
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.35;
+    background-image:
+      radial-gradient(rgba(20, 17, 13, 0.06) 0.5px, transparent 0.5px);
+    background-size: 3px 3px;
+  }
+
+  /* CUSTOM CURSOR */
+  .ibeam {
+    position: fixed;
+    pointer-events: none;
+    z-index: 200;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--accent);
+    transform: translate(-50%, -50%);
+    transition: transform 0.06s linear, opacity 0.2s;
+    mix-blend-mode: multiply;
+    opacity: 0.7;
+    user-select: none;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    position: relative;
+    z-index: 5;
+    padding: 22px clamp(20px, 4vw, 56px) 14px;
+    border-bottom: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end;
+    gap: 24px;
+  }
+  .mast-left, .mast-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .mast-right { text-align: right; }
+  .mast-row { display: flex; gap: 14px; align-items: center; }
+  .mast-right .mast-row { justify-content: flex-end; }
+
+  .mast-title {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4.6vw, 64px);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144, "SOFT" 0;
+  }
+  .mast-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  }
+  .mast-strap {
+    text-align: center;
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+  }
+  .mast-strap .dot { color: var(--accent); margin: 0 8px; }
+
+  /* SECTION RULE */
+  .section-rule {
+    position: relative;
+    z-index: 5;
+    margin: 22px clamp(20px, 4vw, 56px) 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 6px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .section-rule .center {
+    flex: 1;
+    text-align: center;
+    color: var(--accent);
+    letter-spacing: 0.4em;
+    font-weight: 600;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 5;
+    padding: clamp(28px, 5vw, 60px) clamp(20px, 4vw, 56px) clamp(20px, 3vw, 36px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .kicker::before, .kicker::after {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .kicker::after { flex: 1; }
+
+  h1.headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 350;
+    font-size: clamp(52px, 8vw, 132px);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin: 0;
+    text-wrap: balance;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+  }
+  h1.headline em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+    font-variation-settings: "opsz" 144, "SOFT" 80, "WONK" 1;
+  }
+  h1.headline .line {
+    display: inline;
+  }
+
+  .subhead {
+    margin-top: 28px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.35;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    font-variation-settings: "opsz" 24, "SOFT" 50;
+  }
+
+  .byline {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+  }
+  .byline .name { color: var(--ink); font-weight: 600; }
+  .byline .sep { color: var(--ink-faint); }
+
+  /* FEATURE PHOTO */
+  .photo {
+    position: relative;
+    z-index: 5;
+    margin: 0 clamp(20px, 4vw, 56px);
+    padding-top: 18px;
+    padding-bottom: 18px;
+    overflow: hidden;
+  }
+  .photo-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    filter: grayscale(1) contrast(1.18) brightness(1.02);
+    transition: filter 1s, transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .photo-frame:hover img {
+    transform: scale(1.04);
+    filter: grayscale(1) contrast(1.05) brightness(1.05);
+  }
+  /* Halftone overlay */
+  .photo-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle, transparent 0.8px, rgba(20, 17, 13, 0.18) 1.1px) 0 0 / 3px 3px;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(0, 0, 0, 0.15) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .photo-caption {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+  }
+  .photo-caption .credit { color: var(--ink-soft); white-space: nowrap; }
+  .photo-caption .credit em { color: var(--ink); font-style: italic; font-family: 'Fraunces', serif; font-size: 13px; letter-spacing: 0; }
+
+  /* BODY */
+  .body {
+    position: relative;
+    z-index: 5;
+    padding: clamp(20px, 3vw, 36px) clamp(20px, 4vw, 56px);
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: clamp(28px, 4vw, 56px);
+    align-items: start;
+  }
+
+  .article {
+    column-count: 2;
+    column-gap: 36px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
+    font-feature-settings: "kern", "onum";
+    hyphens: auto;
+    text-align: justify;
+  }
+  .article p {
+    margin-bottom: 1.2em;
+    break-inside: avoid-column;
+  }
+  .article .first {
+    column-span: all;
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.35;
+    text-align: left;
+    margin-bottom: 28px;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-variation-settings: "opsz" 24;
+  }
+  .dropcap::first-letter {
+    font-family: 'Fraunces', serif;
+    float: left;
+    font-size: 5.6em;
+    line-height: 0.85;
+    padding: 6px 14px 0 0;
+    color: var(--accent);
+    font-weight: 600;
+    font-variation-settings: "opsz" 144, "SOFT" 80, "WONK" 1;
+  }
+  .article strong { font-weight: 600; }
+  .article em { font-style: italic; }
+  .article a { color: var(--ink); border-bottom: 1px solid var(--accent); text-decoration: none; transition: background 0.2s; padding: 0 2px; }
+  .article a:hover { background: var(--hl); }
+
+  .pullquote {
+    column-span: all;
+    margin: 28px 0;
+    padding: 24px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(22px, 3vw, 38px);
+    line-height: 1.25;
+    color: var(--ink);
+    text-align: left;
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+    position: relative;
+  }
+  .pullquote::before {
+    content: '"';
+    font-size: 2.2em;
+    color: var(--accent);
+    line-height: 0;
+    margin-right: 6px;
+    vertical-align: -0.45em;
+  }
+  .pullquote .attr {
+    display: block;
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .pullquote .attr::before { content: '— '; }
+
+  /* SIDEBAR */
+  .sidebar {
+    position: sticky;
+    top: 28px;
+    align-self: start;
+    padding-left: 24px;
+    border-left: 1px solid var(--rule);
+  }
+  .sb-section {
+    margin-bottom: 28px;
+  }
+  .sb-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 6px;
+  }
+  .sb-h {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 8px;
+    font-variation-settings: "opsz" 24, "SOFT" 50;
+  }
+  .sb-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px dotted var(--ink-faint);
+    font-size: 13.5px;
+    font-family: 'Lora', serif;
+    line-height: 1.4;
+  }
+  .sb-row .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-mute);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding-top: 2px;
+  }
+  .sb-row .v { color: var(--ink); }
+  .sb-row .v em { font-style: italic; color: var(--ink-soft); }
+  .sb-row .v .pill {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+
+  .sb-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .sb-stack span {
+    border: 1px solid var(--ink-mute);
+    padding: 2px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    transition: all 0.18s;
+  }
+  .sb-stack span:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* CONTACT SECTION */
+  .contact {
+    position: relative;
+    z-index: 5;
+    margin: 0 clamp(20px, 4vw, 56px) 0;
+    padding: clamp(24px, 4vw, 44px) 0;
+    border-top: 3px double var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 24px;
+    align-items: end;
+  }
+  .contact-item .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 6px;
+  }
+  .contact-item .value {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    line-height: 1.2;
+    font-style: italic;
+    transition: color 0.2s, border-color 0.2s;
+    display: inline-block;
+    padding-bottom: 1px;
+    font-variation-settings: "opsz" 24, "SOFT" 50;
+  }
+  .contact-item .value:hover { color: var(--accent); border-color: var(--accent); }
+  .lang-toggle {
+    display: inline-flex;
+    align-self: end;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    cursor: pointer;
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    padding: 7px 13px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    color: var(--ink);
+    letter-spacing: 0.1em;
+    transition: all 0.15s;
+  }
+  .lang-toggle button.active { background: var(--ink); color: var(--paper); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 5;
+    margin: 0 clamp(20px, 4vw, 56px);
+    padding: 18px 0 32px;
+    border-top: 1px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  footer .l, footer .r { display: flex; gap: 16px; align-items: center; }
+  footer .pn {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2px 8px;
+    font-weight: 600;
+  }
+
+  /* BACK */
+  .back {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 100;
+    color: var(--ink);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    padding: 4px 9px;
+    text-transform: uppercase;
+  }
+  .back:hover { background: var(--ink); color: var(--paper); }
+
+  ::selection { background: var(--hl); color: var(--ink); }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  .photo { opacity: 0; animation: photoIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
+  @keyframes photoIn {
+    from { opacity: 0; transform: translateY(20px); clip-path: inset(0 100% 0 0); }
+    to   { opacity: 1; transform: translateY(0);    clip-path: inset(0 0 0 0); }
+  }
+
+  h1.headline .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px) rotate(2deg);
+    animation: wordIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  h1.headline .word:nth-child(1) { animation-delay: 0.15s; }
+  h1.headline .word:nth-child(2) { animation-delay: 0.22s; }
+  h1.headline .word:nth-child(3) { animation-delay: 0.29s; }
+  h1.headline .word:nth-child(4) { animation-delay: 0.36s; }
+  h1.headline .word:nth-child(5) { animation-delay: 0.43s; }
+  @keyframes wordIn {
+    to { opacity: 1; transform: translateY(0) rotate(0); }
+  }
+
+  .kicker, .subhead, .byline {
+    opacity: 0;
+    animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .kicker  { animation-delay: 0.05s; }
+  .subhead { animation-delay: 0.55s; }
+  .byline  { animation-delay: 0.70s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .body { grid-template-columns: 1fr; }
+    .article { column-count: 1; }
+    .sidebar { position: static; padding-left: 0; padding-top: 24px; border-left: none; border-top: 1px solid var(--rule); }
+    .contact { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .masthead { grid-template-columns: 1fr; text-align: center; gap: 10px; }
+    .mast-right, .mast-left { text-align: center; }
+    .mast-row { justify-content: center; }
+    .contact { grid-template-columns: 1fr; }
+    .ibeam { display: none; }
+    body { cursor: auto; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">← back</a>
+
+<div class="ibeam" id="ibeam">I</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="mast-left">
+    <div>Vol. VIII · No. 42</div>
+    <div data-en="Friday Edition" data-fr="Édition du Vendredi">Friday Edition</div>
+  </div>
+  <div>
+    <h2 class="mast-title">The <em>Charles</em> Times</h2>
+    <div class="mast-strap">
+      <span data-en="EVERYTHING WORTH SHIPPING" data-fr="TOUT CE QUI MÉRITE D&apos;ÊTRE LIVRÉ">EVERYTHING WORTH SHIPPING</span>
+      <span class="dot">●</span>
+      <span data-en="EST. 2017" data-fr="DEPUIS 2017">EST. 2017</span>
+    </div>
+  </div>
+  <div class="mast-right">
+    <div class="mast-row">
+      <span data-en="29 MAY 2026" data-fr="29 MAI 2026">29 MAY 2026</span>
+    </div>
+    <div class="mast-row">
+      <span data-en="FREE · ONLINE" data-fr="GRATUIT · EN LIGNE">FREE · ONLINE</span>
+    </div>
+  </div>
+</header>
+
+<!-- SECTION RULE -->
+<div class="section-rule">
+  <span data-en="THE WEEKEND READ" data-fr="LECTURE DU WEEKEND">THE WEEKEND READ</span>
+  <span class="center" data-en="PROFILES — N° XLII" data-fr="PORTRAITS — N° XLII">PROFILES — N° XLII</span>
+  <span data-en="6 MIN" data-fr="6 MIN">6 MIN</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="kicker" data-en="PROFILES · FULLSTACK · A1" data-fr="PORTRAITS · FULLSTACK · A1">PROFILES · FULLSTACK · A1</div>
+
+  <h1 class="headline" id="headline" data-en-html='<span class="word">The</span> <span class="word">Builder</span> <span class="word">who</span> <span class="word"><em>never</em></span> <span class="word">stopped.</span>' data-fr-html='<span class="word">Le</span> <span class="word">Bâtisseur</span> <span class="word">qui</span> <span class="word"><em>n&apos;a jamais</em></span> <span class="word">arrêté.</span>'>
+    <span class="word">The</span> <span class="word">Builder</span> <span class="word">who</span> <span class="word"><em>never</em></span> <span class="word">stopped.</span>
+  </h1>
+
+  <p class="subhead" data-en="A conversation with Charles Polart, the Paris-based fullstack engineer who has been shipping production software since 2017 — and isn&apos;t planning on stopping." data-fr="Une conversation avec Charles Polart, ingénieur fullstack basé à Paris, qui livre du logiciel en production depuis 2017 — et qui ne compte pas s&apos;arrêter.">
+    A conversation with Charles Polart, the Paris-based fullstack engineer who has been shipping production software since 2017 — and isn't planning on stopping.
+  </p>
+
+  <div class="byline">
+    <span data-en="BY" data-fr="PAR">BY</span> <span class="name">T. EDITOR</span>
+    <span class="sep">·</span>
+    <span>1,247 <span data-en="words" data-fr="mots">words</span></span>
+    <span class="sep">·</span>
+    <span data-en="PHOTOGRAPHS BY" data-fr="PHOTOGRAPHIES PAR">PHOTOGRAPHS BY</span> M. ARNAUD
+    <span class="sep">·</span>
+    <span data-en="PARIS, 2026" data-fr="PARIS, 2026">PARIS, 2026</span>
+  </div>
+</section>
+
+<!-- FEATURE PHOTO -->
+<figure class="photo">
+  <div class="photo-frame">
+    <img src="https://i.pravatar.cc/1200?img=33" alt="Charles Polart" />
+  </div>
+  <figcaption class="photo-caption">
+    <span data-en-html='<em>Charles Polart</em>, photographed in his Paris workspace, May 2026. Polart has shipped seventeen production projects since beginning his career in 2017.' data-fr-html='<em>Charles Polart</em>, photographié dans son espace de travail parisien, mai 2026. Polart a livré dix-sept projets en production depuis le début de sa carrière en 2017.'>
+      <em>Charles Polart</em>, photographed in his Paris workspace, May 2026. Polart has shipped seventeen production projects since beginning his career in 2017.
+    </span>
+    <span class="credit" data-en="Photo · M. ARNAUD" data-fr="Photo · M. ARNAUD">Photo · M. ARNAUD</span>
+  </figcaption>
+</figure>
+
+<!-- BODY -->
+<section class="body">
+  <article class="article">
+    <p class="first reveal" data-en-html="There is something disarmingly simple about the way Charles Polart talks about software. <em>«&nbsp;I ship,&nbsp;»</em> he says, between sips of espresso. <em>«&nbsp;Then I ship some more.&nbsp;»</em>" data-fr-html="Il y a quelque chose de désarmant dans la manière dont Charles Polart parle de logiciel. <em>«&nbsp;Je livre,&nbsp;»</em> dit-il, entre deux gorgées d&apos;espresso. <em>«&nbsp;Puis je livre encore.&nbsp;»</em>">
+      There is something disarmingly simple about the way Charles Polart talks about software. <em>«&nbsp;I ship,&nbsp;»</em> he says, between sips of espresso. <em>«&nbsp;Then I ship some more.&nbsp;»</em>
+    </p>
+
+    <p class="dropcap reveal" data-en-html="The first thing Polart will tell you is that he has been writing code since <strong>2017</strong>. The second is that he doesn&apos;t much care for the meta-discourse around it. The third — and this is where you begin to understand the man — is that he shipped <strong>seventeen production projects</strong> before he turned thirty, while most of his peers were still arguing about which framework to learn next." data-fr-html="La première chose que Polart vous dira est qu&apos;il écrit du code depuis <strong>2017</strong>. La deuxième est qu&apos;il n&apos;a que peu d&apos;intérêt pour le méta-discours qui l&apos;entoure. La troisième — et c&apos;est là qu&apos;on commence à le comprendre — est qu&apos;il a livré <strong>dix-sept projets en production</strong> avant trente ans, alors que la plupart de ses pairs débattaient encore du prochain framework à apprendre.">
+      The first thing Polart will tell you is that he has been writing code since <strong>2017</strong>. The second is that he doesn't much care for the meta-discourse around it. The third — and this is where you begin to understand the man — is that he shipped <strong>seventeen production projects</strong> before he turned thirty, while most of his peers were still arguing about which framework to learn next.
+    </p>
+
+    <p class="reveal" data-en-html="His projects span the modest and the audacious. <a>agora</a>, a community platform he runs out of pure interest. <a>kiwidiag</a>, a diagnostic tool used in independent garages across France. A handful of trading systems that he prefers not to name. <em>«&nbsp;I prefer to ship before I philosophise,&nbsp;»</em> he offers, in what might be the most underrated piece of engineering advice of the decade." data-fr-html="Ses projets oscillent entre le modeste et l&apos;audacieux. <a>agora</a>, une plateforme communautaire qu&apos;il gère par pur intérêt. <a>kiwidiag</a>, outil de diagnostic utilisé dans les garages indépendants à travers la France. Quelques systèmes de trading qu&apos;il préfère ne pas nommer. <em>«&nbsp;Je préfère livrer avant de philosopher,&nbsp;»</em> propose-t-il — peut-être le conseil d&apos;ingénierie le plus sous-coté de la décennie.">
+      His projects span the modest and the audacious. <a>agora</a>, a community platform he runs out of pure interest. <a>kiwidiag</a>, a diagnostic tool used in independent garages across France. A handful of trading systems that he prefers not to name. <em>«&nbsp;I prefer to ship before I philosophise,&nbsp;»</em> he offers, in what might be the most underrated piece of engineering advice of the decade.
+    </p>
+
+    <blockquote class="pullquote reveal" data-en-html="I&apos;d rather ship the boring version that works than the elegant one that doesn&apos;t.<span class='attr'>Charles Polart</span>" data-fr-html="Je préfère livrer la version ennuyeuse qui marche que la version élégante qui ne marche pas.<span class='attr'>Charles Polart</span>">
+      I'd rather ship the boring version that works than the elegant one that doesn't.
+      <span class="attr">Charles Polart</span>
+    </blockquote>
+
+    <p class="reveal" data-en-html="His stack is what one might call <em>pragmatic</em>. TypeScript, React, Node, Postgres, with a Rust adventure when the moment calls for it. He laughs when asked about JavaScript fatigue. <em>«&nbsp;Pick the tools that pay the bills, learn the ones that make you think.&nbsp;»</em> He&apos;s in the latter mood with <strong>Rust</strong> at the moment, and currently rebuilding a portion of <a>agora</a>&apos;s ingestion layer in it." data-fr-html="Sa stack est ce qu&apos;on pourrait appeler <em>pragmatique</em>. TypeScript, React, Node, Postgres, avec une aventure Rust quand le moment s&apos;y prête. Il rit quand on lui parle de fatigue JavaScript. <em>«&nbsp;Choisis les outils qui paient les factures, apprends ceux qui te font réfléchir.&nbsp;»</em> Il est dans cette seconde humeur avec <strong>Rust</strong> en ce moment, et reconstruit actuellement une partie de la couche d&apos;ingestion d&apos;<a>agora</a>.">
+      His stack is what one might call <em>pragmatic</em>. TypeScript, React, Node, Postgres, with a Rust adventure when the moment calls for it. He laughs when asked about JavaScript fatigue. <em>«&nbsp;Pick the tools that pay the bills, learn the ones that make you think.&nbsp;»</em> He's in the latter mood with <strong>Rust</strong> at the moment, and currently rebuilding a portion of <a>agora</a>'s ingestion layer in it.
+    </p>
+
+    <p class="reveal" data-en-html="What of the future ? Polart is now <strong>open to new contracts</strong>. He won&apos;t pitch you — that is not his style — but he&apos;ll mention, in passing, that he is available for engineering roles where, as he puts it, <em>«&nbsp;the work matters and the code doesn&apos;t lie.&nbsp;»</em>" data-fr-html="Et l&apos;avenir ? Polart est désormais <strong>ouvert à de nouveaux contrats</strong>. Il ne vous fera pas son pitch — ce n&apos;est pas son style — mais il mentionnera, au détour d&apos;une phrase, qu&apos;il est disponible pour des rôles d&apos;ingénierie où, selon lui, <em>«&nbsp;le travail compte et le code ne ment pas.&nbsp;»</em>">
+      What of the future ? Polart is now <strong>open to new contracts</strong>. He won't pitch you — that is not his style — but he'll mention, in passing, that he is available for engineering roles where, as he puts it, <em>«&nbsp;the work matters and the code doesn't lie.&nbsp;»</em>
+    </p>
+
+    <p class="reveal" data-en-html="<em>«&nbsp;If you&apos;d like to talk,&nbsp;»</em> he says as we wrap up, <em>«&nbsp;just write.&nbsp;»</em> The man, it would seem, has nothing left to prove except, perhaps, what he&apos;ll build tomorrow." data-fr-html="<em>«&nbsp;Si vous voulez en parler,&nbsp;»</em> dit-il alors qu&apos;on termine, <em>«&nbsp;écrivez simplement.&nbsp;»</em> L&apos;homme, semble-t-il, n&apos;a plus rien à prouver — si ce n&apos;est, peut-être, ce qu&apos;il construira demain.">
+      <em>«&nbsp;If you'd like to talk,&nbsp;»</em> he says as we wrap up, <em>«&nbsp;just write.&nbsp;»</em> The man, it would seem, has nothing left to prove except, perhaps, what he'll build tomorrow.
+    </p>
+  </article>
+
+  <aside class="sidebar">
+    <div class="sb-section reveal">
+      <div class="sb-label" data-en="AT A GLANCE" data-fr="EN BREF">AT A GLANCE</div>
+      <h3 class="sb-h">Charles Polart</h3>
+      <div class="sb-row">
+        <span class="k" data-en="Born" data-fr="Né en">Born</span>
+        <span class="v">1992 · <em data-en="France" data-fr="France">France</em></span>
+      </div>
+      <div class="sb-row">
+        <span class="k" data-en="Based" data-fr="Basé à">Based</span>
+        <span class="v">Paris · <em data-en="Remote" data-fr="À distance">Remote</em></span>
+      </div>
+      <div class="sb-row">
+        <span class="k" data-en="Role" data-fr="Rôle">Role</span>
+        <span class="v" data-en="Fullstack Engineer" data-fr="Ingénieur Fullstack">Fullstack Engineer</span>
+      </div>
+      <div class="sb-row">
+        <span class="k" data-en="Years" data-fr="Années">Years</span>
+        <span class="v">08</span>
+      </div>
+      <div class="sb-row">
+        <span class="k" data-en="Shipped" data-fr="Livrés">Shipped</span>
+        <span class="v">17 <em data-en="projects" data-fr="projets">projects</em></span>
+      </div>
+      <div class="sb-row">
+        <span class="k" data-en="Status" data-fr="Statut">Status</span>
+        <span class="v"><span class="pill" data-en="OPEN" data-fr="OUVERT">OPEN</span><em data-en="to new work" data-fr="à de nouveaux contrats">to new work</em></span>
+      </div>
+      <div class="sb-row">
+        <span class="k" data-en="Speaks" data-fr="Parle">Speaks</span>
+        <span class="v">FR · EN</span>
+      </div>
+    </div>
+
+    <div class="sb-section reveal">
+      <div class="sb-label" data-en="THE STACK" data-fr="LA STACK">THE STACK</div>
+      <div class="sb-stack">
+        <span>TypeScript</span>
+        <span>React</span>
+        <span>Next.js</span>
+        <span>Node.js</span>
+        <span>Postgres</span>
+        <span>Redis</span>
+        <span>GraphQL</span>
+        <span>Rust</span>
+        <span>Python</span>
+      </div>
+    </div>
+
+    <div class="sb-section reveal">
+      <div class="sb-label" data-en="ALSO IN THIS ISSUE" data-fr="DANS CE NUMÉRO">ALSO IN THIS ISSUE</div>
+      <div class="sb-row"><span class="k">A2</span><span class="v"><em>The 17 projects, briefly catalogued</em></span></div>
+      <div class="sb-row"><span class="k">A4</span><span class="v"><em>An interview with Rust, the language</em></span></div>
+      <div class="sb-row"><span class="k">A7</span><span class="v"><em>Why we still write SQL by hand</em></span></div>
+    </div>
+  </aside>
+</section>
+
+<!-- CONTACT -->
+<section class="contact reveal">
+  <div class="contact-item">
+    <div class="label" data-en="CORRESPONDENCE" data-fr="CORRESPONDANCE">CORRESPONDENCE</div>
+    <a class="value" href="mailto:hello@charlespolart.com">hello@charlespolart.com</a>
+  </div>
+  <div class="contact-item">
+    <div class="label" data-en="REPOSITORY" data-fr="DÉPÔT">REPOSITORY</div>
+    <a class="value" href="#">github.com/charlespolart</a>
+  </div>
+  <div class="contact-item">
+    <div class="label" data-en="THE NETWORK" data-fr="LE RÉSEAU">THE NETWORK</div>
+    <a class="value" href="#">linkedin.com/in/charlespolart</a>
+  </div>
+  <div class="lang-toggle">
+    <button class="active" data-set="en">EN</button>
+    <button data-set="fr">FR</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="l">
+    <span class="pn">A1</span>
+    <span data-en="THE CHARLES TIMES" data-fr="THE CHARLES TIMES">THE CHARLES TIMES</span>
+    <span>·</span>
+    <span data-en="PROFILES" data-fr="PORTRAITS">PROFILES</span>
+    <span>·</span>
+    <span data-en="SET IN FRAUNCES &amp; LORA" data-fr="COMPOSÉ EN FRAUNCES ET LORA">SET IN FRAUNCES &amp; LORA</span>
+  </div>
+  <div class="r">
+    <span data-en="CONTINUED ON A2 →" data-fr="SUITE EN A2 →">CONTINUED ON A2 →</span>
+  </div>
+</footer>
+
+<script>
+  // Custom I-beam cursor
+  const ibeam = document.getElementById('ibeam');
+  document.addEventListener('mousemove', (e) => {
+    ibeam.style.left = e.clientX + 'px';
+    ibeam.style.top  = e.clientY + 'px';
+  });
+  document.addEventListener('mousedown', () => ibeam.style.transform = 'translate(-50%, -50%) scale(0.85)');
+  document.addEventListener('mouseup',   () => ibeam.style.transform = 'translate(-50%, -50%) scale(1)');
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Language toggle
+  const buttons = document.querySelectorAll('.lang-toggle button');
+  let lang = 'en';
+  function apply(newLang) {
+    lang = newLang;
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.set === newLang));
+    document.querySelectorAll('[data-en], [data-fr]').forEach(el => {
+      const v = el.dataset[lang];
+      if (v !== undefined) el.textContent = v;
+    });
+    document.querySelectorAll('[data-en-html], [data-fr-html]').forEach(el => {
+      const v = el.dataset[lang + 'Html'];
+      if (v !== undefined) el.innerHTML = v;
+    });
+  }
+  buttons.forEach(b => b.addEventListener('click', () => apply(b.dataset.set)));
+</script>
+</body>
+</html>

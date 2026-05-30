@@ -1,0 +1,37 @@
+{
+  "name": "charlespolart.com",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Charles Polart — personal CV site (boot terminal aesthetic, Astro + React + GSAP, deployed on Cloudflare Pages)",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "biome format --write .",
+    "lint": "biome check .",
+    "check": "biome check . && astro check",
+    "favicons": "node scripts/gen-favicons.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/react": "^4.2.0",
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.3.0",
+    "gsap": "^3.13.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "lightningcss": "^1.32.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

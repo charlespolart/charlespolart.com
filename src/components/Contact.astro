@@ -1,0 +1,56 @@
+---
+import type { Locale } from '@/data/types';
+import { profile } from '@/data/profile';
+import { ui } from '@/data/ui';
+import Section from './Section.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const p = profile[locale];
+const meta = ui[locale].sections.contact;
+const c = ui[locale].contact;
+const phoneTel = p.phone.replace(/\s/g, '');
+const cvLabel = locale === 'fr' ? 'Télécharger le CV (PDF)' : 'Download CV (PDF)';
+---
+
+<Section id="contact" num="06" meta={meta}>
+  <div class="contact-box">
+    <div class="contact-row">
+      <span class="contact-key">{c.keys.mail}</span>
+      <a class="contact-val" href={`mailto:${p.email}`} data-decrypt={p.email}>{p.email}</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-key">{c.keys.phone}</span>
+      <a class="contact-val" href={`tel:${phoneTel}`}>{p.phone}</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-key">{c.keys.github}</span>
+      <a class="contact-val" href={p.githubUrl} rel="noopener" target="_blank">{p.github}</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-key">{c.keys.linkedin}</span>
+      <a class="contact-val" href={p.linkedinUrl} rel="noopener" target="_blank">{p.linkedin}</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-key">{c.keys.location}</span>
+      <span class="contact-val plain">{c.locationValue}</span>
+    </div>
+    <div class="contact-status">
+      <span class="pulse"></span>
+      <span>{c.statusText}</span>
+    </div>
+    <button type="button" class="cv-dl-btn" data-cv-download>
+      <span class="cv-dl-icon">↓</span>
+      <span>{cvLabel}</span>
+    </button>
+  </div>
+</Section>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null;
+    if (target?.closest('[data-cv-download]')) {
+      window.dispatchEvent(new CustomEvent('cmd:cv-download'));
+    }
+  });
+</script>

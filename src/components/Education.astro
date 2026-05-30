@@ -1,0 +1,27 @@
+---
+import type { Locale } from '@/data/types';
+import { education } from '@/data/education';
+import { ui } from '@/data/ui';
+import Section from './Section.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const meta = ui[locale].sections.education;
+const entries = education[locale];
+---
+
+<Section id="education" num="05" meta={meta}>
+  <div class="edu-block">
+    {
+      entries.map((entry) => (
+        <div class="edu">
+          <div class="edu-date">{entry.dateStart} — {entry.dateEnd}</div>
+          <div>
+            <div class="edu-name">{entry.institution}</div>
+            <div class="edu-degree"><em>{entry.degree}</em></div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Section>

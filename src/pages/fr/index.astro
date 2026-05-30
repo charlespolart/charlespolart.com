@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BootSequence from '@/components/islands/BootSequence';
+import Whoami from '@/components/Whoami.astro';
+import About from '@/components/About.astro';
+import Skills from '@/components/Skills.astro';
+import Experience from '@/components/Experience.astro';
+import Projects from '@/components/Projects.astro';
+import Education from '@/components/Education.astro';
+import Contact from '@/components/Contact.astro';
+import { ui } from '@/data/ui';
+
+const locale = 'fr' as const;
+const boot = ui[locale].boot;
+
+const title = 'Charles Polart — Développeur Full Stack · 8 ans · Paris';
+const description =
+  "Charles Polart, développeur full stack freelance basé à Paris. 8 ans à construire des apps web & mobile avec Angular, React, Node, Flutter. Disponible pour nouveaux contrats.";
+---
+
+<BaseLayout locale={locale} title={title} description={description}>
+  <main>
+    <BootSequence lines={boot} client:load />
+
+    <Whoami locale={locale} />
+    <About locale={locale} />
+    <Skills locale={locale} />
+    <Experience locale={locale} />
+    <Projects locale={locale} />
+    <Education locale={locale} />
+    <Contact locale={locale} />
+
+    <div class="final">
+      <div class="final-prompt"><span class="cursor"></span></div>
+    </div>
+  </main>
+</BaseLayout>

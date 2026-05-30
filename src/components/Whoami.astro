@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import type { Locale } from '@/data/types';
+import { profile } from '@/data/profile';
+import { ui } from '@/data/ui';
+import portraitImage from '@/assets/profile.png';
+import Section from './Section.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const p = profile[locale];
+const meta = ui[locale].sections.whoami;
+
+const statsLabels = locale === 'en'
+  ? { years: 'YRS', shipped: 'SHIPPED', coffee: 'COFFEE' }
+  : { years: 'ANS', shipped: 'LIVRÉS', coffee: 'CAFÉ' };
+---
+
+<Section id="whoami" num="00" meta={meta}>
+  <div class="whoami">
+    <div class="portrait">
+      <div class="portrait-frame">
+        <span class="scan-line"></span>
+        <Image
+          class="portrait-img portrait-img--crt"
+          src={portraitImage}
+          alt={p.name}
+          width={336}
+          height={336}
+          loading="eager"
+          format="webp"
+          quality={85}
+        />
+        <Image
+          class="portrait-img portrait-img--raw"
+          src={portraitImage}
+          alt=""
+          aria-hidden="true"
+          width={336}
+          height={336}
+          loading="eager"
+          format="webp"
+          quality={88}
+        />
+      </div>
+      <span class="tag">CP · 1995</span>
+    </div>
+    <div class="who-info">
+      <div class="who-name" data-text={p.name} data-name>{p.name}</div>
+      <div class="who-role">
+        <span>{p.role}</span>
+        <span class="sep"> · </span>
+        <span class="acc">{p.roleAccent}</span>
+      </div>
+      <div class="who-meta">
+        <span>{p.location}</span>
+        <span class="sep">·</span>
+        <span>{p.freelance}</span>
+        <span class="sep">·</span>
+        <span>{p.remote}</span>
+        <span class="sep">·</span>
+        <span>{p.born}</span>
+      </div>
+      <div class="who-status">
+        <span class="pulse"></span>
+        <span>{p.available}</span>
+      </div>
+      <div class="who-links">
+        <a class="contact-val" href={`mailto:${p.email}`} data-decrypt={p.email}>{p.email}</a>
+        <a href={p.githubUrl} rel="noopener" target="_blank">{p.github}</a>
+        <a href={p.linkedinUrl} rel="noopener" target="_blank">linkedin</a>
+      </div>
+      <div class="who-stats">
+        <div class="who-stat">
+          <span class="num" data-count="8">0</span>
+          <span class="lbl">{statsLabels.years}</span>
+        </div>
+        <div class="who-stat">
+          <span class="num" data-count="9">0</span>
+          <span class="lbl">{statsLabels.shipped}</span>
+        </div>
+        <div class="who-stat">
+          <span class="num">∞</span>
+          <span class="lbl">{statsLabels.coffee}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>

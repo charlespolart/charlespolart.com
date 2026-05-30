@@ -1,0 +1,224 @@
+import type { Bilingual, ExperienceEntry } from './types';
+
+export const experience: Bilingual<ExperienceEntry[]> = {
+  en: [
+    {
+      id: 'freelance',
+      title: 'Freelance Developer',
+      dateStart: '2017.02',
+      dateEnd: 'now',
+      tag: 'Web · mobile · desktop · cross-stack · 8 yrs',
+      items: [
+        {
+          client: 'Agora Nova',
+          project: 'political social network',
+          description:
+            'Flutter mobile app + REST API for a public-debate platform : multi-role accounts, posts, polls, hashtags, moderation, RGPD-compliant FR hosting, CI/CD.',
+        },
+        {
+          client: 'SNCF',
+          project: 'DigiDoc+',
+          description:
+            "Full refactor of the internal regulatory-text consultation app used across SNCF (successor to DigiDoc/Syspre). Front-end in Angular / TypeScript / RxJS : full-text search, filters, favorites. Agile collaboration with back-end and business teams (SARDO).",
+        },
+        {
+          client: 'Capa Interim',
+          project: 'matchmaking platform',
+          description:
+            'Full backend for a temp-work site : ads search, account + CV upload, admin for ads / news / users (Symfony 3, PHP, MySQL).',
+        },
+        {
+          client: 'Axion',
+          project: 'NGO image platform',
+          description:
+            'Thematic image-sharing site for a humanitarian NGO : publishing, categorisation, moderation (Symfony 3, PHP, MySQL).',
+        },
+        {
+          client: 'ConsolWeb',
+          project: 'wiring software',
+          description:
+            'Desktop app opening multi-format wiring schematics : layer viewer + ordered technician guidance (C#, WPF).',
+        },
+        {
+          client: 'Revue scientifique',
+          project: 'PDF extractor',
+          description:
+            'Desktop tool for automated structured-data extraction from scientific PDFs (C++, Qt).',
+        },
+        {
+          client: 'Leroy Merlin',
+          project: 'front-end integration',
+          description: 'Front-end dev & integration on the Leroy Merlin site (Angular, Node.js).',
+        },
+      ],
+    },
+    {
+      id: 'silicom',
+      title: 'C++/Qt Developer',
+      company: 'Silicom',
+      dateStart: '2020.12',
+      dateEnd: '2023.05',
+      tag: 'Defense & aerospace mission · 2 yrs 6 mo',
+      items: [
+        {
+          client: 'CEA',
+          project: 'Workspace',
+          description:
+            'Dev & integration of new features in a seismic / infrasound / hydroacoustic signal analysis tool used for nuclear monitoring.',
+        },
+        {
+          client: 'CEA',
+          project: 'Ceres TMA',
+          description:
+            'Maintenance on a tool evaluating health impact of pollutant releases into the environment.',
+        },
+        {
+          client: 'CEA',
+          project: 'Diva TMA',
+          description: 'Monitoring & display of seismic network station data over time.',
+        },
+        {
+          client: 'Airbus D&S',
+          project: 'Magellan',
+          description: 'Features for a secure communication software operating over wireless networks.',
+        },
+      ],
+    },
+    {
+      id: 'stages',
+      title: 'Engineering Internships',
+      company: 'Thales · Dassault · R&D Tech',
+      dateStart: '2016',
+      dateEnd: '2020',
+      tag: '3 internships · C++ · C# · Qt · Python',
+      items: [
+        {
+          client: 'Thales · La Ruche',
+          dates: '2020.03 — 2020.08 · 6 mo',
+          description: 'Aerial drone detection software in Unity + radar simulator (C#, C).',
+        },
+        {
+          client: 'Sogitec / Dassault',
+          dates: '2017.04 — 2017.08 · 5 mo',
+          description: 'Hybrid raytracing / rasterization rendering system for flight simulation (C++).',
+        },
+        {
+          client: 'R&D Tech France',
+          dates: '2016.09 — 2017.03 · 7 mo',
+          description:
+            'Embedded C/C++ R&D : laser control over network, drone parachute trigger, robot arm stabilization.',
+        },
+      ],
+    },
+  ],
+  fr: [
+    {
+      id: 'freelance',
+      title: 'Développeur Freelance',
+      dateStart: '2017.02',
+      dateEnd: 'now',
+      tag: 'Web · mobile · desktop · cross-stack · 8 ans',
+      items: [
+        {
+          client: 'Agora Nova',
+          project: 'réseau social politique',
+          description:
+            "App mobile Flutter + API REST pour une plateforme de débat public : comptes multi-rôles, posts, sondages, hashtags, modération, hébergement FR RGPD, CI/CD.",
+        },
+        {
+          client: 'SNCF',
+          project: 'DigiDoc+',
+          description:
+            "Refonte complète de l'application interne de consultation des textes réglementaires utilisée par l'ensemble des cheminots (successeur de DigiDoc/Syspre). Front-end en Angular / TypeScript / RxJS : recherche plein texte, filtres, favoris. Collaboration agile avec les équipes back-end et métier (SARDO).",
+        },
+        {
+          client: 'Capa Interim',
+          project: 'plateforme de mise en relation',
+          description:
+            "Backend complet d'un site d'intérim : recherche d'annonces, compte + upload CV, admin annonces / actus / utilisateurs (Symfony 3, PHP, MySQL).",
+        },
+        {
+          client: 'Axion',
+          project: 'plateforme images ONG',
+          description:
+            "Site thématique de partage d'images pour une ONG humanitaire : publication, catégorisation, modération (Symfony 3, PHP, MySQL).",
+        },
+        {
+          client: 'ConsolWeb',
+          project: 'logiciel de câblage',
+          description:
+            "App desktop ouvrant des schémas de câblage multi-formats : vue par couches + guidage ordonné du technicien (C#, WPF).",
+        },
+        {
+          client: 'Revue scientifique',
+          project: 'extracteur PDF',
+          description:
+            "Outil desktop d'extraction automatisée de données structurées depuis des PDFs scientifiques (C++, Qt).",
+        },
+        {
+          client: 'Leroy Merlin',
+          project: 'intégration front-end',
+          description: "Dev front et intégration sur le site Leroy Merlin (Angular, Node.js).",
+        },
+      ],
+    },
+    {
+      id: 'silicom',
+      title: 'Développeur C++/Qt',
+      company: 'Silicom',
+      dateStart: '2020.12',
+      dateEnd: '2023.05',
+      tag: 'Mission défense & aérospatial · 2 ans 6 mois',
+      items: [
+        {
+          client: 'CEA',
+          project: 'Workspace',
+          description:
+            "Dev & intégration de nouvelles fonctionnalités dans un outil d'analyse de signaux sismiques / infrasons / hydroacoustiques pour la surveillance nucléaire.",
+        },
+        {
+          client: 'CEA',
+          project: 'Ceres TMA',
+          description:
+            "TMA d'un outil d'évaluation des conséquences sanitaires des rejets de polluants dans l'environnement.",
+        },
+        {
+          client: 'CEA',
+          project: 'Diva TMA',
+          description: "Surveillance et affichage des données des stations du réseau sismique dans le temps.",
+        },
+        {
+          client: 'Airbus D&S',
+          project: 'Magellan',
+          description: "Nouvelles fonctionnalités pour un logiciel de communication sécurisée sur réseaux sans fil.",
+        },
+      ],
+    },
+    {
+      id: 'stages',
+      title: "Stages d'ingénierie",
+      company: 'Thales · Dassault · R&D Tech',
+      dateStart: '2016',
+      dateEnd: '2020',
+      tag: '3 stages · C++ · C# · Qt · Python',
+      items: [
+        {
+          client: 'Thales · La Ruche',
+          dates: '2020.03 — 2020.08 · 6 mois',
+          description: 'Logiciel de détection de drones aériens sous Unity + simulateur de radar (C#, C).',
+        },
+        {
+          client: 'Sogitec / Dassault',
+          dates: '2017.04 — 2017.08 · 5 mois',
+          description: 'Système de rendu hybride raytracing/rastérisation pour simulation de vol (C++).',
+        },
+        {
+          client: 'R&D Tech France',
+          dates: '2016.09 — 2017.03 · 7 mois',
+          description:
+            "C/C++ embarqué R&D : contrôle de lasers sur le réseau, déclenchement parachute drone, stabilisation d'un bras robot.",
+        },
+      ],
+    },
+  ],
+};

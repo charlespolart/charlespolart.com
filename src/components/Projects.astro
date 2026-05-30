@@ -1,0 +1,93 @@
+---
+import type { Locale } from '@/data/types';
+import { projects } from '@/data/projects';
+import { ui } from '@/data/ui';
+import Section from './Section.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const meta = ui[locale].sections.projects;
+const groups = projects[locale];
+
+const labels = locale === 'en'
+  ? { work: 'FEATURED WORK', personal: 'PERSONAL PROJECTS' }
+  : { work: 'MISSIONS NOTABLES', personal: 'PROJETS PERSO' };
+---
+
+<Section id="projects" num="04" meta={meta}>
+  <div class="proj-block">
+
+    <div class="proj-subhead">
+      <span class="proj-subhead-marker">▸</span>
+      <span class="proj-subhead-label">{labels.work}</span>
+      <span class="proj-subhead-rule"></span>
+    </div>
+
+    {
+      groups.work.map((p) => (
+        <article class="proj" data-project={p.id}>
+          <span class="proj-cmd-tag">cat {p.id}.md</span>
+          <div class="proj-head">
+            <div class="proj-title">
+              <span class="num">{p.num}</span>
+              {p.title}
+            </div>
+            <div class="proj-meta">
+              <span class="stack">{p.stack}</span>
+              <span class="sep">·</span>
+              <span>{p.meta}</span>
+            </div>
+          </div>
+          <p class="proj-desc">{p.description}</p>
+          {p.features && (
+            <ul class="proj-feats">
+              {p.features.map((f) => <li>{f}</li>)}
+            </ul>
+          )}
+          {p.link && (
+            <a class="proj-link" href={p.link} rel="noopener" target="_blank">
+              {p.linkLabel ?? p.link}
+            </a>
+          )}
+        </article>
+      ))
+    }
+
+    <div class="proj-subhead">
+      <span class="proj-subhead-marker">▸</span>
+      <span class="proj-subhead-label">{labels.personal}</span>
+      <span class="proj-subhead-rule"></span>
+    </div>
+
+    {
+      groups.personal.map((p) => (
+        <article class="proj" data-project={p.id}>
+          <span class="proj-cmd-tag">cat {p.id}.md</span>
+          <div class="proj-head">
+            <div class="proj-title">
+              <span class="num">{p.num}</span>
+              {p.title}
+            </div>
+            <div class="proj-meta">
+              <span class="stack">{p.stack}</span>
+              <span class="sep">·</span>
+              <span>{p.meta}</span>
+            </div>
+          </div>
+          <p class="proj-desc">{p.description}</p>
+          {p.features && (
+            <ul class="proj-feats">
+              {p.features.map((f) => <li>{f}</li>)}
+            </ul>
+          )}
+          {p.link && (
+            <a class="proj-link" href={p.link} rel="noopener" target="_blank">
+              {p.linkLabel ?? p.link}
+            </a>
+          )}
+        </article>
+      ))
+    }
+
+  </div>
+</Section>

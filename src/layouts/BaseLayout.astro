@@ -1,0 +1,273 @@
+---
+import '@/styles/global.css';
+import type { Locale } from '@/data/types';
+import { ui } from '@/data/ui';
+import { ClientRouter } from 'astro:transitions';
+import Header from '@/components/Header.astro';
+import TerminalEffects from '@/components/islands/TerminalEffects';
+import MatrixRain from '@/components/islands/MatrixRain';
+import CommandPalette from '@/components/islands/CommandPalette';
+import SudoPrompt from '@/components/islands/SudoPrompt';
+import CvDownload from '@/components/islands/CvDownload';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+}
+
+const { locale, title, description } = Astro.props;
+const t = ui[locale];
+const otherLocale: Locale = locale === 'en' ? 'fr' : 'en';
+const otherHref = otherLocale === 'en' ? '/' : '/fr';
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0700" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="alternate" hreflang={locale} href={Astro.url.toString()} />
+    <link rel="alternate" hreflang={otherLocale} href={`${Astro.site}${otherHref.replace(/^\//, '')}`} />
+    <link rel="canonical" href={Astro.url.toString()} />
+
+    <title>{title}</title>
+
+    <!-- Add 'js' class synchronously so CSS can hide sections before they paint
+         (prevents FOUC). Falls back to visible content if JS is disabled. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
+
+    <!-- Fonts via Google Fonts (Cloudflare CDN, fast) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=VT323&display=swap"
+    />
+
+    <!-- View Transitions -->
+    <ClientRouter />
+
+    <!-- OG / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url.toString()} />
+    <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'fr_FR'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </head>
+  <body>
+    <div class="crt-power" id="crtPower"></div>
+    <div class="crt-bg" transition:persist></div>
+    <div class="crt-glow" id="crtGlow" transition:persist></div>
+
+    <Header locale={locale} />
+
+    <slot />
+
+    <!-- Overlays -->
+    <div class="term-cursor" transition:persist></div>
+    <div class="scanlines" transition:persist></div>
+    <div class="beam" transition:persist></div>
+    <div class="vignette" transition:persist></div>
+
+    <div class="keyhint">
+      <kbd>⌘</kbd><kbd>K</kbd> palette
+      <span style="opacity: 0.4; margin: 0 5px;">·</span>
+      <kbd>L</kbd> {t.keyhint.lang}
+      <span style="opacity: 0.4; margin: 0 5px;">·</span>
+      <kbd>0</kbd>—<kbd>6</kbd> {t.keyhint.jump}
+      <span style="opacity: 0.4; margin: 0 5px;">·</span>
+      <span style="opacity: 0.6;">try : sudo · hack</span>
+    </div>
+
+    <TerminalEffects locale={locale} client:load />
+    <MatrixRain client:idle />
+    <CommandPalette locale={locale} client:load />
+    <SudoPrompt locale={locale} client:load />
+    <CvDownload locale={locale} client:load />
+
+    <script is:inline>
+      // Custom cursor + mouse glow + click sparks + cursor morphing +
+      // reading progress + scan beam scroll reactivity.
+      // Inlined so it's live before React hydrates.
+      (function () {
+        // Remove the CRT power-on element from the DOM after its animation
+        // completes — leaving it (even hidden) keeps a top-z-index compositor
+        // layer over the whole viewport.
+        const crtPower = document.getElementById('crtPower');
+        if (crtPower) setTimeout(() => crtPower.remove(), 1500);
+
+        const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+        const cursor = document.querySelector('.term-cursor');
+        const glow = document.getElementById('crtGlow');
+
+        // -------- Reading progress (L) --------
+        const progress = document.getElementById('readProgress');
+        function updateProgress() {
+          const h = document.documentElement;
+          const max = h.scrollHeight - h.clientHeight;
+          const pct = max > 0 ? Math.min(100, (h.scrollTop / max) * 100) : 0;
+          if (progress) progress.style.width = pct + '%';
+        }
+
+        // -------- Scan beam --------
+        // Constant-speed WAAPI animation (runs on the compositor thread).
+        // Scroll has NO effect on the beam — it descends at a steady rate.
+        // Hacker mode smoothly boosts the rate to 6×.
+        const beamEl = document.querySelector('.beam');
+        let beamAnim = null;
+        let currentRate = 1;
+        if (beamEl && beamEl.animate) {
+          beamEl.style.animation = 'none';
+          beamAnim = beamEl.animate(
+            [
+              { transform: 'translateY(-100vh)' },
+              { transform: 'translateY(100vh)' },
+            ],
+            { duration: 8000, iterations: Infinity, easing: 'linear' }
+          );
+        }
+
+        // Throttled scroll handler — only updates the reading progress bar.
+        let scrollScheduled = false;
+        function onScroll() {
+          if (scrollScheduled) return;
+          scrollScheduled = true;
+          requestAnimationFrame(function () {
+            scrollScheduled = false;
+            updateProgress();
+          });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        updateProgress();
+
+        // Smooth playbackRate toward hacker-mode base (1× normal, 6× hacker).
+        let lastAppliedRate = 1;
+        (function rateLoop() {
+          if (beamAnim) {
+            const base = document.body.classList.contains('hacker-mode') ? 6 : 1;
+            currentRate += (base - currentRate) * 0.05;
+            if (Math.abs(currentRate - lastAppliedRate) > 0.05) {
+              beamAnim.playbackRate = currentRate;
+              lastAppliedRate = currentRate;
+            }
+          }
+          requestAnimationFrame(rateLoop);
+        })();
+
+        // -------- Cursor + sparks --------
+        if (isTouch || !cursor) return;
+
+        document.body.classList.add('has-custom-cursor');
+
+        let mx = window.innerWidth / 2;
+        let my = window.innerHeight / 2;
+        let cx = mx;
+        let cy = my;
+        let visible = false;
+
+        const TEXT_SEL = '.about-box, .proj-desc, .exp-list, .who-meta, .who-name, .skills-list, .skills-cat, .edu-degree, .contact-val';
+        const LINK_SEL = 'a, button, [role="button"], .lang-switch a';
+
+        // mousemove fires ~100Hz on modern setups — throttle to 1× per frame
+        // so we don't repaint the radial-gradient CRT bg + scan classes more
+        // than the screen can show.
+        let latestEvent = null;
+        let moveScheduled = false;
+        let lastCursorType = '';
+
+        function processMove() {
+          moveScheduled = false;
+          const e = latestEvent;
+          if (!e) return;
+          mx = e.clientX;
+          my = e.clientY;
+          if (!visible) { visible = true; cursor.classList.add('ready'); }
+
+          // Move the glow via transform — GPU compositor only, no repaint.
+          if (glow) {
+            glow.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+          }
+
+          // Cursor morphing (Q) — only toggle when the type actually changes
+          const t = e.target;
+          let nextType = '';
+          if (t && t.closest) {
+            if (t.closest(LINK_SEL)) nextType = 'is-link';
+            else if (t.closest(TEXT_SEL)) nextType = 'is-text';
+          }
+          if (nextType !== lastCursorType) {
+            cursor.classList.remove('is-link', 'is-text', 'is-button');
+            if (nextType) cursor.classList.add(nextType);
+            lastCursorType = nextType;
+          }
+        }
+        function onMove(e) {
+          latestEvent = e;
+          if (moveScheduled) return;
+          moveScheduled = true;
+          requestAnimationFrame(processMove);
+        }
+        window.addEventListener('mousemove', onMove, { passive: true });
+
+        // -------- Click sparks (J) --------
+        const SPARK_CHARS = ['*', '+', '·', '0', '1', '/', '\\', '◇', '◆', '▪'];
+        function spawnSparks(x, y) {
+          const count = 5 + Math.floor(Math.random() * 3);
+          for (let i = 0; i < count; i++) {
+            const el = document.createElement('span');
+            el.className = 'spark';
+            el.textContent = SPARK_CHARS[Math.floor(Math.random() * SPARK_CHARS.length)];
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            document.body.appendChild(el);
+            const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5;
+            const dist = 30 + Math.random() * 40;
+            const dx = Math.cos(angle) * dist;
+            const dy = Math.sin(angle) * dist - 10; // bias upward
+            const dur = 500 + Math.random() * 350;
+            el.animate(
+              [
+                { transform: 'translate(-50%, -50%) translate(0,0) scale(1)', opacity: 1 },
+                { transform: 'translate(-50%, -50%) translate(' + dx + 'px,' + dy + 'px) scale(0.4)', opacity: 0 },
+              ],
+              { duration: dur, easing: 'cubic-bezier(0.25, 0.6, 0.3, 1)' }
+            ).onfinish = function () { el.remove(); };
+          }
+        }
+        window.addEventListener('mousedown', function (e) {
+          cursor.classList.add('click');
+          setTimeout(function () { cursor.classList.remove('click'); }, 350);
+          spawnSparks(e.clientX, e.clientY);
+        }, { passive: true });
+
+        window.addEventListener('mouseleave', function () { cursor.classList.remove('ready'); });
+        window.addEventListener('mouseenter', function () { if (visible) cursor.classList.add('ready'); });
+
+        // Only push a new transform to the cursor when it actually moved.
+        // Skipping equal frames avoids spurious composite frames when idle.
+        let lastCX = -1000, lastCY = -1000;
+        (function tick() {
+          cx += (mx - cx) * 0.4;
+          cy += (my - cy) * 0.4;
+          if (Math.abs(cx - lastCX) > 0.3 || Math.abs(cy - lastCY) > 0.3) {
+            cursor.style.transform = 'translate3d(' + (cx - 7) + 'px, ' + (cy - 12) + 'px, 0)';
+            lastCX = cx;
+            lastCY = cy;
+          }
+          requestAnimationFrame(tick);
+        })();
+      })();
+    </script>
+  </body>
+</html>

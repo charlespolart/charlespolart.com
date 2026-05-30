@@ -1,0 +1,22 @@
+---
+import type { SectionMeta } from '@/data/types';
+
+interface Props {
+  id: string;
+  num: string;
+  meta: SectionMeta;
+}
+
+const { id, num, meta } = Astro.props;
+---
+
+<section class="section" id={id}>
+  <div class="section-head">
+    <span class="marker">## {num}</span>
+    <span class="title">{meta.title}</span>
+    <span class="rule"></span>
+    <span class="meta">{meta.meta}</span>
+  </div>
+  <div class="prompt">{meta.command}</div>
+  <slot />
+</section>

@@ -1,0 +1,16 @@
+---
+import type { Locale } from '@/data/types';
+import { ui } from '@/data/ui';
+import Section from './Section.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const meta = ui[locale].sections.about;
+const paragraphs = ui[locale].about.paragraphs;
+---
+
+<Section id="about" num="01" meta={meta}>
+  <div class="about-box">
+    {paragraphs.map((html) => <p set:html={html} />)}
+  </div>
+</Section>

@@ -1,0 +1,50 @@
+---
+import type { Locale } from '@/data/types';
+import { experience } from '@/data/experience';
+import { ui } from '@/data/ui';
+import Section from './Section.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const meta = ui[locale].sections.experience;
+const entries = experience[locale];
+const nowLabel = locale === 'en' ? 'now' : 'maintenant';
+---
+
+<Section id="experience" num="03" meta={meta}>
+  <div class="exp-block">
+    {
+      entries.map((entry) => (
+        <article class="exp">
+          <span class="exp-line"></span>
+          <div class="exp-head">
+            <div class="exp-title">
+              <span>{entry.title}</span>
+              {entry.company && (
+                <>
+                  <span class="at"> @ </span>
+                  <span class="co">{entry.company}</span>
+                </>
+              )}
+            </div>
+            <div class="exp-dates">
+              {entry.dateStart} — {entry.dateEnd === 'now' ? <span class="now">{nowLabel}</span> : entry.dateEnd}
+            </div>
+          </div>
+          {entry.tag && <div class="exp-tag">{entry.tag}</div>}
+          <ul class="exp-list">
+            {entry.items.map((item) => (
+              <li>
+                {item.client && <span class="client">{item.client}</span>}
+                {item.project && <> · <span class="proj">{item.project}</span></>}
+                {item.dates && <> · <span class="sub-dates">{item.dates}</span></>}
+                {(item.client || item.project || item.dates) && ' — '}
+                <span>{item.description}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </div>
+</Section>

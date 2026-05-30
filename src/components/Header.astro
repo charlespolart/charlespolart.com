@@ -1,0 +1,54 @@
+---
+import type { Locale } from '@/data/types';
+import { ui } from '@/data/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = ui[locale];
+---
+
+<header class="head">
+  <div class="head-top">
+    <div class="left">
+      <span class="led"></span>
+      <strong>CHARLES.OS</strong>
+      <span class="sep">|</span>
+      <span>v2.4.1</span>
+      <span class="sep">|</span>
+      <span>{t.header.developer}</span>
+    </div>
+    <div class="right">
+      <span id="clock">--:--:--</span>
+      <span class="sep">|</span>
+      <div class="lang-switch">
+        <a href="/" class:list={[{ active: locale === 'en' }]} data-set="en">EN</a>
+        <a href="/fr" class:list={[{ active: locale === 'fr' }]} data-set="fr">FR</a>
+      </div>
+    </div>
+  </div>
+  <nav class="nav" id="nav">
+    {
+      t.nav.map((item) => (
+        <a href={`#${item.id}`} data-id={item.id}>
+          <span class="num">{item.num}</span>
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+  <div class="read-progress" id="readProgress"></div>
+</header>
+
+<script>
+  function tick() {
+    const el = document.getElementById('clock');
+    if (!el) return;
+    const d = new Date();
+    el.textContent = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}`;
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>

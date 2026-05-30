@@ -1,0 +1,26 @@
+---
+import type { Locale } from '@/data/types';
+import { skills } from '@/data/skills';
+import { ui } from '@/data/ui';
+import Section from './Section.astro';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const meta = ui[locale].sections.skills;
+const categories = skills[locale];
+---
+
+<Section id="skills" num="02" meta={meta}>
+  <div class="skills-block">
+    {
+      categories.map((cat) => (
+        <div class="skills-row">
+          <span class="skills-cat">{cat.label}</span>
+          <span class="skills-list">
+            {cat.items.map((item) => <span>{item}</span>)}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</Section>

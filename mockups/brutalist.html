@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charles Polart — Fullstack Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:    #efece6;
+    --paper-2:  #e5e1d5;
+    --ink:      #0d0c0a;
+    --ink-soft: #4a443a;
+    --ink-mute: #8c8579;
+    --accent:   #d63a00;
+    --accent-2: #fbb900;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { min-height: 100%; }
+
+  body {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  /* Subtle paper texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+      radial-gradient(rgba(13, 12, 10, 0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.5;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background: radial-gradient(ellipse at center, transparent 50%, rgba(13, 12, 10, 0.06) 100%);
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    position: relative;
+    z-index: 5;
+    border-bottom: 1px solid var(--ink);
+    padding: 14px clamp(20px, 4vw, 48px);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    gap: 16px;
+  }
+  .mast-left { display: flex; gap: 16px; align-items: center; }
+  .mast-center { text-align: center; font-weight: 700; }
+  .mast-right { text-align: right; display: flex; justify-content: flex-end; gap: 16px; align-items: center; }
+  .mast-right .live::before {
+    content: '●';
+    color: var(--accent);
+    margin-right: 4px;
+    animation: pulse 1.6s ease-in-out infinite;
+    display: inline-block;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .registered {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    font-size: 7px;
+    line-height: 12px;
+    text-align: center;
+    vertical-align: 2px;
+    margin-left: 2px;
+  }
+
+  /* TOP RULE */
+  .rule {
+    height: 6px;
+    background: var(--ink);
+    position: relative;
+    z-index: 5;
+  }
+  .rule.thin { height: 1px; background: var(--ink); margin: 24px 0; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 5;
+    padding: clamp(24px, 4vw, 56px) clamp(20px, 4vw, 48px) 0;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(20px, 4vw, 64px);
+    align-items: start;
+  }
+
+  .name-block {
+    position: relative;
+  }
+
+  .name-index {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .name-index .arrow { color: var(--ink); font-style: normal; }
+  .name-index .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    font-style: normal;
+    margin-left: auto;
+  }
+
+  .big-type {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(80px, 14vw, 220px);
+    line-height: 0.78;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+  .big-type span { display: block; }
+  .big-type .accent {
+    color: var(--accent);
+    text-shadow:
+      -1px -1px 0 var(--paper),
+      1px -1px 0 var(--paper),
+      -1px 1px 0 var(--paper),
+      1px 1px 0 var(--paper);
+  }
+  .big-type .outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--ink);
+    text-stroke: 2px var(--ink);
+  }
+
+  .name-byline {
+    margin-top: 24px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(20px, 2.2vw, 28px);
+    color: var(--ink);
+    max-width: 24ch;
+    line-height: 1.25;
+  }
+  .name-byline em {
+    font-style: normal;
+    background: var(--accent);
+    color: var(--paper);
+    padding: 0 8px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.7em;
+    vertical-align: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* RIGHT COLUMN */
+  .right-block {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 8px;
+  }
+
+  /* Portrait */
+  .portrait {
+    position: relative;
+    overflow: hidden;
+    border: 6px solid var(--ink);
+    background: var(--ink);
+    aspect-ratio: 4 / 5;
+    cursor: pointer;
+  }
+  .portrait img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    filter: grayscale(1) contrast(1.25) brightness(1.05);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s;
+  }
+  .portrait:hover img {
+    transform: scale(1.05);
+    filter: grayscale(1) contrast(1.15) brightness(1);
+  }
+  .portrait::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle, transparent 0.9px, rgba(13, 12, 10, 0.22) 1.3px) 0 0 / 3.5px 3.5px;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .portrait::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, transparent 60%, rgba(214, 58, 0, 0.18) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .portrait-tag {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    z-index: 3;
+    background: var(--accent);
+    color: var(--paper);
+    padding: 6px 10px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .portrait-tag .small { font-family: 'JetBrains Mono', monospace; font-weight: 400; font-size: 9px; }
+  .portrait-stamp {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 3;
+    color: var(--paper);
+    border: 2px solid var(--paper);
+    padding: 3px 9px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transform: rotate(-4deg);
+    text-shadow: 1px 1px 0 var(--ink);
+    background: rgba(13, 12, 10, 0.55);
+    backdrop-filter: blur(2px);
+  }
+  .portrait-num {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 3;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 36px;
+    color: var(--paper);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-shadow: 2px 2px 0 var(--ink);
+  }
+  .portrait-num .sub {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-shadow: none;
+    margin-top: 2px;
+  }
+
+  .about {
+    border: 2px solid var(--ink);
+    padding: 22px 22px 24px;
+    background: var(--paper);
+    position: relative;
+  }
+  .about::before {
+    content: '/';
+    position: absolute;
+    top: -16px;
+    left: -16px;
+    background: var(--accent);
+    color: var(--paper);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    line-height: 1;
+  }
+  .about-label {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .about-label .item {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1px 6px;
+    letter-spacing: 0.1em;
+  }
+  .about-text {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    line-height: 1.45;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .about-text .hl {
+    background: linear-gradient(180deg, transparent 60%, var(--accent-2) 60%, var(--accent-2) 90%, transparent 90%);
+    font-style: italic;
+    padding: 0 2px;
+  }
+  .about-text .bold {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.78em;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .availability {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 18px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .availability .num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .availability .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.35;
+  }
+  .availability .label .em {
+    color: var(--accent-2);
+    font-family: 'Archivo Black', sans-serif;
+  }
+  .availability .arrow {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 36px;
+  }
+
+  /* STATS STRIP */
+  .stats-strip {
+    position: relative;
+    z-index: 5;
+    margin-top: clamp(36px, 6vw, 80px);
+    border-top: 6px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 0;
+  }
+  .stats-strip .rule-text {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 6px clamp(20px, 4vw, 48px);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .stats-strip .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0;
+  }
+  .stat {
+    padding: clamp(20px, 3vw, 36px) clamp(20px, 3vw, 36px);
+    border-right: 1px solid var(--ink);
+    position: relative;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(54px, 7vw, 100px);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+  .stat-num .small { font-size: 0.5em; color: var(--accent); vertical-align: 0.7em; }
+  .stat-label {
+    margin-top: 14px;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+  }
+  .stat-label .em { background: var(--ink); color: var(--paper); padding: 1px 5px; }
+
+  /* STACK */
+  .stack-row {
+    position: relative;
+    z-index: 5;
+    padding: clamp(24px, 4vw, 42px) clamp(20px, 4vw, 48px);
+    border-bottom: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: baseline;
+  }
+  .stack-row .h {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(28px, 3.6vw, 48px);
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stack-row .h sup { color: var(--accent); font-size: 0.5em; vertical-align: 1.2em; font-style: normal; font-family: 'JetBrains Mono', monospace; }
+  .stack-list {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(16px, 1.8vw, 22px);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .stack-list .sep { color: var(--accent); margin: 0 8px; }
+  .stack-list .tag {
+    display: inline-block;
+    padding: 0 4px;
+    background: transparent;
+    transition: background 0.2s, color 0.2s;
+  }
+  .stack-list .tag:hover {
+    background: var(--ink);
+    color: var(--accent-2);
+  }
+
+  /* CONTACT FOOTER */
+  .contact {
+    position: relative;
+    z-index: 5;
+    padding: clamp(20px, 3vw, 36px) clamp(20px, 4vw, 48px);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 32px;
+    align-items: end;
+    border-bottom: 6px solid var(--ink);
+  }
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .contact-item .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+  }
+  .contact-item .value {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(15px, 1.6vw, 20px);
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    text-decoration: none;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 1px;
+    display: inline-block;
+    transition: color 0.18s, border-color 0.18s;
+  }
+  .contact-item .value:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* LANG TOGGLE */
+  .lang-toggle {
+    display: inline-flex;
+    border: 2px solid var(--ink);
+    overflow: hidden;
+    align-self: end;
+    font-family: 'Archivo Black', sans-serif;
+    cursor: pointer;
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    padding: 6px 14px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    transition: all 0.15s;
+  }
+  .lang-toggle button:hover { background: var(--paper-2); }
+  .lang-toggle button.active {
+    background: var(--ink);
+    color: var(--accent-2);
+  }
+
+  /* COLOPHON */
+  .colophon {
+    position: relative;
+    z-index: 5;
+    padding: 14px clamp(20px, 4vw, 48px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+  }
+  .colophon .l, .colophon .r { display: flex; gap: 18px; align-items: center; }
+  .colophon .barcode {
+    display: inline-flex;
+    gap: 1px;
+    align-items: end;
+    height: 18px;
+  }
+  .colophon .barcode span {
+    display: block;
+    background: var(--ink);
+    width: 2px;
+    height: 100%;
+  }
+  .colophon .barcode span:nth-child(2n) { width: 1px; }
+  .colophon .barcode span:nth-child(3n) { width: 3px; }
+  .colophon .barcode span:nth-child(5n) { width: 1px; height: 75%; }
+  .colophon .barcode span:nth-child(7n) { height: 70%; }
+
+  /* BACK */
+  .back {
+    position: fixed;
+    top: 50px;
+    left: 14px;
+    z-index: 200;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    padding: 5px 9px;
+    transition: background 0.15s;
+  }
+  .back:hover { background: var(--ink); color: var(--paper); }
+
+  /* Entrance */
+  .name-block, .right-block, .stats-strip, .stack-row, .contact { animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .right-block    { animation-delay: 0.05s; }
+  .stats-strip    { animation-delay: 0.15s; }
+  .stack-row      { animation-delay: 0.25s; }
+  .contact        { animation-delay: 0.35s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Selection */
+  ::selection { background: var(--accent); color: var(--paper); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .stats-strip .stats-grid { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--ink); }
+    .stack-row { grid-template-columns: 1fr; gap: 12px; }
+    .contact { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .masthead { grid-template-columns: 1fr; text-align: center; gap: 6px; }
+    .mast-right, .mast-left { justify-content: center; }
+    .big-type { font-size: clamp(60px, 22vw, 130px); }
+    .stats-strip .stats-grid { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--ink); }
+    .stat:last-child { border-bottom: none; }
+    .contact { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">← back to themes</a>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="mast-left">
+    <span>N° 04 / 06</span>
+    <span data-en="VOL. 8" data-fr="VOL. 8">VOL. 8</span>
+  </div>
+  <div class="mast-center">
+    CHARLES.POLART<span class="registered">®</span>
+  </div>
+  <div class="mast-right">
+    <span data-en="EST. 2017" data-fr="DEPUIS 2017">EST. 2017</span>
+    <span class="live" data-en="OPEN TO WORK" data-fr="DISPONIBLE">OPEN TO WORK</span>
+  </div>
+</header>
+
+<div class="rule"></div>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="name-block">
+    <div class="name-index">
+      <span>—</span>
+      <span>2026</span>
+      <span class="label" data-en="FULLSTACK SINCE 2017" data-fr="FULLSTACK DEPUIS 2017">FULLSTACK SINCE 2017</span>
+    </div>
+
+    <h1 class="big-type">
+      <span>FULL</span>
+      <span>STACK</span>
+      <span class="accent">ENG</span>
+      <span class="outline">INEER</span>
+    </h1>
+
+    <p class="name-byline">
+      <em>Charles Polart</em>
+      <span data-en=" — ships software that doesn't break, since 2017." data-fr=" — fait du logiciel qui ne casse pas, depuis 2017."> — ships software that doesn't break, since 2017.</span>
+    </p>
+  </div>
+
+  <aside class="right-block">
+
+    <div class="portrait">
+      <img src="https://i.pravatar.cc/800?img=33" alt="Charles Polart">
+      <div class="portrait-num">01<span class="sub">PORTRAIT</span></div>
+      <div class="portrait-stamp" data-en="OPEN" data-fr="OUVERT">OPEN</div>
+      <div class="portrait-tag">
+        <span data-en="Charles Polart — Paris, 2026" data-fr="Charles Polart — Paris, 2026">Charles Polart — Paris, 2026</span>
+        <span class="small">FIG. 01</span>
+      </div>
+    </div>
+
+    <div class="about">
+      <div class="about-label">
+        <span data-en="A SHORT NOTE" data-fr="UNE NOTE">A SHORT NOTE</span>
+        <span class="item">01</span>
+      </div>
+      <p class="about-text" data-en-html='Builder of <span class="bold">agora</span>, <span class="bold">kiwidiag</span>, trading systems, and seventeen other things that pay rent. Currently shipping at scale from <span class="hl">Paris / Remote</span>. Available for engineering roles where the work matters and the code doesn&apos;t lie.' data-fr-html='Constructeur d&apos;<span class="bold">agora</span>, <span class="bold">kiwidiag</span>, systèmes de trading et dix-sept autres trucs qui paient le loyer. Actuellement à plein régime depuis <span class="hl">Paris / Remote</span>. Disponible pour des rôles où le travail compte et où le code ne ment pas.'>
+        Builder of <span class="bold">agora</span>, <span class="bold">kiwidiag</span>, trading systems, and seventeen other things that pay rent. Currently shipping at scale from <span class="hl">Paris / Remote</span>. Available for engineering roles where the work matters and the code doesn't lie.
+      </p>
+    </div>
+
+    <div class="availability">
+      <div class="num">17</div>
+      <div class="label">
+        <span data-en="PROJECTS" data-fr="PROJETS">PROJECTS</span><br>
+        <span data-en="IN PRODUCTION " data-fr="EN PRODUCTION ">IN PRODUCTION </span><span class="em" data-en="— ASK." data-fr="— DEMANDEZ.">— ASK.</span>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+
+  </aside>
+</section>
+
+<!-- STATS STRIP -->
+<section class="stats-strip">
+  <div class="rule-text">
+    <span data-en="THE NUMBERS / 2026" data-fr="LES CHIFFRES / 2026">THE NUMBERS / 2026</span>
+    <span>— PRESS · FEATURE — </span>
+    <span data-en="SCROLL TO READ MORE ↓" data-fr="DÉFILER POUR LIRE ↓">SCROLL TO READ MORE ↓</span>
+  </div>
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-num">17<span class="small">+</span></div>
+      <div class="stat-label">N° <span class="em" data-en="SHIPPED" data-fr="LIVRÉS">SHIPPED</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">08</div>
+      <div class="stat-label">N° <span class="em" data-en="YEARS BUILDING" data-fr="ANNÉES À CODER">YEARS BUILDING</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">N° <span class="em" data-en="CUPS OF COFFEE" data-fr="TASSES DE CAFÉ">CUPS OF COFFEE</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">01</div>
+      <div class="stat-label">N° <span class="em" data-en="YOU READING" data-fr="VOUS QUI LISEZ">YOU READING</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="stack-row">
+  <div class="h">The Stack<sup>↓</sup></div>
+  <div class="stack-list">
+    <span class="tag">TypeScript</span><span class="sep">/</span>
+    <span class="tag">React</span><span class="sep">/</span>
+    <span class="tag">Node.js</span><span class="sep">/</span>
+    <span class="tag">Postgres</span><span class="sep">/</span>
+    <span class="tag">Rust</span><span class="sep">/</span>
+    <span class="tag">Python</span><span class="sep">/</span>
+    <span class="tag">Redis</span><span class="sep">/</span>
+    <span class="tag">GraphQL</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="contact-item">
+    <span class="label" data-en="WRITE ME" data-fr="ÉCRIVEZ-MOI">WRITE ME</span>
+    <a class="value" href="mailto:hello@charlespolart.com">hello@charlespolart.com</a>
+  </div>
+  <div class="contact-item">
+    <span class="label" data-en="THE CODE" data-fr="LE CODE">THE CODE</span>
+    <a class="value" href="#">github.com/charlespolart</a>
+  </div>
+  <div class="contact-item">
+    <span class="label" data-en="THE NETWORK" data-fr="LE RÉSEAU">THE NETWORK</span>
+    <a class="value" href="#">linkedin.com/charlespolart</a>
+  </div>
+  <div class="lang-toggle">
+    <button class="active" data-set="en">EN</button>
+    <button data-set="fr">FR</button>
+  </div>
+</section>
+
+<!-- COLOPHON -->
+<footer class="colophon">
+  <div class="l">
+    <span>SET IN ARCHIVO BLACK / FRAUNCES / JETBRAINS MONO</span>
+    <span>·</span>
+    <span data-en="PRINTED IN PARIS" data-fr="IMPRIMÉ À PARIS">PRINTED IN PARIS</span>
+  </div>
+  <div class="r">
+    <span data-en="ISSUE 04 / 06" data-fr="N° 04 / 06">ISSUE 04 / 06</span>
+    <span class="barcode">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </span>
+  </div>
+</footer>
+
+<script>
+  const buttons = document.querySelectorAll('.lang-toggle button');
+  let lang = 'en';
+
+  function apply(newLang) {
+    lang = newLang;
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.set === newLang));
+    document.querySelectorAll('[data-en], [data-fr]').forEach(el => {
+      const v = el.dataset[lang];
+      if (v !== undefined) el.textContent = v;
+    });
+    document.querySelectorAll('[data-en-html], [data-fr-html]').forEach(el => {
+      const v = el.dataset[lang + 'Html'];
+      if (v !== undefined) el.innerHTML = v;
+    });
+  }
+
+  buttons.forEach(b => b.addEventListener('click', () => apply(b.dataset.set)));
+</script>
+
+</body>
+</html>
