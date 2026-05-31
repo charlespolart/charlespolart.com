@@ -50,7 +50,6 @@ export default function CommandPalette({ locale }: Props) {
     { id: 'open-github',    label: 'GitHub → github.com/charlespolart',      hint: 'link', run: () => window.open('https://github.com/charlespolart', '_blank') },
     { id: 'open-linkedin',  label: 'LinkedIn',                                hint: 'link', run: () => window.open('https://linkedin.com/in/charles-polart-638182170', '_blank') },
     { id: 'send-mail',      label: locale === 'fr' ? 'Envoyer un mail'       : 'Send email', hint: 'link', run: () => { window.location.href = 'mailto:charles.polart@hotmail.fr'; } },
-    { id: 'hacker',         label: 'Hacker mode',                              hint: 'easter egg', run: () => { document.body.classList.toggle('hacker-mode'); if (document.body.classList.contains('hacker-mode')) setTimeout(() => document.body.classList.remove('hacker-mode'), 30000); } },
     { id: 'sudo',           label: 'sudo',                                     hint: 'easter egg', run: () => window.dispatchEvent(new CustomEvent('cmd:sudo')) },
   ];
 

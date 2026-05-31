@@ -49,17 +49,20 @@ export default function TerminalEffects({ locale }: Props) {
         }
       );
 
-      // Periodic glitch every ~3s
-      const glitchInterval = window.setInterval(() => {
-        if (Math.random() < 0.4) {
-          heroName.classList.add('glitch');
-          window.setTimeout(
-            () => heroName.classList.remove('glitch'),
-            140 + Math.random() * 180
-          );
-        }
-      }, 3000);
-      cleanups.push(() => clearInterval(glitchInterval));
+      // Periodic glitch — fires every 2—4s, lasts 200—400ms (RGB-split visual)
+      const hn = heroName;
+      function scheduleNameGlitch() {
+        const nextDelay = 2000 + Math.random() * 2000;
+        window.setTimeout(() => {
+          if (!document.body.contains(hn)) return;
+          hn.classList.add('glitch');
+          window.setTimeout(() => {
+            hn.classList.remove('glitch');
+            scheduleNameGlitch();
+          }, 200 + Math.random() * 200);
+        }, nextDelay);
+      }
+      scheduleNameGlitch();
 
       // Hover re-scramble (debounced via flag)
       const onEnter = () => {
@@ -104,8 +107,9 @@ export default function TerminalEffects({ locale }: Props) {
         const titleEl = section.querySelector<HTMLElement>('.section-head .title');
         const promptEl = section.querySelector<HTMLElement>('.prompt');
 
-        // Pre-set transform offset (CSS handles opacity)
-        gsap.set(section, { y: 24 });
+        // No transform on the section itself — `transform` on a parent breaks
+        // `position: sticky` for its children (sticky un-sticks early). Just
+        // animate opacity. The slide-up effect is on inner elements instead.
 
         // Pre-split title chars and hide them
         let titleChars: Element[] = [];
@@ -128,10 +132,9 @@ export default function TerminalEffects({ locale }: Props) {
           once: true,
           onEnter: () => {
             const tl = gsap.timeline();
-
+            // Just opacity on the section — no transform (would break sticky).
             tl.to(section, {
               opacity: 1,
-              y: 0,
               duration: 0.55,
               ease: 'power3.out',
             });
@@ -175,6 +178,10 @@ export default function TerminalEffects({ locale }: Props) {
           },
         });
       });
+
+      // Sticky section heads handled by CSS `position: sticky` — no JS needed.
+      // The .section's padding-bottom (56px) extends the sticky's containing
+      // box past visible content so the head stays pinned long enough.
 
       // --- Skills pills cascade ---
       const skillsSection = document.getElementById('skills');
@@ -270,11 +277,10 @@ export default function TerminalEffects({ locale }: Props) {
         });
       });
 
-      // --- Email decrypt on hover (H) ---
-      // Idle state: continuously glitches random chars to signal "hover to decrypt".
-      // Pool restricted to ASCII alphanumerics + few common mono-safe symbols
-      // — guaranteed same width as the real chars in IBM Plex Mono (no font
-      // fallback for missing glyphs, no width jitter).
+      // --- Email periodic glitch (mobile-friendly) ---
+      // Email is shown in plain text by default (visible + tappable on mobile).
+      // A short glitch animation fires periodically (~every 10—18s) for a quick
+      // visual flourish without obscuring the address.
       const POOL = '0123456789abcdefghijklmnopqrstuvwxyz#$%@!?';
       const KEEP = new Set(['@', '.', ' ', '+', '-', '_']);
 
@@ -282,107 +288,74 @@ export default function TerminalEffects({ locale }: Props) {
       decryptables.forEach((el) => {
         const realText = el.dataset.decrypt ?? el.textContent ?? '';
         const len = realText.length;
-        // Lock the element width to the real text length in `ch` units (mono
-        // font => 1ch per character). Prevents flex re-wrap during transitions.
+        // Lock width via `ch` so the glitch frames don't reflow layout.
         el.style.display = 'inline-block';
         el.style.minWidth = len + 'ch';
         el.style.whiteSpace = 'nowrap';
+        el.textContent = realText;
 
-        function fullScramble() {
-          let out = '';
-          for (let i = 0; i < len; i++) {
-            const c = realText[i];
-            out += KEEP.has(c) ? c : POOL[(Math.random() * POOL.length) | 0];
-          }
-          return out;
-        }
-
-        // Mutate ~30% of chars (preserves shape but reads as constantly glitching)
-        function mutateScramble(current: string) {
+        function mutateOnce(current: string) {
           let out = '';
           for (let i = 0; i < len; i++) {
             const c = realText[i];
             if (KEEP.has(c)) { out += c; continue; }
-            if (Math.random() < 0.3) {
+            if (Math.random() < 0.45) {
               out += POOL[(Math.random() * POOL.length) | 0];
             } else {
-              out += current[i] ?? POOL[0];
+              out += current[i] ?? c;
             }
           }
           return out;
         }
 
-        let glitchInterval: number | null = null;
+        let frameTimer: number | null = null;
+        let cycleTimer: number | null = null;
+        let isGlitching = false;
 
-        function startGlitch() {
-          if (glitchInterval !== null) return;
-          if (el.textContent === realText) el.textContent = fullScramble();
-          glitchInterval = window.setInterval(() => {
-            el.textContent = mutateScramble(el.textContent ?? fullScramble());
-          }, 110 + Math.random() * 60);
-        }
-        function stopGlitch() {
-          if (glitchInterval !== null) {
-            clearInterval(glitchInterval);
-            glitchInterval = null;
-          }
-        }
-
-        // Initial state : scrambled + glitching
-        el.textContent = fullScramble();
-        startGlitch();
-        cleanups.push(stopGlitch);
-
-        // Behavior : always glitch when mouse is NOT on the email; reveal
-        // the real address when hovered. Any in-flight tween is killed on
-        // each transition so we never get stuck mid-animation.
-        const onEnter = () => {
-          gsap.killTweensOf(el);
-          stopGlitch();
-          gsap.to(el, {
-            duration: 0.6,
-            ease: 'none',
-            scrambleText: {
-              text: realText,
-              chars: '01#@!$&%/\\',
-              revealDelay: 0,
-              speed: 1,
-              tweenLength: false,
-            },
-            onComplete: () => {
+        function runGlitch() {
+          if (isGlitching) return;
+          isGlitching = true;
+          const totalFrames = 5 + Math.floor(Math.random() * 4); // 5—8 frames
+          let frame = 0;
+          let current = realText;
+          function step() {
+            if (frame >= totalFrames) {
               el.textContent = realText;
-            },
-          });
-        };
-        const onLeave = () => {
-          gsap.killTweensOf(el);
-          gsap.to(el, {
-            duration: 0.3,
-            ease: 'none',
-            scrambleText: {
-              text: fullScramble(),
-              chars: '01#@!$&%/\\',
-              revealDelay: 0,
-              speed: 1.5,
-              tweenLength: false,
-            },
-            onComplete: () => {
-              startGlitch();
-            },
-          });
-        };
-        el.addEventListener('mouseenter', onEnter);
-        el.addEventListener('mouseleave', onLeave);
+              isGlitching = false;
+              return;
+            }
+            current = mutateOnce(current);
+            el.textContent = current;
+            frame++;
+            frameTimer = window.setTimeout(step, 55 + Math.random() * 35);
+          }
+          step();
+        }
+
+        function scheduleNext() {
+          const delay = 2500 + Math.random() * 2500; // 2.5—5s
+          cycleTimer = window.setTimeout(() => {
+            runGlitch();
+            scheduleNext();
+          }, delay);
+        }
+
+        // First glitch happens shortly after load.
+        cycleTimer = window.setTimeout(() => {
+          runGlitch();
+          scheduleNext();
+        }, 1500 + Math.random() * 1000);
+
         cleanups.push(() => {
-          el.removeEventListener('mouseenter', onEnter);
-          el.removeEventListener('mouseleave', onLeave);
+          if (frameTimer !== null) clearTimeout(frameTimer);
+          if (cycleTimer !== null) clearTimeout(cycleTimer);
         });
       });
 
       // --- Project cards : 3D tilt + cursor glow (gsap.quickTo) ---
       const projects = document.querySelectorAll<HTMLElement>('.proj-block .proj');
       projects.forEach((card) => {
-        gsap.set(card, { transformPerspective: 1000 });
+        gsap.set(card, { transformPerspective: 1600 });
         const qrx = gsap.quickTo(card, 'rotationX', { duration: 0.4, ease: 'power3.out' });
         const qry = gsap.quickTo(card, 'rotationY', { duration: 0.4, ease: 'power3.out' });
         const qy  = gsap.quickTo(card, 'y',         { duration: 0.4, ease: 'power3.out' });
@@ -393,8 +366,10 @@ export default function TerminalEffects({ locale }: Props) {
           const py = ((e.clientY - rect.top) / rect.height) * 100;
           card.style.setProperty('--px', px + '%');
           card.style.setProperty('--py', py + '%');
-          qrx(((py - 50) / 50) * -5);
-          qry(((px - 50) / 50) * 5);
+          // Softer tilt : ±2° (was ±5°) and longer perspective (1600 vs 1000)
+          // → less dramatic 3D effect, more like a subtle parallax response.
+          qrx(((py - 50) / 50) * -2);
+          qry(((px - 50) / 50) * 2);
           qy(-2);
         };
         const onLeave = () => {
@@ -410,18 +385,6 @@ export default function TerminalEffects({ locale }: Props) {
         });
       });
 
-      // --- Final prompt reveal ---
-      const finalEl = document.querySelector<HTMLElement>('.final');
-      if (finalEl) {
-        ScrollTrigger.create({
-          trigger: finalEl,
-          start: 'top 90%',
-          once: true,
-          onEnter: () => {
-            gsap.to(finalEl, { opacity: 1, duration: 0.5, ease: 'power2.out' });
-          },
-        });
-      }
 
       // Refresh ScrollTrigger after layout settles
       requestAnimationFrame(() => ScrollTrigger.refresh());
@@ -478,11 +441,43 @@ export default function TerminalEffects({ locale }: Props) {
     cleanups.push(() => window.removeEventListener('scroll', onScrollSpy));
 
     // ============================================================
-    // Keyboard : nav shortcuts + typed sequences (sudo / hack / help)
+    // Keyboard : nav shortcuts + Konami code + typed sequences (sudo / help)
+    // Single-key shortcuts (L, 0-6) only fire when NOT in a typing sequence.
+    // The Konami code triggers Hacker Mode — discoverable only via the
+    // `konami` command in the bottom terminal.
     // ============================================================
     let typedBuffer = '';
+    let lastKeyT = 0;
+    const TYPING_WINDOW = 500; // ms — gap between keystrokes that counts as "typing"
+
+    const KONAMI = [
+      'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+      'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+      'b', 'a',
+    ];
+    let konamiIdx = 0;
 
     const onKey = (e: KeyboardEvent) => {
+      // Konami code detection — runs FIRST, even when focus is on an input
+      // (so the sequence works right after typing `konami` in the bottom
+      // terminal without having to click outside).
+      const expected = KONAMI[konamiIdx];
+      const matches =
+        expected === e.key || expected.toLowerCase() === e.key.toLowerCase();
+      if (matches) {
+        konamiIdx++;
+        if (konamiIdx === KONAMI.length) {
+          konamiIdx = 0;
+          toggleHackerMode();
+          return;
+        }
+      } else {
+        // On mismatch, restart from index 1 if this key happens to match the
+        // FIRST char of the sequence, else fully reset.
+        konamiIdx = e.key === KONAMI[0] ? 1 : 0;
+      }
+
+      // Other shortcuts (typed buffer, L, 0-6) — skip when typing in an input.
       if (
         e.target instanceof HTMLInputElement ||
         e.target instanceof HTMLTextAreaElement
@@ -491,20 +486,27 @@ export default function TerminalEffects({ locale }: Props) {
 
       if (e.metaKey || e.ctrlKey || e.altKey) return;
 
-      // Typed-buffer easter eggs (sudo, help, hack)
+      const now = performance.now();
+      const isTyping = now - lastKeyT < TYPING_WINDOW;
+      lastKeyT = now;
+
+      // Typed-buffer easter eggs (sudo + help only — `hack` removed, use Konami)
       if (e.key.length === 1) {
         typedBuffer = (typedBuffer + e.key).slice(-12).toLowerCase();
-        if (typedBuffer.endsWith('hack')) {
-          toggleHackerMode();
-          typedBuffer = '';
-        } else if (typedBuffer.endsWith('sudo')) {
+        if (typedBuffer.endsWith('sudo')) {
           window.dispatchEvent(new CustomEvent('cmd:sudo'));
           typedBuffer = '';
-        } else if (typedBuffer.endsWith('help')) {
+          return;
+        }
+        if (typedBuffer.endsWith('help')) {
           window.dispatchEvent(new CustomEvent('cmd:palette'));
           typedBuffer = '';
+          return;
         }
       }
+
+      // Single-key shortcuts skipped if user is actively typing (e.g. mid-"help")
+      if (isTyping) return;
 
       if (e.key.toLowerCase() === 'l') {
         const target = locale === 'en' ? '/fr' : '/';
@@ -523,11 +525,9 @@ export default function TerminalEffects({ locale }: Props) {
     window.addEventListener('keydown', onKey);
     cleanups.push(() => window.removeEventListener('keydown', onKey));
 
-    // Hacker mode toggle (F)
     function toggleHackerMode() {
       const body = document.body;
       body.classList.toggle('hacker-mode');
-      // Auto-disable after 30s
       if (body.classList.contains('hacker-mode')) {
         window.setTimeout(() => body.classList.remove('hacker-mode'), 30000);
       }

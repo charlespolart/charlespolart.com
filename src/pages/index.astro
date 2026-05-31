@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BootSequence from '@/components/islands/BootSequence';
+import BottomTerminal from '@/components/islands/BottomTerminal';
 import Whoami from '@/components/Whoami.astro';
 import About from '@/components/About.astro';
 import Skills from '@/components/Skills.astro';
@@ -30,8 +31,6 @@ const description =
     <Education locale={locale} />
     <Contact locale={locale} />
 
-    <div class="final">
-      <div class="final-prompt"><span class="cursor"></span></div>
-    </div>
+    <BottomTerminal locale={locale} client:visible />
   </main>
 </BaseLayout>

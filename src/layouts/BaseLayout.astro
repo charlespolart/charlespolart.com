@@ -86,8 +86,6 @@ const otherHref = otherLocale === 'en' ? '/' : '/fr';
       <kbd>L</kbd> {t.keyhint.lang}
       <span style="opacity: 0.4; margin: 0 5px;">·</span>
       <kbd>0</kbd>—<kbd>6</kbd> {t.keyhint.jump}
-      <span style="opacity: 0.4; margin: 0 5px;">·</span>
-      <span style="opacity: 0.6;">try : sudo · hack</span>
     </div>
 
     <TerminalEffects locale={locale} client:load />
@@ -106,6 +104,20 @@ const otherHref = otherLocale === 'en' ? '/' : '/fr';
         // layer over the whole viewport.
         const crtPower = document.getElementById('crtPower');
         if (crtPower) setTimeout(() => crtPower.remove(), 1500);
+
+        // Sync --header-h with the ACTUAL sticky header height so section-head
+        // sticks flush under it (no gap where content shows through).
+        const head = document.querySelector('.head');
+        function syncHeaderHeight() {
+          if (!head) return;
+          const h = Math.ceil(head.getBoundingClientRect().height);
+          document.documentElement.style.setProperty('--header-h', h + 'px');
+        }
+        syncHeaderHeight();
+        window.addEventListener('resize', syncHeaderHeight);
+        if (head && 'ResizeObserver' in window) {
+          new ResizeObserver(syncHeaderHeight).observe(head);
+        }
 
         const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
         const cursor = document.querySelector('.term-cursor');
@@ -167,8 +179,6 @@ const otherHref = otherLocale === 'en' ? '/' : '/fr';
 
         // -------- Cursor + sparks --------
         if (isTouch || !cursor) return;
-
-        document.body.classList.add('has-custom-cursor');
 
         let mx = window.innerWidth / 2;
         let my = window.innerHeight / 2;

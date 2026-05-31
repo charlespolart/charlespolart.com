@@ -17,6 +17,10 @@
   body {
     min-height: 100%;
   }
+  /* Disable horizontal scroll on body only (not html) so the html still
+     owns the vertical scroll, keeping position: sticky's scroll container
+     stable. */
+  body { overflow-x: hidden; }
 
   ::selection {
     background: var(--amber);
@@ -58,9 +62,19 @@
     cursor: auto;
     -webkit-font-smoothing: antialiased;
   }
-  body.has-custom-cursor { cursor: none; }
-  body.has-custom-cursor a,
-  body.has-custom-cursor button { cursor: none; }
+  /* Hide native cursor on mouse-equipped devices. Gated on html.js (set
+     synchronously in the <head> inline script, before any paint) so there's
+     no flicker on load and the rule survives Astro View Transitions which
+     diff body but leave html intact. !important + universal selector +
+     pseudo-elements to override every cursor:pointer/text rule below. */
+  @media (hover: hover) and (pointer: fine) {
+    html.js,
+    html.js *,
+    html.js *::before,
+    html.js *::after {
+      cursor: none !important;
+    }
+  }
 
   ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: var(--bg-2); }
@@ -419,25 +433,30 @@
   /* SECTION — JS-gated initial hide. Visible by default (no-JS fallback);
      hidden as soon as JS is detected (`.js` class added synchronously in <head>).
      GSAP/ScrollTrigger then animates them in.
-     We hide the SECTION itself so all children inherit invisibility — clean. */
+     We hide the SECTION itself so all children inherit invisibility — clean.
+
+     padding-bottom (NOT margin-bottom) because `position: sticky` releases
+     when its parent's BOX ends — margins are outside the box and would let
+     the sticky title detach early. Padding extends the box. */
   .section {
+    /* No padding-bottom : the sticky head should exit AT the moment the last
+       content line reaches its bottom edge (last content "pushes" the title
+       up). With padding > 0 the sticky stayed pinned past content end. */
     margin-bottom: 56px;
     scroll-margin-top: calc(var(--header-h) + 8px);
   }
   .js .section { opacity: 0; }
-  .js .final { opacity: 0; }
   .section-head {
-    margin-bottom: 18px;
-    padding: 10px 0;
+    /* NO padding-bottom AND NO margin-bottom — both add space "associated"
+       with the title that the content would visually hit before reaching
+       the real title text. Visual gap below is pushed to the sibling
+       (.prompt margin-top) so it's NOT part of the sticky element. */
+    padding: 10px 0 0;
+    margin: 0;
     border-bottom: 1px dashed var(--amber-dim);
     display: flex;
     align-items: center;
     gap: 14px;
-    /* Sticky meta (M) — sticks just under the global header.
-       NO backdrop-filter — having one on every section header re-blurs the
-       area behind whenever anything moves (cursor, beam, matrix). 7 of them
-       stacked was the main mousemove-lag culprit. Solid bg has the same
-       visual purpose (masks scrolling content) for 0 cost. */
     position: sticky;
     top: var(--header-h);
     z-index: 30;
@@ -473,6 +492,10 @@
 
   .prompt {
     color: var(--amber-bright);
+    /* margin-top is the visual gap between sticky title and content —
+       lives on the sibling (NOT on the sticky head) so it doesn't extend
+       the sticky's box and trigger early release on content hit. */
+    margin-top: 28px;
     margin-bottom: 14px;
     font-size: 14.5px;
   }
@@ -494,29 +517,7 @@
     box-shadow: inset 0 0 24px rgba(255, 176, 0, 0.08), 0 0 20px rgba(255, 176, 0, 0.15);
     position: relative;
   }
-  /* Corner brackets — L-shape aligned on the box corners */
-  .whoami::before,
-  .whoami::after {
-    content: '';
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    pointer-events: none;
-    border-color: var(--amber-bright);
-    filter: drop-shadow(0 0 4px var(--amber));
-  }
-  .whoami::before {
-    top: -8px;
-    left: -8px;
-    border-top: 2px solid;
-    border-left: 2px solid;
-  }
-  .whoami::after {
-    bottom: -8px;
-    right: -8px;
-    border-bottom: 2px solid;
-    border-right: 2px solid;
-  }
+  /* Corner brackets — moved from the .whoami box to the .portrait directly */
 
   .portrait {
     width: 168px;
@@ -581,24 +582,32 @@
     opacity: 1;
     transform: scale(1.04);
   }
-  /* Scanlines overlay — fades out on hover */
+  /* Corner brackets directly around the portrait — L-shapes, offset
+     outside the border, glow. (Old per-photo scanlines overlay removed —
+     the global .scanlines + the photo CRT filter already convey the effect.) */
+  .portrait::before,
   .portrait::after {
     content: '';
     position: absolute;
-    inset: 6px;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 2px,
-      rgba(0, 0, 0, 0.4) 2px,
-      rgba(0, 0, 0, 0.4) 3px
-    );
+    width: 12px;
+    height: 12px;
     pointer-events: none;
-    z-index: 3;
-    opacity: 1;
-    transition: opacity 0.55s ease;
+    border-color: var(--amber-bright);
+    filter: drop-shadow(0 0 4px var(--amber));
+    transition: border-color 0.4s ease;
   }
-  .portrait:hover::after { opacity: 0; }
+  .portrait::before {
+    top: -7px;
+    left: -7px;
+    border-top: 2px solid;
+    border-left: 2px solid;
+  }
+  .portrait::after {
+    bottom: -7px;
+    right: -7px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+  }
   /* Keep the CP·1995 tag on top */
   .portrait .tag { z-index: 4; }
   .portrait .tag {
@@ -629,13 +638,15 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
+    /* Create a stacking context so the pseudo clones (z-index 0) sit
+       behind the main text but don't disappear behind the page bg. */
+    isolation: isolate;
   }
-  /* SplitText chars get this */
   .who-name .gsap-char {
     display: inline-block;
     will-change: transform, opacity;
   }
-  /* Glitch via stacked pseudo-elements */
+  /* RGB-split glitch via two stacked pseudo-clones (pink + cyan). */
   .who-name[data-text]::before,
   .who-name[data-text]::after {
     content: attr(data-text);
@@ -643,28 +654,27 @@
     inset: 0;
     pointer-events: none;
     opacity: 0;
-    z-index: -1;
-    transition: opacity 0.18s;
+    z-index: 0; /* behind the parent text (which is on the natural z-axis) */
+    transition: opacity 0.2s;
+    mix-blend-mode: screen;
   }
-  .who-name[data-text]::before { color: #ff2e88; text-shadow: 0 0 8px #ff2e88; }
-  .who-name[data-text]::after  { color: var(--cyan); text-shadow: 0 0 8px var(--cyan); }
+  .who-name[data-text]::before { color: #ff2e88; text-shadow: 0 0 10px #ff2e88; }
+  .who-name[data-text]::after  { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
   .who-name.glitch::before {
-    opacity: 0.85;
-    transform: translate(-3px, 0);
-    animation: glitch-x 0.18s steps(2) infinite;
+    opacity: 1;
+    animation: glitch-x 0.12s steps(2) infinite;
   }
   .who-name.glitch::after {
-    opacity: 0.85;
-    transform: translate(3px, 0);
-    animation: glitch-y 0.18s steps(2) infinite;
+    opacity: 1;
+    animation: glitch-y 0.12s steps(2) infinite;
   }
   @keyframes glitch-x {
-    0%, 100% { transform: translate(-3px, 1px); }
-    50%      { transform: translate(2px, -1px); }
+    0%, 100% { transform: translate(-4px, 1px); }
+    50%      { transform: translate(3px, -2px); }
   }
   @keyframes glitch-y {
-    0%, 100% { transform: translate(3px, -1px); }
-    50%      { transform: translate(-2px, 1px); }
+    0%, 100% { transform: translate(4px, -1px); }
+    50%      { transform: translate(-3px, 2px); }
   }
   .who-role {
     color: var(--amber);
@@ -838,7 +848,11 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-  .skills-cat::after { content: ' :'; color: var(--amber-mid); }
+  /* Colon separator — follows EN/FR convention :
+     EN = no space before colon ; FR = NBSP (non-breaking) before colon
+     so the colon never wraps to a new line. */
+  html[lang='en'] .skills-cat::after { content: ':'; color: var(--amber-mid); }
+  html[lang='fr'] .skills-cat::after { content: '\00A0:'; color: var(--amber-mid); }
   .skills-list {
     display: flex;
     gap: 14px;
@@ -855,13 +869,13 @@
   /* EXPERIENCE */
   .exp-block { display: flex; flex-direction: column; gap: 28px; }
   .exp {
-    padding-left: 18px;
+    padding-left: 24px;
     position: relative;
     transition: filter 0.2s;
   }
   .exp-line {
     position: absolute;
-    left: 0;
+    left: 5px;
     top: 0;
     bottom: 0;
     width: 2px;
@@ -874,10 +888,11 @@
   .exp::before {
     content: '';
     position: absolute;
-    /* Border-left is at 0—2px (center at +1px).
-       Diamond is an 8×8 square rotated 45°, we want its center at +1px,
-       so left = 1 - 8/2 = -3px. Perfectly aligned. */
-    left: -3px;
+    /* Line center is at x=6 (left:5 + width:2/2).
+       Diamond is 8×8 rotated 45°, visual extent = ±sqrt(2)*4 ≈ ±5.66.
+       For diamond center on line (x=6) AND visual leftmost ≥ 0, box.left = 2
+       (center at 6, leftmost at 0.34 — safely inside section). */
+    left: 2px;
     top: 6px;
     width: 8px;
     height: 8px;
@@ -958,7 +973,7 @@
   .proj-block {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 40px;
     perspective: 1200px;
   }
   .proj-subhead {
@@ -1027,7 +1042,7 @@
   /* Command tag on hover (S) — sits ABOVE the card, in the gap between cards. */
   .proj-cmd-tag {
     position: absolute;
-    top: -22px;
+    top: -15px;
     left: 4px;
     font-family: var(--font-mono);
     font-size: 11px;
@@ -1232,33 +1247,104 @@
   }
   .cv-dl-btn:hover .cv-dl-icon { animation: none; }
 
-  /* FINAL */
-  .final {
+  /* INTERACTIVE BOTTOM TERMINAL */
+  .bterm {
     margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px dashed var(--amber-dim);
+    padding: 18px 18px 22px;
+    border: 1px solid var(--amber-dim);
+    background: rgba(255, 176, 0, 0.03);
+    border-radius: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    cursor: text;
+    min-height: 90px;
+    max-height: 360px;
+    overflow-y: auto;
+    position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: var(--amber-dim) transparent;
   }
-  .final-prompt {
-    font-size: 16px;
+  .bterm::-webkit-scrollbar { width: 6px; }
+  .bterm::-webkit-scrollbar-thumb { background: var(--amber-dim); border-radius: 3px; }
+  .bterm-entry {
+    margin-bottom: 6px;
+  }
+  .bterm-prompt-c {
+    color: var(--green);
+    text-shadow: 0 0 6px rgba(63, 255, 142, 0.6);
+  }
+  .bterm-cmd-text {
     color: var(--amber-bright);
   }
-  .final-prompt::before {
-    content: 'charles@cv:~$ ';
-    color: var(--green);
-    text-shadow: 0 0 6px rgba(63, 255, 142, 0.7);
+  .bterm-line-out {
+    color: var(--amber);
+    padding-left: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
-  .cursor {
+  .bterm-k-error .bterm-line-out { color: var(--red); }
+  .bterm-k-ok .bterm-line-out { color: var(--green); text-shadow: 0 0 4px rgba(63,255,142,0.4); }
+  /* ASCII pre — explicit font-size + no overflow (no scroll, neither axis). */
+  pre.bterm-ascii {
+    color: var(--amber-bright);
+    font-size: 12px;
+    line-height: 1.1;
+    margin: 6px 0;
+    text-shadow: 0 0 6px var(--amber-bright);
+    white-space: pre;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .bterm-input-line {
+    color: var(--amber-bright);
+    position: relative;
+  }
+  .bterm-cmd-line {
+    color: var(--amber-bright);
+  }
+  .bterm-typed {
+    color: var(--amber-bright);
+    white-space: pre;
+  }
+  .bterm-caret {
     display: inline-block;
-    width: 10px;
-    height: 1.05em;
-    background: var(--amber-bright);
-    vertical-align: -3px;
-    box-shadow: 0 0 8px var(--amber-bright), 0 0 16px rgba(255, 215, 0, 0.5);
-    animation: blink 1.05s steps(2) infinite;
+    background: rgba(255, 215, 0, 0.18);
+    color: var(--amber-bright);
+    white-space: pre;
   }
-  @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+  .bterm-caret.on {
+    animation: caret-block-blink 1.05s steps(2) infinite;
+  }
+  @keyframes caret-block-blink {
+    0%, 50% {
+      background: var(--amber-bright);
+      color: var(--bg);
+      box-shadow: 0 0 6px var(--amber-bright);
+    }
+    51%, 100% {
+      background: transparent;
+      color: var(--amber-bright);
+      box-shadow: none;
+    }
+  }
+  .bterm-hidden-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    border: none;
+    background: transparent;
+  }
+  .bterm-hint {
+    position: absolute;
+    right: 14px;
+    bottom: 8px;
+    color: var(--amber-dim);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    pointer-events: none;
+    font-style: italic;
   }
 
   /* CUSTOM CURSOR
@@ -1578,6 +1664,20 @@
 
 @layer utilities {
   /* === HACKER MODE (F) — Konami / type "hack" toggles, auto-off in 30s === */
+  /* Full-page glitch — triggered by the `glitch` terminal command. */
+  body.page-glitch {
+    animation: page-glitch-fx 0.7s steps(7) 1;
+  }
+  @keyframes page-glitch-fx {
+    0%, 100% { filter: none; }
+    14% { filter: hue-rotate(60deg) saturate(2); }
+    28% { filter: invert(0.08) hue-rotate(-40deg); }
+    42% { filter: contrast(1.5) brightness(0.7); }
+    57% { filter: hue-rotate(80deg) saturate(1.6); }
+    71% { filter: invert(0.05); }
+    85% { filter: hue-rotate(-30deg) brightness(1.2); }
+  }
+
   body.hacker-mode {
     --amber:        #00ff66;
     --amber-bright: #aaffaa;
@@ -1602,7 +1702,7 @@
     );
   }
   body.hacker-mode::before {
-    content: '⌬ HACKER MODE — type the Konami again to disable ⌬';
+    content: '⌬ HACKER MODE — Konami again to disable ⌬';
     position: fixed;
     bottom: 60px;
     left: 50%;
