@@ -10,8 +10,10 @@
 charles@cv:~$ cat README.md
 ```
 
-> **charlespolart.com** — personal CV site.
+> **[charlespolart.com](https://charlespolart.com)** — personal CV site.
 > boot terminal aesthetic · amber phosphor · CRT vibes · 100 % static.
+
+→ live at **<https://charlespolart.com>**
 
 [![status](https://img.shields.io/badge/status-online-00ff66?style=flat-square&labelColor=0a0700)](https://charlespolart.com)
 [![astro](https://img.shields.io/badge/astro-5-ff5d01?style=flat-square&labelColor=0a0700)](https://astro.build)
