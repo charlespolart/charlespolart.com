@@ -14,9 +14,9 @@ import { ui } from '@/data/ui';
 const locale = 'fr' as const;
 const boot = ui[locale].boot;
 
-const title = 'Charles Polart — Développeur Full Stack · 8 ans · Paris';
+const title = 'Charles Polart — Développeur Full Stack · 8 ans';
 const description =
-  "Charles Polart, développeur full stack freelance basé à Paris. 8 ans à construire des apps web & mobile avec Angular, React, Node, Flutter. Disponible pour nouveaux contrats.";
+  "Charles Polart, développeur full stack freelance basé en France. 8 ans à construire des apps web & mobile avec Angular, Node, Flutter. Disponible pour nouveaux contrats.";
 ---
 
 <BaseLayout locale={locale} title={title} description={description}>
@@ -31,6 +31,6 @@ const description =
     <Education locale={locale} />
     <Contact locale={locale} />
 
-    <BottomTerminal locale={locale} client:visible />
+    <BottomTerminal locale={locale} client:load />
   </main>
 </BaseLayout>

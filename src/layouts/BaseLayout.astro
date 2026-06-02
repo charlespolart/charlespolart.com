@@ -41,8 +41,18 @@ const otherHref = otherLocale === 'en' ? '/' : '/fr';
     <title>{title}</title>
 
     <!-- Add 'js' class synchronously so CSS can hide sections before they paint
-         (prevents FOUC). Falls back to visible content if JS is disabled. -->
-    <script is:inline>document.documentElement.classList.add('js');</script>
+         (prevents FOUC). Falls back to visible content if JS is disabled.
+         Also disable scroll restoration on refresh — both the browser's
+         (scrollRestoration='manual') and Astro ClientRouter's own restoration
+         (forced via astro:page-load, which fires on initial load too). With no
+         hash in the URL, refresh lands at the top of the page. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      document.addEventListener('astro:page-load', function () {
+        if (!location.hash) window.scrollTo(0, 0);
+      });
+    </script>
 
     <!-- Fonts via Google Fonts (Cloudflare CDN, fast) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -123,6 +133,19 @@ const otherHref = otherLocale === 'en' ? '/' : '/fr';
         const cursor = document.querySelector('.term-cursor');
         const glow = document.getElementById('crtGlow');
 
+        // -------- Hash auto-strip --------
+        // When the user clicks a `<a href="#section">` link we want the hash
+        // in the URL during the smooth-scroll, then gone once they scroll on
+        // their own. Initial page load with a hash gets the same grace period
+        // so the browser's native scroll-to-anchor doesn't wipe the hash
+        // before it lands. Click bumps a window; scroll past the window with
+        // a hash present → replaceState clears it (no history entry added).
+        let programmaticScrollUntil = location.hash ? performance.now() + 1500 : 0;
+        document.addEventListener('click', function (e) {
+          const link = e.target && e.target.closest && e.target.closest('a[href^="#"]');
+          if (link) programmaticScrollUntil = performance.now() + 1500;
+        }, { passive: true });
+
         // -------- Reading progress (L) --------
         const progress = document.getElementById('readProgress');
         function updateProgress() {
@@ -150,7 +173,8 @@ const otherHref = otherLocale === 'en' ? '/' : '/fr';
           );
         }
 
-        // Throttled scroll handler — only updates the reading progress bar.
+        // Throttled scroll handler — updates the reading progress bar and
+        // strips the URL hash once the user starts scrolling on their own.
         let scrollScheduled = false;
         function onScroll() {
           if (scrollScheduled) return;
@@ -158,6 +182,9 @@ const otherHref = otherLocale === 'en' ? '/' : '/fr';
           requestAnimationFrame(function () {
             scrollScheduled = false;
             updateProgress();
+            if (location.hash && performance.now() > programmaticScrollUntil) {
+              history.replaceState(null, '', location.pathname + location.search);
+            }
           });
         }
         window.addEventListener('scroll', onScroll, { passive: true });
@@ -187,7 +214,7 @@ const otherHref = otherLocale === 'en' ? '/' : '/fr';
         let visible = false;
 
         const TEXT_SEL = '.about-box, .proj-desc, .exp-list, .who-meta, .who-name, .skills-list, .skills-cat, .edu-degree, .contact-val';
-        const LINK_SEL = 'a, button, [role="button"], .lang-switch a';
+        const LINK_SEL = 'a, button, [role="button"], .lang-switch a, .flag[alt="Bretagne"]';
 
         // mousemove fires ~100Hz on modern setups — throttle to 1× per frame
         // so we don't repaint the radial-gradient CRT bg + scan classes more
@@ -260,6 +287,56 @@ const otherHref = otherLocale === 'en' ? '/' : '/fr';
           setTimeout(function () { cursor.classList.remove('click'); }, 350);
           spawnSparks(e.clientX, e.clientY);
         }, { passive: true });
+
+        // -------- Bretagne flag easter egg --------
+        // Clicking the Gwenn ha Du flag spawns an hermine burst + a floating
+        // breton greeting. Black/white sparks rotate as they fly out, on-brand
+        // with the flag's hermines.
+        const HERMINE_CHARS = ['✣', '❖', '✦', '⚜', '◆'];
+        const BZH_REWARDS = ['+1 galette-saucisse', '+1 kouign-amann', '+1 chouchen', 'kenavo !', "yec'hed mat !", 'BZH MODE ON'];
+        document.addEventListener('click', function (e) {
+          const t = e.target;
+          if (!(t instanceof HTMLImageElement)) return;
+          if (t.alt !== 'Bretagne') return;
+          e.preventDefault();
+          e.stopPropagation();
+          const rect = t.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const count = 28;
+          for (let i = 0; i < count; i++) {
+            const el = document.createElement('span');
+            el.className = 'hermine-spark';
+            el.textContent = HERMINE_CHARS[Math.floor(Math.random() * HERMINE_CHARS.length)];
+            el.style.left = cx + 'px';
+            el.style.top = cy + 'px';
+            document.body.appendChild(el);
+            const a = (Math.PI * 2 * i) / count + Math.random() * 0.4;
+            const d = 50 + Math.random() * 70;
+            const rot = 180 + Math.random() * 360;
+            el.animate(
+              [
+                { transform: 'translate(-50%,-50%) translate(0,0) scale(1) rotate(0deg)', opacity: 1 },
+                { transform: 'translate(-50%,-50%) translate(' + Math.cos(a) * d + 'px,' + Math.sin(a) * d + 'px) scale(0.4) rotate(' + rot + 'deg)', opacity: 0 },
+              ],
+              { duration: 700 + Math.random() * 400, easing: 'cubic-bezier(0.25, 0.6, 0.3, 1)' }
+            ).onfinish = function () { el.remove(); };
+          }
+          const txt = document.createElement('div');
+          txt.className = 'hermine-reward';
+          txt.textContent = BZH_REWARDS[Math.floor(Math.random() * BZH_REWARDS.length)];
+          txt.style.left = cx + 'px';
+          txt.style.top = cy + 'px';
+          document.body.appendChild(txt);
+          txt.animate(
+            [
+              { transform: 'translate(-50%, -50%) translateY(0)', opacity: 0 },
+              { transform: 'translate(-50%, -50%) translateY(-10px)', opacity: 1, offset: 0.2 },
+              { transform: 'translate(-50%, -50%) translateY(-60px)', opacity: 0 },
+            ],
+            { duration: 1300, easing: 'cubic-bezier(0.2, 0.7, 0.3, 1)' }
+          ).onfinish = function () { txt.remove(); };
+        });
 
         window.addEventListener('mouseleave', function () { cursor.classList.remove('ready'); });
         window.addEventListener('mouseenter', function () { if (visible) cursor.classList.add('ready'); });

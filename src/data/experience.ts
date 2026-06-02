@@ -22,6 +22,17 @@ export const experience: Bilingual<ExperienceEntry[]> = {
             "Full refactor of the internal regulatory-text consultation app used across SNCF (successor to DigiDoc/Syspre). Front-end in Angular / TypeScript / RxJS : full-text search, filters, favorites. Agile collaboration with back-end and business teams (SARDO).",
         },
         {
+          client: 'Kiwidiag',
+          project: 'real-estate diagnostics marketplace',
+          description:
+            'Marketplace booking certified surveyors for mandatory French property diagnostics (DPE, asbestos, lead, gas, electricity…). Backend work : Node, Koa, GraphQL, Sequelize, PostgreSQL — Stripe payments, Twilio SMS.',
+        },
+        {
+          client: 'Leroy Merlin',
+          project: 'front-end integration',
+          description: 'Front-end dev & integration on the Leroy Merlin site (Angular, Node.js).',
+        },
+        {
           client: 'Capa Interim',
           project: 'matchmaking platform',
           description:
@@ -44,11 +55,6 @@ export const experience: Bilingual<ExperienceEntry[]> = {
           project: 'PDF extractor',
           description:
             'Desktop tool for automated structured-data extraction from scientific PDFs (C++, Qt).',
-        },
-        {
-          client: 'Leroy Merlin',
-          project: 'front-end integration',
-          description: 'Front-end dev & integration on the Leroy Merlin site (Angular, Node.js).',
         },
       ],
     },
@@ -132,6 +138,17 @@ export const experience: Bilingual<ExperienceEntry[]> = {
             "Refonte complète de l'application interne de consultation des textes réglementaires utilisée par l'ensemble des cheminots (successeur de DigiDoc/Syspre). Front-end en Angular / TypeScript / RxJS : recherche plein texte, filtres, favoris. Collaboration agile avec les équipes back-end et métier (SARDO).",
         },
         {
+          client: 'Kiwidiag',
+          project: 'marketplace de diagnostics immobiliers',
+          description:
+            "Plateforme pour commander les diagnostics immobiliers obligatoires (DPE, amiante, plomb, gaz, électricité…) auprès de diagnostiqueurs certifiés. Dev backend : Node, Koa, GraphQL, Sequelize, PostgreSQL — paiements Stripe, SMS Twilio.",
+        },
+        {
+          client: 'Leroy Merlin',
+          project: 'intégration front-end',
+          description: "Dev front et intégration sur le site Leroy Merlin (Angular, Node.js).",
+        },
+        {
           client: 'Capa Interim',
           project: 'plateforme de mise en relation',
           description:
@@ -154,11 +171,6 @@ export const experience: Bilingual<ExperienceEntry[]> = {
           project: 'extracteur PDF',
           description:
             "Outil desktop d'extraction automatisée de données structurées depuis des PDFs scientifiques (C++, Qt).",
-        },
-        {
-          client: 'Leroy Merlin',
-          project: 'intégration front-end',
-          description: "Dev front et intégration sur le site Leroy Merlin (Angular, Node.js).",
         },
       ],
     },

@@ -53,7 +53,7 @@ const statsLabels = locale === 'en'
         <span class="acc">{p.roleAccent}</span>
       </div>
       <div class="who-meta">
-        <span>{p.location}</span>
+        <span set:html={p.location} />
         <span class="sep">·</span>
         <span>{p.freelance}</span>
         <span class="sep">·</span>

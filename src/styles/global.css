@@ -698,6 +698,52 @@
   }
   .who-meta .sep { color: var(--amber-dim); }
 
+  /* Inline FR + Bretagne SVG flags — used in whoami header and contact row.
+     Subtle amber outline so they sit on the dark phosphor background without
+     blending out (the Gwenn ha Du is mostly white). */
+  .flag {
+    display: inline-block;
+    height: 0.95em;
+    width: auto;
+    vertical-align: -0.12em;
+    margin-right: 0.25em;
+    border-radius: 1px;
+    box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.28);
+  }
+  .flag + .flag { margin-left: -0.05em; }
+
+  /* The Gwenn ha Du is clickable — easter egg in BaseLayout's inline script. */
+  .flag[alt="Bretagne"] {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .flag[alt="Bretagne"]:hover {
+    transform: scale(1.22);
+    box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.6), 0 0 8px rgba(255, 215, 0, 0.35);
+  }
+  .hermine-spark {
+    position: fixed;
+    pointer-events: none;
+    color: #fff;
+    text-shadow: 0 0 4px #000, 0 0 10px #000;
+    font-size: 16px;
+    z-index: 9999;
+    user-select: none;
+    line-height: 1;
+  }
+  .hermine-reward {
+    position: fixed;
+    pointer-events: none;
+    color: #fff;
+    text-shadow: 0 0 6px #000, 0 0 14px #000, 0 0 4px var(--amber-bright);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'IBM Plex Mono', monospace;
+    z-index: 9999;
+    user-select: none;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+  }
+
   .who-status {
     color: var(--green);
     font-size: 13.5px;

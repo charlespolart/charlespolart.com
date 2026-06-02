@@ -33,17 +33,39 @@ export const projects: Bilingual<ProjectGroups> = {
         ],
       },
       {
-        id: 'workspace',
+        id: 'kiwidiag',
         num: '[03]',
+        title: 'Kiwidiag',
+        stack: 'Node · Koa · GraphQL · Sequelize · Postgres · Angular',
+        meta: 'Freelance · marketplace',
+        description:
+          'Marketplace booking certified surveyors for the mandatory French property diagnostics (DPE, asbestos, lead, gas, electricity…). Multi-role accounts (customer / diagnostician / partner), planning, geolocation, Stripe payments and reviews.',
+        features: [
+          'Multi-role accounts : customer · diagnostician · partner',
+          'Catalog of mandatory FR diagnostics (DPE, asbestos, lead, gas…)',
+          'Surveyor availability + booking flow with geolocation',
+          'Stripe payments, Twilio SMS verification, reviews',
+        ],
+        link: 'https://www.kiwidiag.com',
+        linkLabel: 'kiwidiag.com',
+      },
+      {
+        id: 'workspace',
+        num: '[04]',
         title: 'Workspace / Diva / Ceres',
         stack: 'C++ · Qt',
-        meta: 'CEA · Silicom · 2020—2023',
+        meta: 'CEA · Silicom',
         description:
-          'Signal analysis platforms for seismic, infrasound and hydroacoustic data — used by CEA researchers for nuclear monitoring. New features + integration on three tools.',
+          'Three desktop tools used by CEA researchers for nuclear monitoring and environmental impact assessment. New features + integration on all three.',
+        features: [
+          'Workspace : seismic / infrasound / hydroacoustic signal analysis',
+          'Diva : time-series monitoring of seismic-network stations',
+          'Ceres : health impact assessment of pollutant releases into the environment',
+        ],
       },
       {
         id: 'magellan',
-        num: '[04]',
+        num: '[05]',
         title: 'Magellan',
         stack: 'C++ · Qt',
         meta: 'Airbus Defence · Silicom',
@@ -52,7 +74,7 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'consolweb',
-        num: '[05]',
+        num: '[06]',
         title: 'ConsolWeb · Wiring Tool',
         stack: 'C# · WPF',
         meta: 'Freelance',
@@ -61,10 +83,10 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'capa',
-        num: '[06]',
+        num: '[07]',
         title: 'Capa Interim',
         stack: 'Symfony 3 · PHP · MySQL',
-        meta: 'Freelance · live',
+        meta: 'Freelance',
         description:
           'Backend for a temp-work matchmaking site : job search, account + CV upload, full admin for ads / news / users.',
         link: 'https://www.capainterim.com',
@@ -72,10 +94,10 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'axion',
-        num: '[07]',
+        num: '[08]',
         title: 'Axion',
         stack: 'Symfony 3 · PHP · MySQL',
-        meta: 'Freelance · NGO · Rennes · 2017',
+        meta: 'Freelance · NGO',
         description:
           'Thematic image-sharing site for a humanitarian NGO. Content publishing, discovery feed and community interactions (likes, comments).',
       },
@@ -83,7 +105,7 @@ export const projects: Bilingual<ProjectGroups> = {
     personal: [
       {
         id: 'pathtracing',
-        num: '[08]',
+        num: '[09]',
         title: 'Path Tracing Engine',
         stack: 'C++ · Qt · OpenGL · STL',
         meta: 'Personal · 2019—2022',
@@ -100,7 +122,7 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'crypto-bot',
-        num: '[09]',
+        num: '[10]',
         title: 'Crypto Trading Bot',
         stack: 'Angular · Bun · TypeScript · Binance API',
         meta: 'Personal · 2019—2022',
@@ -146,17 +168,39 @@ export const projects: Bilingual<ProjectGroups> = {
         ],
       },
       {
-        id: 'workspace',
+        id: 'kiwidiag',
         num: '[03]',
+        title: 'Kiwidiag',
+        stack: 'Node · Koa · GraphQL · Sequelize · Postgres · Angular',
+        meta: 'Freelance · marketplace',
+        description:
+          "Marketplace pour commander les diagnostics immobiliers obligatoires (DPE, amiante, plomb, gaz, électricité…) auprès de diagnostiqueurs certifiés. Comptes multi-rôles (client / diagnostiqueur / partenaire), planning, géolocalisation, paiements Stripe et avis.",
+        features: [
+          'Comptes multi-rôles : client · diagnostiqueur · partenaire',
+          'Catalogue des diagnostics FR obligatoires (DPE, amiante, plomb, gaz…)',
+          'Dispo des diagnostiqueurs + flow de réservation géolocalisé',
+          'Paiements Stripe, vérification SMS Twilio, avis',
+        ],
+        link: 'https://www.kiwidiag.com',
+        linkLabel: 'kiwidiag.com',
+      },
+      {
+        id: 'workspace',
+        num: '[04]',
         title: 'Workspace / Diva / Ceres',
         stack: 'C++ · Qt',
-        meta: 'CEA · Silicom · 2020—2023',
+        meta: 'CEA · Silicom',
         description:
-          "Plateformes d'analyse de signaux sismiques, infrasons et hydroacoustiques — utilisées par les chercheurs CEA pour la surveillance nucléaire. Nouvelles fonctionnalités + intégration sur trois outils.",
+          "Trois outils desktop utilisés par les chercheurs CEA pour la surveillance nucléaire et l'évaluation d'impact environnemental. Nouvelles fonctionnalités + intégration sur les trois.",
+        features: [
+          'Workspace : analyse de signaux sismiques / infrasons / hydroacoustiques',
+          'Diva : surveillance temporelle des stations du réseau sismique',
+          'Ceres : évaluation des conséquences sanitaires des rejets de polluants',
+        ],
       },
       {
         id: 'magellan',
-        num: '[04]',
+        num: '[05]',
         title: 'Magellan',
         stack: 'C++ · Qt',
         meta: 'Airbus Defence · Silicom',
@@ -165,7 +209,7 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'consolweb',
-        num: '[05]',
+        num: '[06]',
         title: 'ConsolWeb · Logiciel câblage',
         stack: 'C# · WPF',
         meta: 'Freelance',
@@ -174,10 +218,10 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'capa',
-        num: '[06]',
+        num: '[07]',
         title: 'Capa Interim',
         stack: 'Symfony 3 · PHP · MySQL',
-        meta: 'Freelance · en ligne',
+        meta: 'Freelance',
         description:
           "Backend d'un site d'intérim : recherche d'annonces, compte + upload CV, partie admin complète pour annonces / actus / utilisateurs.",
         link: 'https://www.capainterim.com',
@@ -185,10 +229,10 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'axion',
-        num: '[07]',
+        num: '[08]',
         title: 'Axion',
         stack: 'Symfony 3 · PHP · MySQL',
-        meta: 'Freelance · ONG · Rennes · 2017',
+        meta: 'Freelance · ONG',
         description:
           "Site de partage d'images autour de thématiques liées à des causes humanitaires : publication de contenus, fil de découverte, interactions communautaires (likes, commentaires).",
       },
@@ -196,7 +240,7 @@ export const projects: Bilingual<ProjectGroups> = {
     personal: [
       {
         id: 'pathtracing',
-        num: '[08]',
+        num: '[09]',
         title: 'Path Tracing Engine',
         stack: 'C++ · Qt · OpenGL · STL',
         meta: 'Perso · 2019—2022',
@@ -213,7 +257,7 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'crypto-bot',
-        num: '[09]',
+        num: '[10]',
         title: 'Crypto Trading Bot',
         stack: 'Angular · Bun · TypeScript · Binance API',
         meta: 'Perso · 2019—2022',

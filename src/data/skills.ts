@@ -8,11 +8,13 @@ export const skills: Bilingual<SkillCategory[]> = {
       items: [
         'Angular',
         'React',
-        'React Native',
+        'Astro',
         'TypeScript',
         'JavaScript',
         'Flutter',
+        'Riverpod',
         'Dart',
+        'Tailwind CSS',
         'HTML5',
         'CSS3',
       ],
@@ -20,17 +22,17 @@ export const skills: Bilingual<SkillCategory[]> = {
     {
       key: 'backend',
       label: 'back-end',
-      items: ['Node.js', 'Bun', 'PHP', 'Symfony', 'REST', 'GraphQL', 'Microservices'],
+      items: ['Node.js', 'Bun', 'Hono', 'NestJS', 'REST', 'GraphQL', 'Drizzle ORM', 'Microservices'],
     },
     {
       key: 'data-cloud',
       label: 'data & cloud',
-      items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'AWS', 'Docker'],
+      items: ['PostgreSQL', 'MySQL', 'Redis', 'AWS S3 / R2', 'Cloudflare', 'Firebase', 'Docker'],
     },
     {
       key: 'devops',
       label: 'devops & tools',
-      items: ['Git', 'CI/CD', 'Webpack', 'Jest', 'Agile/Scrum', 'TDD'],
+      items: ['Git', 'CI/CD', 'Vite', 'Caddy', 'Jest', 'Playwright', 'Agile/Scrum', 'TDD'],
     },
     {
       key: 'software',
@@ -45,11 +47,13 @@ export const skills: Bilingual<SkillCategory[]> = {
       items: [
         'Angular',
         'React',
-        'React Native',
+        'Astro',
         'TypeScript',
         'JavaScript',
         'Flutter',
+        'Riverpod',
         'Dart',
+        'Tailwind CSS',
         'HTML5',
         'CSS3',
       ],
@@ -57,17 +61,17 @@ export const skills: Bilingual<SkillCategory[]> = {
     {
       key: 'backend',
       label: 'back-end',
-      items: ['Node.js', 'Bun', 'PHP', 'Symfony', 'REST', 'GraphQL', 'Microservices'],
+      items: ['Node.js', 'Bun', 'Hono', 'NestJS', 'REST', 'GraphQL', 'Drizzle ORM', 'Microservices'],
     },
     {
       key: 'data-cloud',
       label: 'data & cloud',
-      items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'AWS', 'Docker'],
+      items: ['PostgreSQL', 'MySQL', 'Redis', 'AWS S3 / R2', 'Cloudflare', 'Firebase', 'Docker'],
     },
     {
       key: 'devops',
       label: 'devops & outils',
-      items: ['Git', 'CI/CD', 'Webpack', 'Jest', 'Agile/Scrum', 'TDD'],
+      items: ['Git', 'CI/CD', 'Vite', 'Caddy', 'Jest', 'Playwright', 'Agile/Scrum', 'TDD'],
     },
     {
       key: 'software',

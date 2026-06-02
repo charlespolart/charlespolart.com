@@ -23,9 +23,9 @@ export const ui: Bilingual<UIStrings> = {
     },
     about: {
       paragraphs: [
-        'Full stack developer with <span class="hl">8 years</span> of experience building web and mobile applications. Specialized in <span class="hl">Angular</span>, <span class="hl">React</span>, <span class="hl">Node.js</span> and <span class="hl">Flutter</span>.',
-        "Expert in complex application architecture — from design to production. Comfortable owning a project end-to-end : <span class=\"hl\">backend</span>, <span class=\"hl\">APIs</span>, <span class=\"hl\">modern UIs</span>, <span class=\"hl\">mobile</span>.",
-        'Currently <span class="green">freelance from Paris</span> — recent missions for <span class="green">Agora Nova</span>, <span class="green">SNCF</span>, <span class="green">Leroy Merlin</span>. Past defense / aerospace work in C++/Qt at <span class="hl">Silicom</span> (CEA, Airbus).',
+        'Full stack developer with <span class="hl">8 years</span> of experience building web and mobile (<span class="hl">iOS &amp; Android</span>) applications. Specialized in <span class="hl">Angular</span>, <span class="hl">Node.js</span> and <span class="hl">Flutter</span>.',
+        "Expert in complex application architecture — from design to production. Comfortable owning a project end-to-end : <span class=\"hl\">backend</span>, <span class=\"hl\">APIs</span>, <span class=\"hl\">responsive UIs</span>, <span class=\"hl\">mobile</span>.",
+        'Currently <span class="green">freelance</span> — recent missions for <span class="green">Agora Nova</span>, <span class="green">SNCF</span>, <span class="green">Leroy Merlin</span>. Past defense / aerospace work in C++/Qt at <span class="hl">Silicom</span> (CEA, Airbus).',
       ],
     },
     contact: {
@@ -36,7 +36,7 @@ export const ui: Bilingual<UIStrings> = {
         linkedin: 'linkedin',
         location: 'location',
       },
-      locationValue: 'Paris, France · Remote OK',
+      locationValue: '<img src="/flag-fr.svg" alt="France" class="flag" /><img src="/flag-bzh.svg" alt="Bretagne" class="flag" /> · Remote OK',
       statusText: 'AVAILABLE — open to new contracts',
     },
     keyhint: { lang: 'lang', scroll: 'scroll', jump: 'jump' },
@@ -75,9 +75,9 @@ export const ui: Bilingual<UIStrings> = {
     },
     about: {
       paragraphs: [
-        "Développeur full stack avec <span class=\"hl\">8 ans d&rsquo;expérience</span> dans la création d&rsquo;applications web et mobiles. Spécialisé en <span class=\"hl\">Angular</span>, <span class=\"hl\">React</span>, <span class=\"hl\">Node.js</span> et <span class=\"hl\">Flutter</span>.",
-        "Expert en architecture d&rsquo;applications complexes — de la conception à la mise en production. Capable de gérer un projet de A à Z : <span class=\"hl\">backend</span>, <span class=\"hl\">APIs</span>, <span class=\"hl\">interfaces modernes</span>, <span class=\"hl\">mobile</span>.",
-        "Actuellement <span class=\"green\">freelance depuis Paris</span> — missions récentes pour <span class=\"green\">Agora Nova</span>, <span class=\"green\">SNCF</span>, <span class=\"green\">Leroy Merlin</span>. Passif défense / aérospatial en C++/Qt chez <span class=\"hl\">Silicom</span> (CEA, Airbus).",
+        "Développeur full stack avec <span class=\"hl\">8 ans d&rsquo;expérience</span> dans la création d&rsquo;applications web et mobiles (<span class=\"hl\">iOS &amp; Android</span>). Spécialisé en <span class=\"hl\">Angular</span>, <span class=\"hl\">Node.js</span> et <span class=\"hl\">Flutter</span>.",
+        "Expert en architecture d&rsquo;applications complexes — de la conception à la mise en production. Capable de gérer un projet de A à Z : <span class=\"hl\">backend</span>, <span class=\"hl\">APIs</span>, <span class=\"hl\">interfaces responsive</span>, <span class=\"hl\">mobile</span>.",
+        "Actuellement <span class=\"green\">freelance</span> — missions récentes pour <span class=\"green\">Agora Nova</span>, <span class=\"green\">SNCF</span>, <span class=\"green\">Leroy Merlin</span>. Passif défense / aérospatial en C++/Qt chez <span class=\"hl\">Silicom</span> (CEA, Airbus).",
       ],
     },
     contact: {
@@ -88,7 +88,7 @@ export const ui: Bilingual<UIStrings> = {
         linkedin: 'linkedin',
         location: 'lieu',
       },
-      locationValue: 'Paris, France · Remote OK',
+      locationValue: '<img src="/flag-fr.svg" alt="France" class="flag" /><img src="/flag-bzh.svg" alt="Bretagne" class="flag" /> · Remote OK',
       statusText: 'DISPONIBLE — ouvert aux nouveaux contrats',
     },
     keyhint: { lang: 'langue', scroll: 'défiler', jump: 'aller à' },

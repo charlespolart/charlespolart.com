@@ -258,6 +258,14 @@ export default function BottomTerminal({ locale }: Props) {
       return;
     }
 
+    // Ctrl+L — clear the screen (preserves the current input line, like bash).
+    // preventDefault stops the browser from focusing the address bar.
+    if (e.key === 'l' && e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+      setHistory([]);
+      return;
+    }
+
     if (e.key === 'Enter') {
       e.preventDefault();
       submit();
@@ -282,7 +290,14 @@ export default function BottomTerminal({ locale }: Props) {
     }
   }
 
+  // Skip the very first run — otherwise mounting the (client:load) bterm
+  // would yank the page straight to the bottom on every refresh.
+  const didInitialScroll = useRef(false);
   useEffect(() => {
+    if (!didInitialScroll.current) {
+      didInitialScroll.current = true;
+      return;
+    }
     scrollToBottom();
   }, [history.length, input, histIdx]);
 
@@ -296,6 +311,29 @@ export default function BottomTerminal({ locale }: Props) {
     };
     document.addEventListener('selectionchange', sync);
     return () => document.removeEventListener('selectionchange', sync);
+  }, []);
+
+  // External trigger : `bterm:run` event with detail = command string. Scrolls
+  // the bterm into view, focuses it, and executes the command — so the boot
+  // line "type help" can be honored from anywhere on the page.
+  const executeRef = useRef(execute);
+  executeRef.current = execute;
+  useEffect(() => {
+    const onRun = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      const cmd = typeof detail === 'string' ? detail : null;
+      if (!cmd) return;
+      containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      setTimeout(() => {
+        inputRef.current?.focus({ preventScroll: true });
+        const result = executeRef.current(cmd);
+        if (result) setHistory((h) => [...h, result].slice(-30));
+        setCmdHistory((h) => [...h, cmd].slice(-80));
+        setHistIdx(-1);
+      }, 650);
+    };
+    window.addEventListener('bterm:run', onRun);
+    return () => window.removeEventListener('bterm:run', onRun);
   }, []);
 
   return (

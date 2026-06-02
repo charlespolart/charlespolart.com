@@ -499,7 +499,9 @@ export default function TerminalEffects({ locale }: Props) {
           return;
         }
         if (typedBuffer.endsWith('help')) {
-          window.dispatchEvent(new CustomEvent('cmd:palette'));
+          // Honor the boot line "type help" literally — scroll to the bottom
+          // terminal and run `help` there, instead of opening the palette.
+          window.dispatchEvent(new CustomEvent('bterm:run', { detail: 'help' }));
           typedBuffer = '';
           return;
         }

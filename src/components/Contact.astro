@@ -33,7 +33,7 @@ const cvLabel = locale === 'fr' ? 'Télécharger le CV (PDF)' : 'Download CV (PD
     </div>
     <div class="contact-row">
       <span class="contact-key">{c.keys.location}</span>
-      <span class="contact-val plain">{c.locationValue}</span>
+      <span class="contact-val plain" set:html={c.locationValue} />
     </div>
     <div class="contact-status">
       <span class="pulse"></span>
