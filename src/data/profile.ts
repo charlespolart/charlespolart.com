@@ -5,7 +5,8 @@ export const profile: Bilingual<Profile> = {
     name: 'Charles Polart',
     role: 'Full Stack Developer',
     roleAccent: 'Angular · Node · Flutter',
-    location: '<img src="/flag-fr.svg" alt="France" class="flag" /><img src="/flag-bzh.svg" alt="Bretagne" class="flag" />',
+    location:
+      '<img src="/flag-fr.svg" alt="France" class="flag" /><img src="/flag-bzh.svg" alt="Bretagne" class="flag" />',
     freelance: 'Freelance · 8 yrs',
     remote: 'Remote OK',
     born: 'Born 02 Mar 1995 · EN fluent · 中文 basics',
@@ -21,7 +22,8 @@ export const profile: Bilingual<Profile> = {
     name: 'Charles Polart',
     role: 'Développeur Full Stack',
     roleAccent: 'Angular · Node · Flutter',
-    location: '<img src="/flag-fr.svg" alt="France" class="flag" /><img src="/flag-bzh.svg" alt="Bretagne" class="flag" />',
+    location:
+      '<img src="/flag-fr.svg" alt="France" class="flag" /><img src="/flag-bzh.svg" alt="Bretagne" class="flag" />',
     freelance: 'Freelance · 8 ans',
     remote: 'Remote OK',
     born: 'Né le 02 Mars 1995 · Anglais courant · 中文 notions',

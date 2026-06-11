@@ -52,6 +52,8 @@ export interface ProjectEntry {
   features?: string[];
   link?: string;
   linkLabel?: string;
+  /** Public paths to screenshot files, e.g. ['/projects/kiwidiag/01.jpg']. */
+  screenshots?: string[];
 }
 
 export interface ProjectGroups {

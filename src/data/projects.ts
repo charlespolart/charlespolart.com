@@ -22,14 +22,21 @@ export const projects: Bilingual<ProjectGroups> = {
         id: 'sncf',
         num: '[02]',
         title: 'SNCF · DigiDoc+',
-        stack: 'Angular · TypeScript · RxJS',
+        stack: 'Angular · TypeScript · RxJS · Elasticsearch',
         meta: 'Freelance · enterprise · regulatory texts',
         description:
-          "Full refactor of the internal regulatory-text consultation app used across SNCF (successor to DigiDoc/Syspre). Front-end design for search & consultation of prescriptive texts. Agile collaboration with back-end + business teams (SARDO).",
+          "Front-end refactor of DigiDoc+, SNCF's internal documentary platform delivering rail prescription texts (regulations, instructions, safety & operation consignes) to every agent on the network — successor to DigiDoc / Syspre. Daily-use tool : the right text, in the right version, to the right agent. Angular / TypeScript / RxJS, faceted full-text search backed by Elasticsearch. Agile collaboration with back-end and SARDO business teams.",
         features: [
-          'Full-text search across the regulatory corpus',
-          'Filters, favorites, advanced query UX',
-          'Consultation flow tuned for daily SNCF use',
+          'Faceted full-text search across the regulatory corpus (Elasticsearch)',
+          'Navigation by themes, business activities, document types, regions',
+          'Documents + modules (sub-parts of text) — versions, variants, abrogations',
+          'Identification cards, favorites, history, parution alerts',
+        ],
+        screenshots: [
+          '/projects/sncf/01.png',
+          '/projects/sncf/02.png',
+          '/projects/sncf/03.png',
+          '/projects/sncf/04.png',
         ],
       },
       {
@@ -48,6 +55,7 @@ export const projects: Bilingual<ProjectGroups> = {
         ],
         link: 'https://www.kiwidiag.com',
         linkLabel: 'kiwidiag.com',
+        screenshots: ['/projects/kiwidiag/01.png', '/projects/kiwidiag/02.png'],
       },
       {
         id: 'workspace',
@@ -62,6 +70,7 @@ export const projects: Bilingual<ProjectGroups> = {
           'Diva : time-series monitoring of seismic-network stations',
           'Ceres : health impact assessment of pollutant releases into the environment',
         ],
+        screenshots: ['/projects/workspace/01.png'],
       },
       {
         id: 'magellan',
@@ -80,6 +89,7 @@ export const projects: Bilingual<ProjectGroups> = {
         meta: 'Freelance',
         description:
           'Desktop app that opens multi-format wiring schematics. Layered PCB viewer guiding technicians point-by-point in the optimal wiring order.',
+        screenshots: ['/projects/consolweb/01.png'],
       },
       {
         id: 'capa',
@@ -91,6 +101,7 @@ export const projects: Bilingual<ProjectGroups> = {
           'Backend for a temp-work matchmaking site : job search, account + CV upload, full admin for ads / news / users.',
         link: 'https://www.capainterim.com',
         linkLabel: 'capainterim.com',
+        screenshots: ['/projects/capa/01.png', '/projects/capa/02.png'],
       },
       {
         id: 'axion',
@@ -119,6 +130,15 @@ export const projects: Bilingual<ProjectGroups> = {
         ],
         link: 'https://github.com/charlespolart/Pathtracing',
         linkLabel: 'github.com/charlespolart/Pathtracing',
+        screenshots: [
+          '/projects/pathtracing/01.png',
+          '/projects/pathtracing/02.png',
+          '/projects/pathtracing/03.png',
+          '/projects/pathtracing/04.png',
+          '/projects/pathtracing/05.png',
+          '/projects/pathtracing/06.png',
+          '/projects/pathtracing/07.png',
+        ],
       },
       {
         id: 'crypto-bot',
@@ -157,14 +177,21 @@ export const projects: Bilingual<ProjectGroups> = {
         id: 'sncf',
         num: '[02]',
         title: 'SNCF · DigiDoc+',
-        stack: 'Angular · TypeScript · RxJS',
+        stack: 'Angular · TypeScript · RxJS · Elasticsearch',
         meta: 'Freelance · entreprise · textes réglementaires',
         description:
-          "Refonte complète de l'application interne de consultation des textes réglementaires utilisée par l'ensemble des cheminots (successeur de DigiDoc/Syspre). Conception des interfaces de recherche et de consultation des textes prescriptifs. Collaboration agile avec les équipes back-end et métier (SARDO).",
+          "Refonte front-end de DigiDoc+, la plateforme documentaire interne de la SNCF qui diffuse les textes de prescription ferroviaire (règlements, instructions, consignes de sécurité et d'exploitation) à l'ensemble des cheminots — successeur de DigiDoc / Syspre. Outil d'usage quotidien : le bon texte, dans la bonne version, au bon agent. Angular / TypeScript / RxJS, recherche plein texte à facettes adossée à Elasticsearch. Collaboration agile avec les équipes back-end et métier (SARDO).",
         features: [
-          'Recherche plein texte sur le corpus réglementaire',
-          "Filtres, favoris, UX d'interrogation avancée",
-          'Flow de consultation calibré pour usage quotidien SNCF',
+          'Recherche plein texte à facettes sur le corpus réglementaire (Elasticsearch)',
+          'Navigation par thèmes, activités métiers, types de documents, régions',
+          'Documents + modules (parties de texte) — versions, variantes, abrogations',
+          "Fiches d'identification, favoris, historique, alertes de parution",
+        ],
+        screenshots: [
+          '/projects/sncf/01.png',
+          '/projects/sncf/02.png',
+          '/projects/sncf/03.png',
+          '/projects/sncf/04.png',
         ],
       },
       {
@@ -174,7 +201,7 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Node · Koa · GraphQL · Sequelize · Postgres · Angular',
         meta: 'Freelance · marketplace',
         description:
-          "Marketplace pour commander les diagnostics immobiliers obligatoires (DPE, amiante, plomb, gaz, électricité…) auprès de diagnostiqueurs certifiés. Comptes multi-rôles (client / diagnostiqueur / partenaire), planning, géolocalisation, paiements Stripe et avis.",
+          'Marketplace pour commander les diagnostics immobiliers obligatoires (DPE, amiante, plomb, gaz, électricité…) auprès de diagnostiqueurs certifiés. Comptes multi-rôles (client / diagnostiqueur / partenaire), planning, géolocalisation, paiements Stripe et avis.',
         features: [
           'Comptes multi-rôles : client · diagnostiqueur · partenaire',
           'Catalogue des diagnostics FR obligatoires (DPE, amiante, plomb, gaz…)',
@@ -183,6 +210,7 @@ export const projects: Bilingual<ProjectGroups> = {
         ],
         link: 'https://www.kiwidiag.com',
         linkLabel: 'kiwidiag.com',
+        screenshots: ['/projects/kiwidiag/01.png', '/projects/kiwidiag/02.png'],
       },
       {
         id: 'workspace',
@@ -197,6 +225,7 @@ export const projects: Bilingual<ProjectGroups> = {
           'Diva : surveillance temporelle des stations du réseau sismique',
           'Ceres : évaluation des conséquences sanitaires des rejets de polluants',
         ],
+        screenshots: ['/projects/workspace/01.png'],
       },
       {
         id: 'magellan',
@@ -205,7 +234,7 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'C++ · Qt',
         meta: 'Airbus Defence · Silicom',
         description:
-          "Logiciel de communication sécurisée sur réseaux sans fil hostiles. Contraintes temps réel dur, exigences niveau défense.",
+          'Logiciel de communication sécurisée sur réseaux sans fil hostiles. Contraintes temps réel dur, exigences niveau défense.',
       },
       {
         id: 'consolweb',
@@ -215,6 +244,7 @@ export const projects: Bilingual<ProjectGroups> = {
         meta: 'Freelance',
         description:
           "App desktop qui ouvre des schémas de câblage multi-formats. Vue par couches PCB, guide le technicien point par point dans l'ordre optimal.",
+        screenshots: ['/projects/consolweb/01.png'],
       },
       {
         id: 'capa',
@@ -226,6 +256,7 @@ export const projects: Bilingual<ProjectGroups> = {
           "Backend d'un site d'intérim : recherche d'annonces, compte + upload CV, partie admin complète pour annonces / actus / utilisateurs.",
         link: 'https://www.capainterim.com',
         linkLabel: 'capainterim.com',
+        screenshots: ['/projects/capa/01.png', '/projects/capa/02.png'],
       },
       {
         id: 'axion',
@@ -245,15 +276,24 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'C++ · Qt · OpenGL · STL',
         meta: 'Perso · 2019—2022',
         description:
-          "Moteur de rendu 3D photoréaliste écrit from scratch — STL only, FreeImage pour les textures, OpenGL pour la prévisu.",
+          'Moteur de rendu 3D photoréaliste écrit from scratch — STL only, FreeImage pour les textures, OpenGL pour la prévisu.',
         features: [
-          "Chargement .obj + .mtl avec éditeur de matériaux",
-          "Arbres de collision AABB, multithreadé",
+          'Chargement .obj + .mtl avec éditeur de matériaux',
+          'Arbres de collision AABB, multithreadé',
           'Prévisu OpenGL avec placement caméra à la souris',
           'Sérialisation des scènes en JSON (save / import)',
         ],
         link: 'https://github.com/charlespolart/Pathtracing',
         linkLabel: 'github.com/charlespolart/Pathtracing',
+        screenshots: [
+          '/projects/pathtracing/01.png',
+          '/projects/pathtracing/02.png',
+          '/projects/pathtracing/03.png',
+          '/projects/pathtracing/04.png',
+          '/projects/pathtracing/05.png',
+          '/projects/pathtracing/06.png',
+          '/projects/pathtracing/07.png',
+        ],
       },
       {
         id: 'crypto-bot',
@@ -262,10 +302,10 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Angular · Bun · TypeScript · Binance API',
         meta: 'Perso · 2019—2022',
         description:
-          "Trading automatisé sur Binance avec un système de stratégies pluggable et un harness de backtesting — pour itérer sur les stratégies sans toucher à la tuyauterie.",
+          'Trading automatisé sur Binance avec un système de stratégies pluggable et un harness de backtesting — pour itérer sur les stratégies sans toucher à la tuyauterie.',
         features: [
           'Indicateurs : RSI, EMA, EMACross, ATR, SwingLow',
-          "Changement de stratégie à chaud, machine à états des positions",
+          'Changement de stratégie à chaud, machine à états des positions',
           'Historique des trades persisté pour replay & backtests',
         ],
       },

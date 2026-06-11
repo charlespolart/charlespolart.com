@@ -19,7 +19,7 @@ export const experience: Bilingual<ExperienceEntry[]> = {
           client: 'SNCF',
           project: 'DigiDoc+',
           description:
-            "Full refactor of the internal regulatory-text consultation app used across SNCF (successor to DigiDoc/Syspre). Front-end in Angular / TypeScript / RxJS : full-text search, filters, favorites. Agile collaboration with back-end and business teams (SARDO).",
+            "Front-end refactor of DigiDoc+, SNCF's internal platform delivering rail prescription texts (regulations, instructions, safety consignes) to every agent — successor to DigiDoc/Syspre. Angular / TypeScript / RxJS : faceted full-text search (Elasticsearch backend), classification-based navigation, identification cards, favorites, history. Agile collaboration with back-end and SARDO business teams.",
         },
         {
           client: 'Kiwidiag',
@@ -86,7 +86,8 @@ export const experience: Bilingual<ExperienceEntry[]> = {
         {
           client: 'Airbus D&S',
           project: 'Magellan',
-          description: 'Features for a secure communication software operating over wireless networks.',
+          description:
+            'Features for a secure communication software operating over wireless networks.',
         },
       ],
     },
@@ -106,7 +107,8 @@ export const experience: Bilingual<ExperienceEntry[]> = {
         {
           client: 'Sogitec / Dassault',
           dates: '2017.04 — 2017.08 · 5 mo',
-          description: 'Hybrid raytracing / rasterization rendering system for flight simulation (C++).',
+          description:
+            'Hybrid raytracing / rasterization rendering system for flight simulation (C++).',
         },
         {
           client: 'R&D Tech France',
@@ -129,24 +131,24 @@ export const experience: Bilingual<ExperienceEntry[]> = {
           client: 'Agora Nova',
           project: 'réseau social politique',
           description:
-            "App mobile Flutter + API REST pour une plateforme de débat public : comptes multi-rôles, posts, sondages, hashtags, modération, hébergement FR RGPD, CI/CD.",
+            'App mobile Flutter + API REST pour une plateforme de débat public : comptes multi-rôles, posts, sondages, hashtags, modération, hébergement FR RGPD, CI/CD.',
         },
         {
           client: 'SNCF',
           project: 'DigiDoc+',
           description:
-            "Refonte complète de l'application interne de consultation des textes réglementaires utilisée par l'ensemble des cheminots (successeur de DigiDoc/Syspre). Front-end en Angular / TypeScript / RxJS : recherche plein texte, filtres, favoris. Collaboration agile avec les équipes back-end et métier (SARDO).",
+            "Refonte front-end de DigiDoc+, plateforme interne SNCF qui diffuse les textes de prescription ferroviaire (règlements, instructions, consignes de sécurité) aux cheminots — successeur de DigiDoc/Syspre. Angular / TypeScript / RxJS : recherche plein texte à facettes (Elasticsearch côté back), navigation par classification, fiches d'identification, favoris, historique. Collaboration agile avec les équipes back-end et métier (SARDO).",
         },
         {
           client: 'Kiwidiag',
           project: 'marketplace de diagnostics immobiliers',
           description:
-            "Plateforme pour commander les diagnostics immobiliers obligatoires (DPE, amiante, plomb, gaz, électricité…) auprès de diagnostiqueurs certifiés. Dev backend : Node, Koa, GraphQL, Sequelize, PostgreSQL — paiements Stripe, SMS Twilio.",
+            'Plateforme pour commander les diagnostics immobiliers obligatoires (DPE, amiante, plomb, gaz, électricité…) auprès de diagnostiqueurs certifiés. Dev backend : Node, Koa, GraphQL, Sequelize, PostgreSQL — paiements Stripe, SMS Twilio.',
         },
         {
           client: 'Leroy Merlin',
           project: 'intégration front-end',
-          description: "Dev front et intégration sur le site Leroy Merlin (Angular, Node.js).",
+          description: 'Dev front et intégration sur le site Leroy Merlin (Angular, Node.js).',
         },
         {
           client: 'Capa Interim',
@@ -164,7 +166,7 @@ export const experience: Bilingual<ExperienceEntry[]> = {
           client: 'ConsolWeb',
           project: 'logiciel de câblage',
           description:
-            "App desktop ouvrant des schémas de câblage multi-formats : vue par couches + guidage ordonné du technicien (C#, WPF).",
+            'App desktop ouvrant des schémas de câblage multi-formats : vue par couches + guidage ordonné du technicien (C#, WPF).',
         },
         {
           client: 'Revue scientifique',
@@ -197,12 +199,14 @@ export const experience: Bilingual<ExperienceEntry[]> = {
         {
           client: 'CEA',
           project: 'Diva TMA',
-          description: "Surveillance et affichage des données des stations du réseau sismique dans le temps.",
+          description:
+            'Surveillance et affichage des données des stations du réseau sismique dans le temps.',
         },
         {
           client: 'Airbus D&S',
           project: 'Magellan',
-          description: "Nouvelles fonctionnalités pour un logiciel de communication sécurisée sur réseaux sans fil.",
+          description:
+            'Nouvelles fonctionnalités pour un logiciel de communication sécurisée sur réseaux sans fil.',
         },
       ],
     },
@@ -217,12 +221,14 @@ export const experience: Bilingual<ExperienceEntry[]> = {
         {
           client: 'Thales · La Ruche',
           dates: '2020.03 — 2020.08 · 6 mois',
-          description: 'Logiciel de détection de drones aériens sous Unity + simulateur de radar (C#, C).',
+          description:
+            'Logiciel de détection de drones aériens sous Unity + simulateur de radar (C#, C).',
         },
         {
           client: 'Sogitec / Dassault',
           dates: '2017.04 — 2017.08 · 5 mois',
-          description: 'Système de rendu hybride raytracing/rastérisation pour simulation de vol (C++).',
+          description:
+            'Système de rendu hybride raytracing/rastérisation pour simulation de vol (C++).',
         },
         {
           client: 'R&D Tech France',

@@ -29,6 +29,12 @@
       },
       "suspicious": {
         "noExplicitAny": "warn"
+      },
+      "complexity": {
+        "noForEach": "off"
+      },
+      "a11y": {
+        "useKeyWithClickEvents": "off"
       }
     }
   }

@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from '@/lib/gsap';
 import type { BootLine } from '@/data/types';
+import { gsap } from '@/lib/gsap';
+import { useEffect, useRef } from 'react';
 
 interface Props {
   lines: BootLine[];
@@ -26,8 +26,7 @@ export default function BootSequence({ lines }: Props) {
 
     for (const line of lines) {
       const lineEl = document.createElement('div');
-      const klass =
-        line.type === 'plain' || line.type === 'progress' ? '' : ` ${line.type}`;
+      const klass = line.type === 'plain' || line.type === 'progress' ? '' : ` ${line.type}`;
       lineEl.className = `boot-line${klass}`;
       container.appendChild(lineEl);
 

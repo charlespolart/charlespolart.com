@@ -10,8 +10,8 @@ const meta = ui[locale].sections.projects;
 const groups = projects[locale];
 
 const labels = locale === 'en'
-  ? { work: 'FEATURED WORK', personal: 'PERSONAL PROJECTS' }
-  : { work: 'MISSIONS NOTABLES', personal: 'PROJETS PERSO' };
+  ? { work: 'FEATURED WORK', personal: 'PERSONAL PROJECTS', shotsAvail: 'screenshots available', clickToView: 'click to view' }
+  : { work: 'MISSIONS NOTABLES', personal: 'PROJETS PERSO',  shotsAvail: 'captures disponibles', clickToView: 'cliquer pour voir' };
 ---
 
 <Section id="projects" num="04" meta={meta}>
@@ -24,8 +24,19 @@ const labels = locale === 'en'
     </div>
 
     {
-      groups.work.map((p) => (
-        <article class="proj" data-project={p.id}>
+      groups.work.map((p) => {
+        const hasShots = !!(p.screenshots && p.screenshots.length > 0);
+        return (
+        <article
+          class={`proj ${hasShots ? 'has-shots' : ''}`}
+          data-project={p.id}
+          data-shots={hasShots ? 'true' : undefined}
+          data-screenshots={hasShots ? JSON.stringify(p.screenshots) : undefined}
+          data-project-title={hasShots ? p.title : undefined}
+          tabindex={hasShots ? 0 : undefined}
+          role={hasShots ? 'button' : undefined}
+          aria-label={hasShots ? `${labels.clickToView} ${p.title}` : undefined}
+        >
           <span class="proj-cmd-tag">cat {p.id}.md</span>
           <div class="proj-head">
             <div class="proj-title">
@@ -49,8 +60,14 @@ const labels = locale === 'en'
               {p.linkLabel ?? p.link}
             </a>
           )}
+          {hasShots && (
+            <div class="proj-shots-bar" aria-hidden="true">
+              <span class="proj-shots-bar-left">&gt; {p.screenshots!.length} {labels.shotsAvail}</span>
+              <span class="proj-shots-bar-right">{labels.clickToView} <span class="proj-shots-bar-arrow">▸</span></span>
+            </div>
+          )}
         </article>
-      ))
+      );})
     }
 
     <div class="proj-subhead">
@@ -60,8 +77,19 @@ const labels = locale === 'en'
     </div>
 
     {
-      groups.personal.map((p) => (
-        <article class="proj" data-project={p.id}>
+      groups.personal.map((p) => {
+        const hasShots = !!(p.screenshots && p.screenshots.length > 0);
+        return (
+        <article
+          class={`proj ${hasShots ? 'has-shots' : ''}`}
+          data-project={p.id}
+          data-shots={hasShots ? 'true' : undefined}
+          data-screenshots={hasShots ? JSON.stringify(p.screenshots) : undefined}
+          data-project-title={hasShots ? p.title : undefined}
+          tabindex={hasShots ? 0 : undefined}
+          role={hasShots ? 'button' : undefined}
+          aria-label={hasShots ? `${labels.clickToView} ${p.title}` : undefined}
+        >
           <span class="proj-cmd-tag">cat {p.id}.md</span>
           <div class="proj-head">
             <div class="proj-title">
@@ -85,8 +113,14 @@ const labels = locale === 'en'
               {p.linkLabel ?? p.link}
             </a>
           )}
+          {hasShots && (
+            <div class="proj-shots-bar" aria-hidden="true">
+              <span class="proj-shots-bar-left">&gt; {p.screenshots!.length} {labels.shotsAvail}</span>
+              <span class="proj-shots-bar-right">{labels.clickToView} <span class="proj-shots-bar-arrow">▸</span></span>
+            </div>
+          )}
         </article>
-      ))
+      );})
     }
 
   </div>

@@ -70,8 +70,16 @@ export default function BottomTerminal({ locale }: Props) {
 
   const t =
     locale === 'fr'
-      ? { notFound: 'commande introuvable', tryHelp: 'tape "help"', click: 'clique pour taper · essaie "help"' }
-      : { notFound: 'command not found',    tryHelp: 'try "help"',  click: 'click to type · try "help"' };
+      ? {
+          notFound: 'commande introuvable',
+          tryHelp: 'tape "help"',
+          click: 'clique pour taper · essaie "help"',
+        }
+      : {
+          notFound: 'command not found',
+          tryHelp: 'try "help"',
+          click: 'click to type · try "help"',
+        };
 
   function scrollSection(id: string) {
     const el = document.getElementById(id);
@@ -89,7 +97,8 @@ export default function BottomTerminal({ locale }: Props) {
       case 'help':
       case '?':
         return {
-          cmd, kind: 'text',
+          cmd,
+          kind: 'text',
           output: [
             'navigation : whoami · about · skills · experience · projects · education · contact',
             'actions    : cv · glitch · boom · matrix',
@@ -99,19 +108,33 @@ export default function BottomTerminal({ locale }: Props) {
         };
 
       case 'ls':
-        return { cmd, output: 'cv.ts  profile.json  README.md  projects/  stack/  contact/  .secrets' };
+        return {
+          cmd,
+          output: 'cv.ts  profile.json  README.md  projects/  stack/  contact/  .secrets',
+        };
       case 'cat': {
         if (!arg) return { cmd, kind: 'error', output: 'cat : usage : cat <file>' };
-        if (arg.startsWith('cv')) return { cmd, kind: 'ok', output: '→ try `cv` to download the real one.' };
-        if (arg === '.secrets') return { cmd, kind: 'error', output: 'permission denied (nice try)' };
-        if (arg === 'README.md') return { cmd, output: '# charlespolart.com — boot terminal CV. built with Astro + React + GSAP.' };
-        if (arg === 'profile.json') return { cmd, output: '{ name: "charles", role: "full stack dev", available: true }' };
+        if (arg.startsWith('cv'))
+          return { cmd, kind: 'ok', output: '→ try `cv` to download the real one.' };
+        if (arg === '.secrets')
+          return { cmd, kind: 'error', output: 'permission denied (nice try)' };
+        if (arg === 'README.md')
+          return {
+            cmd,
+            output: '# charlespolart.com — boot terminal CV. built with Astro + React + GSAP.',
+          };
+        if (arg === 'profile.json')
+          return { cmd, output: '{ name: "charles", role: "full stack dev", available: true }' };
         return { cmd, kind: 'error', output: `cat : ${arg} : no such file` };
       }
-      case 'pwd': return { cmd, output: '/home/charles' };
-      case 'cd': return { cmd, output: arg ? `(pretending to cd to ${arg})` : '~' };
-      case 'echo': return { cmd, output: arg };
-      case 'date': return { cmd, output: new Date().toString() };
+      case 'pwd':
+        return { cmd, output: '/home/charles' };
+      case 'cd':
+        return { cmd, output: arg ? `(pretending to cd to ${arg})` : '~' };
+      case 'echo':
+        return { cmd, output: arg };
+      case 'date':
+        return { cmd, output: new Date().toString() };
       case 'whoami':
       case 'about':
       case 'skills':
@@ -150,15 +173,18 @@ export default function BottomTerminal({ locale }: Props) {
           const el = document.createElement('span');
           el.className = 'spark';
           el.textContent = '*+·01◇◆▪'[Math.floor(Math.random() * 8)];
-          el.style.left = cx + 'px';
-          el.style.top = cy + 'px';
+          el.style.left = `${cx}px`;
+          el.style.top = `${cy}px`;
           document.body.appendChild(el);
           const a = (Math.PI * 2 * i) / 40 + Math.random();
           const d = 150 + Math.random() * 200;
           el.animate(
             [
               { transform: 'translate(-50%,-50%) translate(0,0) scale(1)', opacity: 1 },
-              { transform: `translate(-50%,-50%) translate(${Math.cos(a) * d}px,${Math.sin(a) * d}px) scale(0.3)`, opacity: 0 },
+              {
+                transform: `translate(-50%,-50%) translate(${Math.cos(a) * d}px,${Math.sin(a) * d}px) scale(0.3)`,
+                opacity: 0,
+              },
             ],
             { duration: 900 + Math.random() * 400, easing: 'cubic-bezier(0.2,0.7,0.3,1)' }
           ).onfinish = () => el.remove();
@@ -167,7 +193,11 @@ export default function BottomTerminal({ locale }: Props) {
       }
       case 'matrix':
         window.dispatchEvent(new CustomEvent('matrix:burst'));
-        return { cmd, kind: 'ok', output: 'reality has been compromised. enjoy 10s of full immersion.' };
+        return {
+          cmd,
+          kind: 'ok',
+          output: 'reality has been compromised. enjoy 10s of full immersion.',
+        };
 
       case '42':
       case 'meaning':
@@ -194,11 +224,19 @@ export default function BottomTerminal({ locale }: Props) {
         return { cmd, output: KONAMI_HINT };
 
       case 'vim':
-        return { cmd, kind: 'error', output: `vim : nope. last person who opened it never came back.` };
+        return {
+          cmd,
+          kind: 'error',
+          output: 'vim : nope. last person who opened it never came back.',
+        };
 
       case 'rm':
         if (!arg)
-          return { cmd, kind: 'error', output: 'rm : missing operand. (i would have refused anyway.)' };
+          return {
+            cmd,
+            kind: 'error',
+            output: 'rm : missing operand. (i would have refused anyway.)',
+          };
         if (arg.includes('-rf') && arg.includes('/'))
           return { cmd, kind: 'error', output: 'permission denied (you absolute madman).' };
         return { cmd, kind: 'error', output: `rm : nope, ${arg} stays.` };
@@ -211,7 +249,10 @@ export default function BottomTerminal({ locale }: Props) {
       case 'quit':
       case 'bye':
         setHistory([{ cmd, kind: 'ok', output: 'bye 👋' }]);
-        setTimeout(() => { setHistory([]); inputRef.current?.blur(); }, 1500);
+        setTimeout(() => {
+          setHistory([]);
+          inputRef.current?.blur();
+        }, 1500);
         setInput('');
         return null;
 
@@ -252,7 +293,7 @@ export default function BottomTerminal({ locale }: Props) {
       const sel = window.getSelection();
       if (sel && sel.toString().length > 0) return;
       e.preventDefault();
-      setHistory((h) => [...h, { cmd: input + '^C', output: '' }].slice(-30));
+      setHistory((h) => [...h, { cmd: `${input}^C`, output: '' }].slice(-30));
       setInput('');
       setHistIdx(-1);
       return;
@@ -279,7 +320,12 @@ export default function BottomTerminal({ locale }: Props) {
       setCursorPos(next.length);
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
-      if (histIdx <= 0) { setHistIdx(-1); setInput(''); setCursorPos(0); return; }
+      if (histIdx <= 0) {
+        setHistIdx(-1);
+        setInput('');
+        setCursorPos(0);
+        return;
+      }
       const ni = histIdx - 1;
       const next = cmdHistory[cmdHistory.length - 1 - ni];
       setHistIdx(ni);
@@ -293,6 +339,7 @@ export default function BottomTerminal({ locale }: Props) {
   // Skip the very first run — otherwise mounting the (client:load) bterm
   // would yank the page straight to the bottom on every refresh.
   const didInitialScroll = useRef(false);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: effect intentionally fires only on input/history/idx changes; scrollToBottom is a stable wrapper around a rAF — adding it would just churn closures.
   useEffect(() => {
     if (!didInitialScroll.current) {
       didInitialScroll.current = true;
@@ -343,6 +390,7 @@ export default function BottomTerminal({ locale }: Props) {
       onClick={() => inputRef.current?.focus({ preventScroll: true })}
     >
       {history.map((h, i) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: append-only history (entries are pushed, never reordered or removed) so the index is stable.
         <div key={i} className={`bterm-entry bterm-k-${h.kind ?? 'text'}`}>
           <div className="bterm-cmd-line">
             <span className="bterm-prompt-c">charles@cv:~$</span>{' '}
@@ -351,7 +399,12 @@ export default function BottomTerminal({ locale }: Props) {
           {h.kind === 'ascii' ? (
             <pre className="bterm-ascii">{h.output as string}</pre>
           ) : Array.isArray(h.output) ? (
-            h.output.map((line, j) => <div key={j} className="bterm-line-out">{line}</div>)
+            h.output.map((line, j) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: each entry's output is rendered once and never reordered.
+              <div key={j} className="bterm-line-out">
+                {line}
+              </div>
+            ))
           ) : h.output ? (
             <div className="bterm-line-out">{h.output}</div>
           ) : null}
@@ -360,7 +413,7 @@ export default function BottomTerminal({ locale }: Props) {
       <div className="bterm-input-line" ref={inputLineRef}>
         <span className="bterm-prompt-c">charles@cv:~$</span>{' '}
         <span className="bterm-typed">{input.slice(0, cursorPos)}</span>
-        <span className={'bterm-caret' + (focused ? ' on' : '')}>
+        <span className={`bterm-caret${focused ? ' on' : ''}`}>
           {input.slice(cursorPos, cursorPos + 1) || ' '}
         </span>
         <span className="bterm-typed">{input.slice(cursorPos + 1)}</span>
@@ -379,9 +432,7 @@ export default function BottomTerminal({ locale }: Props) {
           aria-label="terminal input"
         />
       </div>
-      {!focused && history.length === 0 && (
-        <div className="bterm-hint">{t.click}</div>
-      )}
+      {!focused && history.length === 0 && <div className="bterm-hint">{t.click}</div>}
     </div>
   );
 }

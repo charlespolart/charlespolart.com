@@ -5,9 +5,9 @@ import sharp from 'sharp';
 const SRC = 'src/assets/profile.png';
 
 const targets = [
-  { name: 'favicon-32.png', size: 64 },           // 2x retina for 32px tabs
-  { name: 'favicon-192.png', size: 192 },         // Android / PWA
-  { name: 'apple-touch-icon.png', size: 180 },    // iOS
+  { name: 'favicon-32.png', size: 64 }, // 2x retina for 32px tabs
+  { name: 'favicon-192.png', size: 192 }, // Android / PWA
+  { name: 'apple-touch-icon.png', size: 180 }, // iOS
 ];
 
 const meta = await sharp(SRC).metadata();

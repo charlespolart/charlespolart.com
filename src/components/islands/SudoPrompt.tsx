@@ -12,21 +12,22 @@ export default function SudoPrompt({ locale }: Props) {
   const [pwd, setPwd] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const t = locale === 'fr'
-    ? {
-        title: '[sudo] mot de passe pour charles :',
-        auth: 'Authentification…',
-        success: '✓ Privilèges root accordés. Bienvenue.',
-        hint: '(rien ne s\'affiche pendant la saisie, c\'est normal)',
-        close: 'fermer',
-      }
-    : {
-        title: '[sudo] password for charles:',
-        auth: 'Authenticating…',
-        success: '✓ Root privileges granted. Welcome.',
-        hint: '(nothing shows while typing, that\'s normal)',
-        close: 'close',
-      };
+  const t =
+    locale === 'fr'
+      ? {
+          title: '[sudo] mot de passe pour charles :',
+          auth: 'Authentification…',
+          success: '✓ Privilèges root accordés. Bienvenue.',
+          hint: "(rien ne s'affiche pendant la saisie, c'est normal)",
+          close: 'fermer',
+        }
+      : {
+          title: '[sudo] password for charles:',
+          auth: 'Authenticating…',
+          success: '✓ Root privileges granted. Welcome.',
+          hint: "(nothing shows while typing, that's normal)",
+          close: 'close',
+        };
 
   useEffect(() => {
     const onOpen = () => {
@@ -70,7 +71,10 @@ export default function SudoPrompt({ locale }: Props) {
         {stage === 'prompt' && (
           <form
             className="sudo-form"
-            onSubmit={(e) => { e.preventDefault(); submit(); }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              submit();
+            }}
           >
             <input
               ref={inputRef}
@@ -80,17 +84,15 @@ export default function SudoPrompt({ locale }: Props) {
               onChange={(e) => setPwd(e.target.value)}
               autoComplete="off"
             />
-            <div className="sudo-cursor"></div>
+            <div className="sudo-cursor" />
             <div className="sudo-hint">{t.hint}</div>
           </form>
         )}
-        {stage === 'auth' && (
-          <div className="sudo-line dim">{t.auth}</div>
-        )}
-        {stage === 'success' && (
-          <div className="sudo-line ok">{t.success}</div>
-        )}
-        <div className="sudo-foot"><kbd>esc</kbd> {t.close}</div>
+        {stage === 'auth' && <div className="sudo-line dim">{t.auth}</div>}
+        {stage === 'success' && <div className="sudo-line ok">{t.success}</div>}
+        <div className="sudo-foot">
+          <kbd>esc</kbd> {t.close}
+        </div>
       </div>
     </div>
   );

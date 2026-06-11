@@ -1,5 +1,5 @@
+import { ScrollTrigger, SplitText, gsap } from '@/lib/gsap';
 import { useEffect } from 'react';
-import { gsap, ScrollTrigger, SplitText } from '@/lib/gsap';
 
 interface Props {
   locale: 'en' | 'fr';
@@ -56,10 +56,13 @@ export default function TerminalEffects({ locale }: Props) {
         window.setTimeout(() => {
           if (!document.body.contains(hn)) return;
           hn.classList.add('glitch');
-          window.setTimeout(() => {
-            hn.classList.remove('glitch');
-            scheduleNameGlitch();
-          }, 200 + Math.random() * 200);
+          window.setTimeout(
+            () => {
+              hn.classList.remove('glitch');
+              scheduleNameGlitch();
+            },
+            200 + Math.random() * 200
+          );
         }, nextDelay);
       }
       scheduleNameGlitch();
@@ -253,7 +256,7 @@ export default function TerminalEffects({ locale }: Props) {
       // --- Number counters in whoami (C) ---
       const counters = document.querySelectorAll<HTMLElement>('[data-count]');
       counters.forEach((el) => {
-        const target = parseInt(el.dataset.count ?? '0', 10);
+        const target = Number.parseInt(el.dataset.count ?? '0', 10);
         if (!Number.isFinite(target)) return;
         const obj = { v: 0 };
         ScrollTrigger.create({
@@ -290,7 +293,7 @@ export default function TerminalEffects({ locale }: Props) {
         const len = realText.length;
         // Lock width via `ch` so the glitch frames don't reflow layout.
         el.style.display = 'inline-block';
-        el.style.minWidth = len + 'ch';
+        el.style.minWidth = `${len}ch`;
         el.style.whiteSpace = 'nowrap';
         el.textContent = realText;
 
@@ -298,7 +301,10 @@ export default function TerminalEffects({ locale }: Props) {
           let out = '';
           for (let i = 0; i < len; i++) {
             const c = realText[i];
-            if (KEEP.has(c)) { out += c; continue; }
+            if (KEEP.has(c)) {
+              out += c;
+              continue;
+            }
             if (Math.random() < 0.45) {
               out += POOL[(Math.random() * POOL.length) | 0];
             } else {
@@ -341,10 +347,13 @@ export default function TerminalEffects({ locale }: Props) {
         }
 
         // First glitch happens shortly after load.
-        cycleTimer = window.setTimeout(() => {
-          runGlitch();
-          scheduleNext();
-        }, 1500 + Math.random() * 1000);
+        cycleTimer = window.setTimeout(
+          () => {
+            runGlitch();
+            scheduleNext();
+          },
+          1500 + Math.random() * 1000
+        );
 
         cleanups.push(() => {
           if (frameTimer !== null) clearTimeout(frameTimer);
@@ -358,14 +367,14 @@ export default function TerminalEffects({ locale }: Props) {
         gsap.set(card, { transformPerspective: 1600 });
         const qrx = gsap.quickTo(card, 'rotationX', { duration: 0.4, ease: 'power3.out' });
         const qry = gsap.quickTo(card, 'rotationY', { duration: 0.4, ease: 'power3.out' });
-        const qy  = gsap.quickTo(card, 'y',         { duration: 0.4, ease: 'power3.out' });
+        const qy = gsap.quickTo(card, 'y', { duration: 0.4, ease: 'power3.out' });
 
         const onMove = (e: MouseEvent) => {
           const rect = card.getBoundingClientRect();
           const px = ((e.clientX - rect.left) / rect.width) * 100;
           const py = ((e.clientY - rect.top) / rect.height) * 100;
-          card.style.setProperty('--px', px + '%');
-          card.style.setProperty('--py', py + '%');
+          card.style.setProperty('--px', `${px}%`);
+          card.style.setProperty('--py', `${py}%`);
           // Softer tilt : ±2° (was ±5°) and longer perspective (1600 vs 1000)
           // → less dramatic 3D effect, more like a subtle parallax response.
           qrx(((py - 50) / 50) * -2);
@@ -384,7 +393,6 @@ export default function TerminalEffects({ locale }: Props) {
           card.removeEventListener('mouseleave', onLeave);
         });
       });
-
 
       // Refresh ScrollTrigger after layout settles
       requestAnimationFrame(() => ScrollTrigger.refresh());
@@ -424,9 +432,7 @@ export default function TerminalEffects({ locale }: Props) {
       }
       if (active === currentActive) return;
       currentActive = active;
-      navLinksForSpy.forEach((a) =>
-        a.classList.toggle('active', a.dataset.id === active)
-      );
+      navLinksForSpy.forEach((a) => a.classList.toggle('active', a.dataset.id === active));
     };
     const onScrollSpy = () => {
       if (spyScheduled) return;
@@ -448,22 +454,36 @@ export default function TerminalEffects({ locale }: Props) {
     // ============================================================
     let typedBuffer = '';
     let lastKeyT = 0;
-    const TYPING_WINDOW = 500; // ms — gap between keystrokes that counts as "typing"
+    // Slow typists need room — bump high enough that "h-e-l-p" never trips the
+    // single-key `L` lang switch between letters, while still releasing single-
+    // key shortcuts a second or so after the last alphanumeric keystroke.
+    const TYPING_WINDOW = 1500; // ms — gap between keystrokes that counts as "typing"
 
     const KONAMI = [
-      'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
-      'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
-      'b', 'a',
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowLeft',
+      'ArrowRight',
+      'b',
+      'a',
     ];
     let konamiIdx = 0;
 
     const onKey = (e: KeyboardEvent) => {
+      // While the project photo viewer is open, every shortcut here is dead
+      // (typed-buffer sudo/help, single-key L / 0-6, Konami). ESC is left to
+      // the viewer's own listener to close itself.
+      if (document.documentElement.classList.contains('pv-open')) return;
+
       // Konami code detection — runs FIRST, even when focus is on an input
       // (so the sequence works right after typing `konami` in the bottom
       // terminal without having to click outside).
       const expected = KONAMI[konamiIdx];
-      const matches =
-        expected === e.key || expected.toLowerCase() === e.key.toLowerCase();
+      const matches = expected === e.key || expected.toLowerCase() === e.key.toLowerCase();
       if (matches) {
         konamiIdx++;
         if (konamiIdx === KONAMI.length) {
@@ -478,11 +498,7 @@ export default function TerminalEffects({ locale }: Props) {
       }
 
       // Other shortcuts (typed buffer, L, 0-6) — skip when typing in an input.
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement
-      )
-        return;
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
       if (e.metaKey || e.ctrlKey || e.altKey) return;
 
@@ -517,7 +533,7 @@ export default function TerminalEffects({ locale }: Props) {
       }
 
       if (/^[0-6]$/.test(e.key)) {
-        const id = SECTION_IDS[parseInt(e.key, 10)];
+        const id = SECTION_IDS[Number.parseInt(e.key, 10)];
         const el = id ? document.getElementById(id) : null;
         if (el) {
           window.scrollTo({ top: el.offsetTop - 100, behavior: 'smooth' });

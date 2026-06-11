@@ -31,9 +31,20 @@ export default function CvDownload({ locale }: Props) {
   const downloadedRef = useRef(false);
 
   const steps = locale === 'fr' ? BUILD_STEPS_FR : BUILD_STEPS_EN;
-  const t = locale === 'fr'
-    ? { title: 'Build de cv.pdf', readyBtn: 'Télécharger ↓', close: 'fermer', done: '✓ Build terminé en' }
-    : { title: 'Building cv.pdf', readyBtn: 'Download ↓',     close: 'close',  done: '✓ Build complete in' };
+  const t =
+    locale === 'fr'
+      ? {
+          title: 'Build de cv.pdf',
+          readyBtn: 'Télécharger ↓',
+          close: 'fermer',
+          done: '✓ Build terminé en',
+        }
+      : {
+          title: 'Building cv.pdf',
+          readyBtn: 'Download ↓',
+          close: 'close',
+          done: '✓ Build complete in',
+        };
 
   useEffect(() => {
     const onOpen = () => {
@@ -52,7 +63,7 @@ export default function CvDownload({ locale }: Props) {
     const stepDur = 280 + Math.random() * 100;
     const interval = window.setInterval(() => {
       setPct((p) => {
-        const next = p + (100 / steps.length / 10);
+        const next = p + 100 / steps.length / 10;
         if (next >= 100) {
           window.clearInterval(interval);
           return 100;
@@ -80,7 +91,9 @@ export default function CvDownload({ locale }: Props) {
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
@@ -107,29 +120,30 @@ export default function CvDownload({ locale }: Props) {
         </div>
         <div className="cvd-body">
           {steps.slice(0, step + 1).map((s, i) => (
-            <div key={i} className={'cvd-line' + (i < step || done ? ' done' : '')}>
+            // biome-ignore lint/suspicious/noArrayIndexKey: fixed step sequence revealed left-to-right (slice is monotone), entries never reordered.
+            <div key={i} className={`cvd-line${i < step || done ? ' done' : ''}`}>
               {s}
               {(i < step || done) && <span className="cvd-ok"> [ OK ]</span>}
             </div>
           ))}
           <div className="cvd-bar">
-            <div className="cvd-bar-fill" style={{ width: pct + '%' }} />
+            <div className="cvd-bar-fill" style={{ width: `${pct}%` }} />
             <span className="cvd-pct">{Math.round(pct)}%</span>
           </div>
         </div>
         {done ? (
           <div className="cvd-done">
-            <div className="cvd-line ok">{t.done} {buildTime}s</div>
-            <button
-              type="button"
-              className="cvd-btn"
-              onClick={triggerDownload}
-            >
+            <div className="cvd-line ok">
+              {t.done} {buildTime}s
+            </div>
+            <button type="button" className="cvd-btn" onClick={triggerDownload}>
               {t.readyBtn}
             </button>
           </div>
         ) : null}
-        <div className="cvd-foot"><kbd>esc</kbd> {t.close}</div>
+        <div className="cvd-foot">
+          <kbd>esc</kbd> {t.close}
+        </div>
       </div>
     </div>
   );

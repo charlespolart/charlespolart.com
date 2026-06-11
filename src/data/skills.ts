@@ -22,7 +22,16 @@ export const skills: Bilingual<SkillCategory[]> = {
     {
       key: 'backend',
       label: 'back-end',
-      items: ['Node.js', 'Bun', 'Hono', 'NestJS', 'REST', 'GraphQL', 'Drizzle ORM', 'Microservices'],
+      items: [
+        'Node.js',
+        'Bun',
+        'Hono',
+        'NestJS',
+        'REST',
+        'GraphQL',
+        'Drizzle ORM',
+        'Microservices',
+      ],
     },
     {
       key: 'data-cloud',
@@ -61,7 +70,16 @@ export const skills: Bilingual<SkillCategory[]> = {
     {
       key: 'backend',
       label: 'back-end',
-      items: ['Node.js', 'Bun', 'Hono', 'NestJS', 'REST', 'GraphQL', 'Drizzle ORM', 'Microservices'],
+      items: [
+        'Node.js',
+        'Bun',
+        'Hono',
+        'NestJS',
+        'REST',
+        'GraphQL',
+        'Drizzle ORM',
+        'Microservices',
+      ],
     },
     {
       key: 'data-cloud',

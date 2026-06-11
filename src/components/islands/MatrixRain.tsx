@@ -6,7 +6,11 @@ export default function MatrixRain() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (window.matchMedia('(max-width: 1100px), (prefers-reduced-motion: reduce)').matches) return;
+    // Honor reduced-motion preference. We don't gate on viewport width any
+    // more : on mobile the ambient margin rain is naturally invisible
+    // (`isMarginCol` returns false when there are no margins), but the
+    // on-demand `matrix:burst` full-screen takeover must still work.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const canvas = canvasRef.current as HTMLCanvasElement | null;
     if (!canvas) return;
@@ -34,18 +38,30 @@ export default function MatrixRain() {
     // on the center area for this many frames to fully erase residue trails.
     let cleanupFrames = 0;
 
+    // Margin width is recomputed once per resize/orientationchange. CSS owns
+    // the value (--matrix-margin), defaulting to 0 — only mobile-landscape
+    // sets it to a non-zero override. When unset, we fall back to the natural
+    // margin around the centered max-width=1100px content (desktop wide).
+    let marginPx = 0;
+    function recomputeMargin() {
+      const css = Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--matrix-margin')
+      );
+      marginPx = css > 0 ? css : (window.innerWidth - MAX_W) / 2;
+    }
+
     function isMarginCol(x: number): boolean {
-      const margin = (window.innerWidth - MAX_W) / 2;
-      if (margin < 60) return false;
-      return x < margin - 24 || x > window.innerWidth - margin + 24;
+      if (marginPx < 60) return false;
+      return x < marginPx - 24 || x > window.innerWidth - marginPx + 24;
     }
 
     function resize() {
       cv.width = window.innerWidth * devicePixelRatio;
       cv.height = window.innerHeight * devicePixelRatio;
-      cv.style.width = window.innerWidth + 'px';
-      cv.style.height = window.innerHeight + 'px';
+      cv.style.width = `${window.innerWidth}px`;
+      cv.style.height = `${window.innerHeight}px`;
       ctx?.scale(devicePixelRatio, devicePixelRatio);
+      recomputeMargin();
       columns = Math.floor(window.innerWidth / FONT_SIZE);
       drops = Array.from({ length: columns }, () => Math.random() * -50);
       colSpeed = Array.from({ length: columns }, () => 0.7 + Math.random() * 0.6);
@@ -123,13 +139,11 @@ export default function MatrixRain() {
           if (burstActive || !inMarginCol) {
             ctx.fillStyle =
               Math.random() < 0.08
-                ? 'rgba(200, 255, 200, 1)'    // bright white-green head
+                ? 'rgba(200, 255, 200, 1)' // bright white-green head
                 : 'rgba(63, 255, 142, 0.85)'; // matrix green body
           } else {
             ctx.fillStyle =
-              Math.random() < 0.04
-                ? 'rgba(255, 215, 0, 0.55)'
-                : 'rgba(255, 176, 0, 0.22)';
+              Math.random() < 0.04 ? 'rgba(255, 215, 0, 0.55)' : 'rgba(255, 176, 0, 0.22)';
           }
           ctx.fillText(char, x, y);
 
@@ -159,12 +173,7 @@ export default function MatrixRain() {
           const margin = (window.innerWidth - MAX_W) / 2;
           if (margin >= 60) {
             ctx.fillStyle = 'rgba(10, 7, 0, 0.45)';
-            ctx.fillRect(
-              margin - 24,
-              0,
-              window.innerWidth - 2 * (margin - 24),
-              window.innerHeight,
-            );
+            ctx.fillRect(margin - 24, 0, window.innerWidth - 2 * (margin - 24), window.innerHeight);
           }
         }
       }
@@ -189,7 +198,6 @@ export default function MatrixRain() {
         pointerEvents: 'none',
         opacity: 0.6,
       }}
-      aria-hidden="true"
     />
   );
 }
