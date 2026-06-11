@@ -346,10 +346,13 @@ const otherHref = otherLocale === 'en' ? '/' : '/fr';
 
         // Only push a new transform to the cursor when it actually moved.
         // Skipping equal frames avoids spurious composite frames when idle.
+        // Lerp factor 0.7 : the cursor catches up 70% of the gap each frame —
+        // feels snappy without losing the smoothing entirely (a tiny inertia
+        // tail keeps it from looking digital).
         let lastCX = -1000, lastCY = -1000;
         (function tick() {
-          cx += (mx - cx) * 0.4;
-          cy += (my - cy) * 0.4;
+          cx += (mx - cx) * 0.7;
+          cy += (my - cy) * 0.7;
           if (Math.abs(cx - lastCX) > 0.3 || Math.abs(cy - lastCY) > 0.3) {
             cursor.style.transform = 'translate3d(' + (cx - 7) + 'px, ' + (cy - 12) + 'px, 0)';
             lastCX = cx;
