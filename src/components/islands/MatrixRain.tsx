@@ -142,8 +142,10 @@ export default function MatrixRain() {
                 ? 'rgba(200, 255, 200, 1)' // bright white-green head
                 : 'rgba(63, 255, 142, 0.85)'; // matrix green body
           } else {
+            // Margin ambient rain — slightly more present than before so the
+            // side bands actually read at a glance, while staying subtle.
             ctx.fillStyle =
-              Math.random() < 0.04 ? 'rgba(255, 215, 0, 0.55)' : 'rgba(255, 176, 0, 0.22)';
+              Math.random() < 0.05 ? 'rgba(255, 215, 0, 0.72)' : 'rgba(255, 176, 0, 0.34)';
           }
           ctx.fillText(char, x, y);
 
