@@ -17,6 +17,16 @@ export const projects: Bilingual<ProjectGroups> = {
           'Moderation tools + role-based access',
           'CI/CD deploy on RGPD-compliant FR infrastructure',
         ],
+        screenshots: [
+          '/projects/agora-nova/01.png',
+          '/projects/agora-nova/02.png',
+          '/projects/agora-nova/03.png',
+          '/projects/agora-nova/04.png',
+          '/projects/agora-nova/05.png',
+          '/projects/agora-nova/06.png',
+          '/projects/agora-nova/07.png',
+          '/projects/agora-nova/08.png',
+        ],
       },
       {
         id: 'sncf',
