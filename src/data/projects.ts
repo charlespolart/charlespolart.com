@@ -188,6 +188,16 @@ export const projects: Bilingual<ProjectGroups> = {
           'Outils de modération + accès par rôles',
           'CI/CD vers infra FR RGPD',
         ],
+        screenshots: [
+          '/projects/agora-nova/01.png',
+          '/projects/agora-nova/02.png',
+          '/projects/agora-nova/03.png',
+          '/projects/agora-nova/04.png',
+          '/projects/agora-nova/05.png',
+          '/projects/agora-nova/06.png',
+          '/projects/agora-nova/07.png',
+          '/projects/agora-nova/08.png',
+        ],
       },
       {
         id: 'sncf',
