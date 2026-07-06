@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>CV — Charles Polart</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 210mm; }
+  body {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    color: #211e18;
+    font-size: 8.6pt;
+    line-height: 1.33;
+    padding: 6mm 12mm 3mm;
+    -webkit-print-color-adjust: exact;
+  }
+  .mono { font-family: 'SF Mono', Menlo, monospace; }
+  .cjk { font-family: 'PingFang SC', 'Hiragino Sans GB', 'Songti SC', 'STHeiti', sans-serif; font-weight: 400; }
+
+  /* ─── header ─── */
+  .prompt { font-family: 'SF Mono', Menlo, monospace; font-size: 7pt; color: #a89e8c; margin-bottom: 1.2mm; }
+  .prompt b { color: #b06a00; font-weight: 400; }
+  .cursor { color: #b06a00; }
+  .dot { color: #2e7d32; font-size: 6pt; vertical-align: 0.4pt; }
+  header { display: flex; justify-content: space-between; align-items: flex-end;
+           border: 1px solid #211e18; padding: 3mm 4.5mm; background: #ffffff; }
+  h1 { font-size: 22pt; font-weight: 700; letter-spacing: -0.015em; line-height: 1; }
+  .role { margin-top: 1.8mm; font-size: 10pt; font-weight: 600; color: #b06a00; }
+  .role span { font-weight: 400; color: #6f6859; }
+  .contact { text-align: right; font-size: 7.4pt; line-height: 1.65; color: #57503f; }
+  .contact .site { font-weight: 700; color: #b06a00; font-size: 8.2pt; }
+
+  .statusbar {
+    display: flex; justify-content: space-between;
+    border: 1px solid #211e18; border-top: 0;
+    padding: 1.2mm 4.5mm; font-size: 6.5pt; color: #57503f;
+    background: #f7f2e7;
+  }
+  .statusbar b { color: #2e7d32; }
+
+  /* ─── corps en deux colonnes ─── */
+  .cols { display: grid; grid-template-columns: 1fr 52mm; column-gap: 7mm; margin-top: 4mm; }
+
+  h2 { font-size: 9.5pt; font-weight: 700; letter-spacing: 0.1em; margin: 3mm 0 1.8mm;
+       display: flex; align-items: baseline; gap: 2mm; }
+  h2:first-of-type { margin-top: 0; }
+  h2 .no { font-family: 'SF Mono', Menlo, monospace; font-size: 8pt; font-weight: 400; color: #b06a00; }
+  h2::after { content: ''; flex: 1; border-top: 0.7px solid #ddd5c2; }
+
+  .entry { margin-bottom: 2.2mm; }
+  .entry-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.2mm; }
+  .entry-head h3 { font-size: 10pt; font-weight: 700; }
+  .entry-head h3 span { font-weight: 400; font-size: 7.8pt; color: #7d7563; }
+  .dates { font-family: 'SF Mono', Menlo, monospace; font-size: 6.8pt; color: #b06a00; }
+
+  .mission { margin-bottom: 1.4mm; padding-left: 3.6mm; position: relative; }
+  .mission::before { content: '>'; position: absolute; left: 0; top: 0;
+                     font-family: 'SF Mono', Menlo, monospace; font-size: 7.6pt; color: #b06a00; }
+  .mission-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .mission-head b { font-size: 9.2pt; }
+  .stack { font-family: 'SF Mono', Menlo, monospace; font-size: 6.6pt; color: #a89e8c; }
+  .mission p { color: #3c372c; }
+
+  /* ─── rail droit : boxes ─── */
+  .rail .box { border: 1px solid #ddd5c2; padding: 2.8mm 3.2mm 2.2mm; margin-bottom: 3mm; }
+  .rail .box.tint { background: #f9f4e8; }
+
+
+  .label { font-family: 'SF Mono', Menlo, monospace; font-size: 6.8pt; letter-spacing: 0.16em;
+           color: #b06a00; text-transform: uppercase; display: block; margin-bottom: 1.6mm; }
+  .skill-group { margin-bottom: 2.2mm; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.9mm; margin-top: 0.7mm; }
+  .chip { border: 1px solid #d9d1bd; background: #fff; border-radius: 1mm; padding: 0.3mm 1.5mm; font-family: 'SF Mono', Menlo, monospace; font-size: 6.2pt; color: #57503f; }
+  .skill-group b { display: block; font-size: 8.2pt; }
+  .skill-group span { font-size: 7.6pt; color: #6f6859; }
+  .rail .line { font-size: 8pt; margin-bottom: 0.8mm; }
+
+  .edu { margin-bottom: 2.4mm; }
+  .edu b { display: block; font-size: 8.4pt; }
+  .edu span { display: block; font-size: 7.6pt; color: #6f6859; }
+  .edu .dates { margin-top: 0.2mm; }
+  .ok { color: #2e7d32; font-weight: 700; white-space: nowrap; }
+  .okline { display: flex; justify-content: space-between; font-size: 7pt; }
+</style>
+</head>
+<body>
+
+<div class="prompt mono">charles@polart:~$ <b>cat charles-polart.cv</b><span class="cursor"> ▊</span></div>
+
+<header>
+  <div>
+    <h1>Charles Polart</h1>
+    <div class="role">Full Stack Developer <span>· Angular · Node · Flutter</span></div>
+  </div>
+  <div class="contact">
+    <div class="site mono">charlespolart.com</div>
+    <div>charles.polart@hotmail.fr</div>
+    <div>+33 6 27 75 77 15</div>
+    <div class="mono">github.com/charlespolart · in/charles-polart-638182170</div>
+  </div>
+</header>
+<div class="statusbar mono">
+  <div>STATUS: <span class="dot">●</span> <b>AVAILABLE</b> — new contracts · freelance · remote OK</div>
+  <div>FR · Brittany | EN fluent · <span class="cjk">中文</span> | born 02.03.1995</div>
+</div>
+
+<div class="cols">
+<div class="main">
+
+  <h2><span class="no">[01]</span>PROFILE</h2>
+  <p>Full stack developer, 8 years of experience across web, mobile (iOS &amp; Android) and desktop apps.
+  Specialized in Angular, Node.js and Flutter, I take a project end to end: architecture, backend, APIs,
+  responsive interfaces, production. Also a defense / aerospace background in C++/Qt at Silicom (CEA, Airbus).</p>
+
+  <h2><span class="no">[02]</span>EXPERIENCE</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <h3>Freelance Developer <span>web · mobile · desktop</span></h3>
+      <div class="dates">02/2017 — present</div>
+    </div>
+    <div class="mission">
+      <div class="mission-head"><b>Agora Nova</b><span class="stack">Flutter · Dart · Bun</span></div>
+      <p>Mobile app + REST API for a public-debate social network: verified multi-role accounts, posts,
+      polls, hashtags, moderation. GDPR-compliant FR hosting, CI/CD.</p>
+    </div>
+    <div class="mission">
+      <div class="mission-head"><b>SNCF · DigiDoc+</b><span class="stack">Angular · TS · RxJS</span></div>
+      <p>Front-end rebuild of the internal documentary platform delivering rail prescription texts
+      (regulations, safety instructions) to every railway agent. Faceted full-text search (Elasticsearch),
+      classification-based navigation, favorites. Agile collaboration with the back-end and business teams.</p>
+    </div>
+    <div class="mission">
+      <div class="mission-head"><b>Kiwidiag · kiwidiag.com</b><span class="stack">Node · GraphQL · PostgreSQL</span></div>
+      <p>Backend of the marketplace for mandatory property diagnostics (DPE, asbestos, lead, gas…):
+      multi-role accounts, geolocated booking of certified surveyors, Stripe payments, Twilio SMS.</p>
+    </div>
+    <div class="mission">
+      <div class="mission-head"><b>Leroy Merlin</b><span class="stack">Angular · Node.js</span></div>
+      <p>Front-end development and integration on the site.</p>
+    </div>
+    <div class="mission">
+      <div class="mission-head"><b>Other work</b></div>
+      <p>Backend of a staffing site (capainterim.com); image platform for a humanitarian NGO; wiring-guidance
+      software (C# · WPF); scientific-PDF extractor (C++ · Qt).</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <h3>C++/Qt Developer — Silicom <span>defense · aerospace</span></h3>
+      <div class="dates">12/2020 — 05/2023</div>
+    </div>
+    <div class="mission">
+      <div class="mission-head"><b>CEA</b><span class="stack">C++ · Qt</span></div>
+      <p>New features and maintenance on three scientific tools: seismic / infrasound / hydroacoustic signal
+      analysis for nuclear monitoring (Workspace), seismic-network station tracking (Diva), health impact of
+      pollutant releases (Ceres).</p>
+    </div>
+    <div class="mission">
+      <div class="mission-head"><b>Airbus Defence &amp; Space</b><span class="stack">C++ · Qt</span></div>
+      <p>New features for a secure communication software over hostile wireless networks (Magellan).</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <h3>Engineering Internships <span>defense · aerospace · embedded</span></h3>
+      <div class="dates">2016 — 2020</div>
+    </div>
+    <div class="mission"><div class="mission-head"><b>Thales · La Ruche</b><span class="stack">C# · C</span></div>
+      <p>Drone detection in Unity + radar simulator (6 months).</p></div>
+    <div class="mission"><div class="mission-head"><b>Sogitec · Dassault</b><span class="stack">C++</span></div>
+      <p>Raytracing/rasterization rendering, flight simulation (5 months).</p></div>
+    <div class="mission"><div class="mission-head"><b>R&amp;D Tech France</b><span class="stack">C · C++</span></div>
+      <p>Embedded dev: lasers, drone parachute, robot arm (7 months).</p></div>
+  </div>
+
+  <h2><span class="no">[03]</span>APPS &amp; PROJECTS</h2>
+  <div class="mission">
+    <div class="mission-head"><b>Dian Dian · <span class="cjk">点点</span></b><span class="stack">Flutter · Express · TS · Postgres</span></div>
+    <p>Visual year-tracking app (iOS / Android): Flutter + Express/Postgres, WebSocket, published &amp; monetized
+    (RevenueCat, AdMob), self-hosted on Docker.</p>
+  </div>
+  <div class="mission">
+    <div class="mission-head"><b>Algo Trading Platform</b><span class="stack">Bun · TS · Hono · Postgres · Docker</span></div>
+    <p>Crypto algo-trading platform (spot + futures): strategies written in TypeScript, identical in
+    backtest / paper / live. High-fidelity backtester, walk-forward optimizer, live bots with risk guards,
+    self-hosted (Docker, CI/CD).</p>
+  </div>
+  <div class="mission">
+    <div class="mission-head"><b>Path Tracing Engine</b><span class="stack">C++ · Qt · OpenGL</span></div>
+    <p>Photorealistic 3D rendering engine from scratch, multithreaded: .obj/.mtl, material editor,
+    AABB trees, OpenGL preview — github.com/charlespolart/Pathtracing.</p>
+  </div>
+
+</div>
+<div class="rail">
+
+  <div class="box tint">
+    <span class="label">[04] skills</span>
+    <div class="skill-group"><b>Front-end</b><div class="chips"><span class="chip">Angular</span><span class="chip">React</span><span class="chip">Astro</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Tailwind</span><span class="chip">HTML5</span><span class="chip">CSS3</span></div></div>
+    <div class="skill-group"><b>Back-end</b><div class="chips"><span class="chip">Node.js</span><span class="chip">Bun</span><span class="chip">Hono</span><span class="chip">NestJS</span><span class="chip">REST</span><span class="chip">GraphQL</span><span class="chip">Drizzle ORM</span><span class="chip">Microservices</span></div></div>
+    <div class="skill-group"><b>Data &amp; cloud</b><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">Redis</span><span class="chip">AWS S3 / R2</span><span class="chip">Cloudflare</span><span class="chip">Firebase</span><span class="chip">Docker</span></div></div>
+    <div class="skill-group"><b>DevOps &amp; tools</b><div class="chips"><span class="chip">Git</span><span class="chip">CI/CD</span><span class="chip">Vite</span><span class="chip">Caddy</span><span class="chip">Jest</span><span class="chip">Playwright</span><span class="chip">Agile/Scrum</span><span class="chip">TDD</span></div></div>
+    <div class="skill-group"><b>Software</b><div class="chips"><span class="chip">C++</span><span class="chip">C#</span><span class="chip">Qt</span><span class="chip">WPF</span></div></div>
+  </div>
+
+  <div class="box">
+    <span class="label">[05] languages</span>
+    <div class="line">French — native</div>
+    <div class="line">English — fluent</div>
+    <div class="line">Chinese (<span class="cjk">中文</span>) — basics</div>
+  </div>
+
+  <div class="box">
+    <span class="label">[06] education</span>
+    <div class="edu">
+      <b>Epitech, Rennes</b>
+      <span>Information Technology Expert (Master's)</span>
+      <span class="dates">2014 — 2019</span>
+    </div>
+    <div class="edu">
+      <b>Beijing Jiaotong University</b>
+      <span>University exchange — Beijing, China</span>
+      <span class="dates">2017 — 2018</span>
+    </div>
+  </div>
+
+  <div class="box">
+    <span class="label">[07] system status</span>
+    <div class="line mono okline">> available <span class="ok">[ OK ]</span></div>
+    <div class="line mono okline">> remote <span class="ok">[ OK ]</span></div>
+  </div>
+
+</div>
+</div>
+
+</body>
+</html>

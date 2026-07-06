@@ -100,7 +100,7 @@ export default function CvDownload({ locale }: Props) {
 
   function triggerDownload() {
     const a = document.createElement('a');
-    a.href = '/cv.pdf';
+    a.href = locale === 'fr' ? '/cv.pdf' : '/cv-en.pdf';
     a.download = 'Charles_Polart_CV.pdf';
     document.body.appendChild(a);
     a.click();
