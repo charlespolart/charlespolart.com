@@ -13,7 +13,7 @@ export const experience: Bilingual<ExperienceEntry[]> = {
           client: 'Dian Dian · 点点',
           project: 'cross-platform year tracker',
           description:
-            'Flutter app (iOS / Android / web) + Express / TypeScript / Postgres backend, real-time WebSocket sync, JWT auth, Sign in with Apple / Google, RevenueCat in-app purchases, AdMob. Self-hosted (Docker, CI/CD).',
+            'Flutter app (iOS / Android) + Express / TypeScript / Postgres backend, real-time WebSocket sync, JWT auth, Sign in with Apple / Google, RevenueCat in-app purchases, AdMob. Self-hosted (Docker, CI/CD).',
         },
       ],
     },
@@ -146,7 +146,7 @@ export const experience: Bilingual<ExperienceEntry[]> = {
           client: 'Dian Dian · 点点',
           project: "suivi visuel d'année cross-platform",
           description:
-            "App Flutter (iOS / Android / web) + backend Express / TypeScript / Postgres, sync temps réel WebSocket, auth JWT, Sign in with Apple / Google, achats in-app RevenueCat, AdMob. Auto-hébergée (Docker, CI/CD).",
+            "App Flutter (iOS / Android) + backend Express / TypeScript / Postgres, sync temps réel WebSocket, auth JWT, Sign in with Apple / Google, achats in-app RevenueCat, AdMob. Auto-hébergée (Docker, CI/CD).",
         },
       ],
     },

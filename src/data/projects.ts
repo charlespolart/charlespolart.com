@@ -129,7 +129,7 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Flutter · Dart · Express · TypeScript · Postgres · WebSocket',
         meta: 'Indie product · stores · 2025',
         description:
-          'Cross-platform visual year tracker : color-code each day of the year on a 12-month × 31-day grid, with a pixel-art, cozy-book aesthetic. End-to-end build — Flutter client (iOS / Android / web), Express + TypeScript + Postgres backend, real-time WebSocket sync across devices. JWT auth with refresh rotation, Sign in with Apple / Google, RevenueCat in-app purchases. Self-hosted on a single VPS via Docker Compose + Caddy, shipped through GitHub Actions → GHCR.',
+          'Cross-platform visual year tracker : color-code each day of the year on a 12-month × 31-day grid, with a pixel-art, cozy-book aesthetic. End-to-end build — Flutter client (iOS / Android), Express + TypeScript + Postgres backend, real-time WebSocket sync across devices. JWT auth with refresh rotation, Sign in with Apple / Google, RevenueCat in-app purchases. Self-hosted on a single VPS via Docker Compose + Caddy, shipped through GitHub Actions → GHCR.',
         features: [
           'Year grid : 12 months × 31 days, pastel + custom colors, drag-reorder legends, quick-fill',
           'Real-time WebSocket sync across devices, multi-year trackers, PNG export, 7 themes + dark mode',
@@ -329,7 +329,7 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Flutter · Dart · Express · TypeScript · Postgres · WebSocket',
         meta: 'Produit indé · stores · 2025',
         description:
-          "Tracker visuel d'année cross-platform : colorie chaque jour de l'année sur une grille 12 mois × 31 jours, avec une esthétique pixel-art « cozy book ». Réalisé de bout en bout — client Flutter (iOS / Android / web), backend Express + TypeScript + Postgres, sync temps réel WebSocket entre appareils. Auth JWT avec rotation des refresh tokens, Sign in with Apple / Google, achats in-app RevenueCat. Auto-hébergé sur un VPS unique via Docker Compose + Caddy, déployé par GitHub Actions → GHCR.",
+          "Tracker visuel d'année cross-platform : colorie chaque jour de l'année sur une grille 12 mois × 31 jours, avec une esthétique pixel-art « cozy book ». Réalisé de bout en bout — client Flutter (iOS / Android), backend Express + TypeScript + Postgres, sync temps réel WebSocket entre appareils. Auth JWT avec rotation des refresh tokens, Sign in with Apple / Google, achats in-app RevenueCat. Auto-hébergé sur un VPS unique via Docker Compose + Caddy, déployé par GitHub Actions → GHCR.",
         features: [
           'Grille annuelle : 12 mois × 31 jours, couleurs pastel + custom, légendes réordonnables (drag), remplissage rapide',
           'Sync temps réel WebSocket entre appareils, trackers multi-années, export PNG, 7 thèmes + mode sombre',
