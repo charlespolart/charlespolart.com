@@ -125,8 +125,31 @@ export const projects: Bilingual<ProjectGroups> = {
     ],
     personal: [
       {
-        id: 'pathtracing',
+        id: 'algo-trading',
         num: '[09]',
+        title: 'Algo Trading Platform',
+        stack: 'Bun · TypeScript · Hono · React · Postgres · Docker',
+        meta: 'Personal · 2025—2026',
+        description:
+          'Crypto algorithmic trading platform (spot + USDT-M futures) : execution and market data through exchange APIs. Strategies written in TypeScript run identically in backtest, paper and live — high-fidelity backtester, walk-forward optimizer and live bots with risk guards.',
+        features: [
+          'TypeScript-native strategies — identical code in backtest / paper / live, no lookahead by construction',
+          'High-fidelity backtester : candle or replayed aggTrades, fees / slippage / funding, walk-forward optimizer',
+          'Live / paper / testnet bots : virtual allocation, risk guards, kill switch, Telegram alerts',
+          'Self-hosted on VPS : Docker, Caddy (auto-TLS + mTLS), CI/CD to GHCR',
+        ],
+        screenshots: [
+          '/projects/algo-trading/01.png',
+          '/projects/algo-trading/02.png',
+          '/projects/algo-trading/03.png',
+          '/projects/algo-trading/04.png',
+          '/projects/algo-trading/05.png',
+          '/projects/algo-trading/06.png',
+        ],
+      },
+      {
+        id: 'pathtracing',
+        num: '[10]',
         title: 'Path Tracing Engine',
         stack: 'C++ · Qt · OpenGL · STL',
         meta: 'Personal · 2019—2022',
@@ -148,26 +171,6 @@ export const projects: Bilingual<ProjectGroups> = {
           '/projects/pathtracing/05.png',
           '/projects/pathtracing/06.png',
           '/projects/pathtracing/07.png',
-        ],
-      },
-      {
-        id: 'crypto-bot',
-        num: '[10]',
-        title: 'Crypto Trading Bot',
-        stack: 'Angular · Bun · TypeScript · Binance API',
-        meta: 'Personal · 2019—2022',
-        description:
-          'Automated trading on Binance with a pluggable strategy system and a backtesting harness — designed to iterate on strategies without touching plumbing.',
-        features: [
-          'Indicators : RSI, EMA, EMACross, ATR, SwingLow',
-          'Hot-swap strategies, position state machine',
-          'Persisted trade history for replay & backtests',
-        ],
-        screenshots: [
-          '/projects/crypto-bot/01.png',
-          '/projects/crypto-bot/02.png',
-          '/projects/crypto-bot/03.png',
-          '/projects/crypto-bot/04.png',
         ],
       },
     ],
@@ -296,8 +299,31 @@ export const projects: Bilingual<ProjectGroups> = {
     ],
     personal: [
       {
-        id: 'pathtracing',
+        id: 'algo-trading',
         num: '[09]',
+        title: 'Algo Trading Platform',
+        stack: 'Bun · TypeScript · Hono · React · Postgres · Docker',
+        meta: 'Perso · 2025—2026',
+        description:
+          "Plateforme de trading algorithmique crypto (spot + futures USDT-M) : exécution et données de marché via les API des exchanges. Les stratégies écrites en TypeScript tournent à l'identique en backtest, paper et live — backtester haute-fidélité, optimiseur walk-forward et bots live avec garde-fous de risque.",
+        features: [
+          'Stratégies en TypeScript — code identique en backtest / paper / live, sans lookahead par construction',
+          'Backtester haute-fidélité : bougies ou aggTrades rejoués, frais / slippage / funding, optimiseur walk-forward',
+          'Bots live / paper / testnet : allocation virtuelle, garde-fous de risque, kill switch, alertes Telegram',
+          'Auto-hébergé sur VPS : Docker, Caddy (auto-TLS + mTLS), CI/CD vers GHCR',
+        ],
+        screenshots: [
+          '/projects/algo-trading/01.png',
+          '/projects/algo-trading/02.png',
+          '/projects/algo-trading/03.png',
+          '/projects/algo-trading/04.png',
+          '/projects/algo-trading/05.png',
+          '/projects/algo-trading/06.png',
+        ],
+      },
+      {
+        id: 'pathtracing',
+        num: '[10]',
         title: 'Path Tracing Engine',
         stack: 'C++ · Qt · OpenGL · STL',
         meta: 'Perso · 2019—2022',
@@ -319,26 +345,6 @@ export const projects: Bilingual<ProjectGroups> = {
           '/projects/pathtracing/05.png',
           '/projects/pathtracing/06.png',
           '/projects/pathtracing/07.png',
-        ],
-      },
-      {
-        id: 'crypto-bot',
-        num: '[10]',
-        title: 'Crypto Trading Bot',
-        stack: 'Angular · Bun · TypeScript · Binance API',
-        meta: 'Perso · 2019—2022',
-        description:
-          'Trading automatisé sur Binance avec un système de stratégies pluggable et un harness de backtesting — pour itérer sur les stratégies sans toucher à la tuyauterie.',
-        features: [
-          'Indicateurs : RSI, EMA, EMACross, ATR, SwingLow',
-          'Changement de stratégie à chaud, machine à états des positions',
-          'Historique des trades persisté pour replay & backtests',
-        ],
-        screenshots: [
-          '/projects/crypto-bot/01.png',
-          '/projects/crypto-bot/02.png',
-          '/projects/crypto-bot/03.png',
-          '/projects/crypto-bot/04.png',
         ],
       },
     ],
