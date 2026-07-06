@@ -9,6 +9,7 @@ const { locale } = Astro.props;
 const meta = ui[locale].sections.experience;
 const entries = experience[locale];
 const nowLabel = locale === 'en' ? 'now' : 'maintenant';
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 ---
 
 <Section id="experience" num="03" meta={meta}>
@@ -36,7 +37,7 @@ const nowLabel = locale === 'en' ? 'now' : 'maintenant';
             {entry.items.map((item) => (
               <li>
                 {item.client && <span class="client">{item.client}</span>}
-                {item.project && <> · <span class="proj">{item.project}</span></>}
+                {item.project && <> · <span class="proj">{cap(item.project)}</span></>}
                 {item.dates && <> · <span class="sub-dates">{item.dates}</span></>}
                 {(item.client || item.project || item.dates) && ' — '}
                 <span>{item.description}</span>
