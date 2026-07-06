@@ -123,10 +123,27 @@ export const projects: Bilingual<ProjectGroups> = {
           'Thematic image-sharing site for a humanitarian NGO. Content publishing, discovery feed and community interactions (likes, comments).',
       },
     ],
+    apps: [
+      {
+        id: 'dian-dian',
+        num: '[09]',
+        title: 'Dian Dian · 点点',
+        stack: 'Flutter · Dart · Express · TypeScript · Postgres · WebSocket',
+        meta: 'Indie product · stores · 2025',
+        description:
+          'Cross-platform visual year tracker : color-code each day of the year on a 12-month × 31-day grid, with a pixel-art, cozy-book aesthetic. End-to-end build — Flutter client (iOS / Android / web), Express + TypeScript + Postgres backend, real-time WebSocket sync across devices. JWT auth with refresh rotation, Sign in with Apple / Google, RevenueCat in-app purchases. Self-hosted on a single VPS via Docker Compose + Caddy, shipped through GitHub Actions → GHCR.',
+        features: [
+          'Year grid : 12 months × 31 days, pastel + custom colors, drag-reorder legends, quick-fill',
+          'Real-time WebSocket sync across devices, multi-year trackers, PNG export, 7 themes + dark mode',
+          'Stats : days filled, best streak, yearly %, distribution, monthly + day-of-week breakdown',
+          'Premium : RevenueCat (monthly / yearly / lifetime + trial), custom pixel-art paywall, AdMob',
+        ],
+      },
+    ],
     personal: [
       {
         id: 'algo-trading',
-        num: '[09]',
+        num: '[10]',
         title: 'Algo Trading Platform',
         stack: 'Bun · TypeScript · Hono · React · Postgres · Docker',
         meta: 'Personal · 2025—2026',
@@ -149,7 +166,7 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'pathtracing',
-        num: '[10]',
+        num: '[11]',
         title: 'Path Tracing Engine',
         stack: 'C++ · Qt · OpenGL · STL',
         meta: 'Personal · 2019—2022',
@@ -297,10 +314,27 @@ export const projects: Bilingual<ProjectGroups> = {
           "Site de partage d'images autour de thématiques liées à des causes humanitaires : publication de contenus, fil de découverte, interactions communautaires (likes, commentaires).",
       },
     ],
+    apps: [
+      {
+        id: 'dian-dian',
+        num: '[09]',
+        title: 'Dian Dian · 点点',
+        stack: 'Flutter · Dart · Express · TypeScript · Postgres · WebSocket',
+        meta: 'Produit indé · stores · 2025',
+        description:
+          "Tracker visuel d'année cross-platform : colorie chaque jour de l'année sur une grille 12 mois × 31 jours, avec une esthétique pixel-art « cozy book ». Réalisé de bout en bout — client Flutter (iOS / Android / web), backend Express + TypeScript + Postgres, sync temps réel WebSocket entre appareils. Auth JWT avec rotation des refresh tokens, Sign in with Apple / Google, achats in-app RevenueCat. Auto-hébergé sur un VPS unique via Docker Compose + Caddy, déployé par GitHub Actions → GHCR.",
+        features: [
+          'Grille annuelle : 12 mois × 31 jours, couleurs pastel + custom, légendes réordonnables (drag), remplissage rapide',
+          'Sync temps réel WebSocket entre appareils, trackers multi-années, export PNG, 7 thèmes + mode sombre',
+          'Stats : jours remplis, meilleure série, % annuel, distribution, répartition par mois + jour de la semaine',
+          'Premium : RevenueCat (mensuel / annuel / à vie + essai), paywall pixel-art custom, AdMob',
+        ],
+      },
+    ],
     personal: [
       {
         id: 'algo-trading',
-        num: '[09]',
+        num: '[10]',
         title: 'Algo Trading Platform',
         stack: 'Bun · TypeScript · Hono · React · Postgres · Docker',
         meta: 'Perso · 2025—2026',
@@ -323,7 +357,7 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'pathtracing',
-        num: '[10]',
+        num: '[11]',
         title: 'Path Tracing Engine',
         stack: 'C++ · Qt · OpenGL · STL',
         meta: 'Perso · 2019—2022',

@@ -58,6 +58,7 @@ export interface ProjectEntry {
 
 export interface ProjectGroups {
   work: ProjectEntry[];
+  apps: ProjectEntry[];
   personal: ProjectEntry[];
 }
 
