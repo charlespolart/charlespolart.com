@@ -3,6 +3,21 @@ import type { Bilingual, ExperienceEntry } from './types';
 export const experience: Bilingual<ExperienceEntry[]> = {
   en: [
     {
+      id: 'app-studio',
+      title: 'Mobile App Publisher',
+      dateStart: '2025',
+      dateEnd: 'now',
+      tag: 'Cross-platform mobile apps · built, published & monetized',
+      items: [
+        {
+          client: 'Dian Dian · 点点',
+          project: 'cross-platform year tracker',
+          description:
+            'Flutter app (iOS / Android / web) + Express / TypeScript / Postgres backend, real-time WebSocket sync, JWT auth, Sign in with Apple / Google, RevenueCat in-app purchases, AdMob. Self-hosted (Docker, CI/CD).',
+        },
+      ],
+    },
+    {
       id: 'freelance',
       title: 'Freelance Developer',
       dateStart: '2017.02',
@@ -120,6 +135,21 @@ export const experience: Bilingual<ExperienceEntry[]> = {
     },
   ],
   fr: [
+    {
+      id: 'app-studio',
+      title: "Éditeur d'applications mobiles",
+      dateStart: '2025',
+      dateEnd: 'now',
+      tag: 'Apps mobiles cross-platform · conçues, publiées & monétisées',
+      items: [
+        {
+          client: 'Dian Dian · 点点',
+          project: "suivi visuel d'année cross-platform",
+          description:
+            "App Flutter (iOS / Android / web) + backend Express / TypeScript / Postgres, sync temps réel WebSocket, auth JWT, Sign in with Apple / Google, achats in-app RevenueCat, AdMob. Auto-hébergée (Docker, CI/CD).",
+        },
+      ],
+    },
     {
       id: 'freelance',
       title: 'Développeur Freelance',
