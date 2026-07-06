@@ -55,11 +55,11 @@ const labels = locale === 'en'
               {p.features.map((f) => <li>{f}</li>)}
             </ul>
           )}
-          {p.link && (
-            <a class="proj-link" href={p.link} rel="noopener" target="_blank">
-              {p.linkLabel ?? p.link}
+          {p.links?.map((l) => (
+            <a class="proj-link" href={l.url} rel="noopener" target="_blank">
+              {l.label}
             </a>
-          )}
+          ))}
           {hasShots && (
             <div class="proj-shots-bar" aria-hidden="true">
               <span class="proj-shots-bar-left">&gt; {p.screenshots!.length} {labels.shotsAvail}</span>
@@ -108,11 +108,11 @@ const labels = locale === 'en'
               {p.features.map((f) => <li>{f}</li>)}
             </ul>
           )}
-          {p.link && (
-            <a class="proj-link" href={p.link} rel="noopener" target="_blank">
-              {p.linkLabel ?? p.link}
+          {p.links?.map((l) => (
+            <a class="proj-link" href={l.url} rel="noopener" target="_blank">
+              {l.label}
             </a>
-          )}
+          ))}
           {hasShots && (
             <div class="proj-shots-bar" aria-hidden="true">
               <span class="proj-shots-bar-left">&gt; {p.screenshots!.length} {labels.shotsAvail}</span>
@@ -161,11 +161,11 @@ const labels = locale === 'en'
               {p.features.map((f) => <li>{f}</li>)}
             </ul>
           )}
-          {p.link && (
-            <a class="proj-link" href={p.link} rel="noopener" target="_blank">
-              {p.linkLabel ?? p.link}
+          {p.links?.map((l) => (
+            <a class="proj-link" href={l.url} rel="noopener" target="_blank">
+              {l.label}
             </a>
-          )}
+          ))}
           {hasShots && (
             <div class="proj-shots-bar" aria-hidden="true">
               <span class="proj-shots-bar-left">&gt; {p.screenshots!.length} {labels.shotsAvail}</span>

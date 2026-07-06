@@ -63,8 +63,7 @@ export const projects: Bilingual<ProjectGroups> = {
           'Surveyor availability + booking flow with geolocation',
           'Stripe payments, Twilio SMS verification, reviews',
         ],
-        link: 'https://www.kiwidiag.com',
-        linkLabel: 'kiwidiag.com',
+        links: [{ url: 'https://www.kiwidiag.com', label: 'kiwidiag.com' }],
         screenshots: ['/projects/kiwidiag/01.png', '/projects/kiwidiag/02.png'],
       },
       {
@@ -109,8 +108,7 @@ export const projects: Bilingual<ProjectGroups> = {
         meta: 'Freelance',
         description:
           'Backend for a temp-work matchmaking site : job search, account + CV upload, full admin for ads / news / users.',
-        link: 'https://www.capainterim.com',
-        linkLabel: 'capainterim.com',
+        links: [{ url: 'https://www.capainterim.com', label: 'capainterim.com' }],
         screenshots: ['/projects/capa/01.png', '/projects/capa/02.png'],
       },
       {
@@ -137,6 +135,10 @@ export const projects: Bilingual<ProjectGroups> = {
           'Real-time WebSocket sync across devices, multi-year trackers, PNG export, 7 themes + dark mode',
           'Stats : days filled, best streak, yearly %, distribution, monthly + day-of-week breakdown',
           'Premium : RevenueCat (monthly / yearly / lifetime + trial), custom pixel-art paywall, AdMob',
+        ],
+        links: [
+          { url: 'https://apps.apple.com/app/id6761432329', label: 'App Store' },
+          { url: 'https://diandian.overridedev.com', label: 'diandian.overridedev.com' },
         ],
         screenshots: [
           '/projects/dian-dian/01.png',
@@ -186,8 +188,7 @@ export const projects: Bilingual<ProjectGroups> = {
           'OpenGL preview with mouse-driven camera',
           'JSON scene save / import',
         ],
-        link: 'https://github.com/charlespolart/Pathtracing',
-        linkLabel: 'github.com/charlespolart/Pathtracing',
+        links: [{ url: 'https://github.com/charlespolart/Pathtracing', label: 'github.com/charlespolart/Pathtracing' }],
         screenshots: [
           '/projects/pathtracing/01.png',
           '/projects/pathtracing/02.png',
@@ -262,8 +263,7 @@ export const projects: Bilingual<ProjectGroups> = {
           'Dispo des diagnostiqueurs + flow de réservation géolocalisé',
           'Paiements Stripe, vérification SMS Twilio, avis',
         ],
-        link: 'https://www.kiwidiag.com',
-        linkLabel: 'kiwidiag.com',
+        links: [{ url: 'https://www.kiwidiag.com', label: 'kiwidiag.com' }],
         screenshots: ['/projects/kiwidiag/01.png', '/projects/kiwidiag/02.png'],
       },
       {
@@ -308,8 +308,7 @@ export const projects: Bilingual<ProjectGroups> = {
         meta: 'Freelance',
         description:
           "Backend d'un site d'intérim : recherche d'annonces, compte + upload CV, partie admin complète pour annonces / actus / utilisateurs.",
-        link: 'https://www.capainterim.com',
-        linkLabel: 'capainterim.com',
+        links: [{ url: 'https://www.capainterim.com', label: 'capainterim.com' }],
         screenshots: ['/projects/capa/01.png', '/projects/capa/02.png'],
       },
       {
@@ -336,6 +335,10 @@ export const projects: Bilingual<ProjectGroups> = {
           'Sync temps réel WebSocket entre appareils, trackers multi-années, export PNG, 7 thèmes + mode sombre',
           'Stats : jours remplis, meilleure série, % annuel, distribution, répartition par mois + jour de la semaine',
           'Premium : RevenueCat (mensuel / annuel / à vie + essai), paywall pixel-art custom, AdMob',
+        ],
+        links: [
+          { url: 'https://apps.apple.com/app/id6761432329', label: 'App Store' },
+          { url: 'https://diandian.overridedev.com', label: 'diandian.overridedev.com' },
         ],
         screenshots: [
           '/projects/dian-dian/01.png',
@@ -385,8 +388,7 @@ export const projects: Bilingual<ProjectGroups> = {
           'Prévisu OpenGL avec placement caméra à la souris',
           'Sérialisation des scènes en JSON (save / import)',
         ],
-        link: 'https://github.com/charlespolart/Pathtracing',
-        linkLabel: 'github.com/charlespolart/Pathtracing',
+        links: [{ url: 'https://github.com/charlespolart/Pathtracing', label: 'github.com/charlespolart/Pathtracing' }],
         screenshots: [
           '/projects/pathtracing/01.png',
           '/projects/pathtracing/02.png',

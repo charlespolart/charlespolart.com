@@ -42,6 +42,11 @@ export interface ExperienceEntry {
   items: ExperienceItem[];
 }
 
+export interface ProjectLink {
+  url: string;
+  label: string;
+}
+
 export interface ProjectEntry {
   id: string;
   num: string;
@@ -50,8 +55,7 @@ export interface ProjectEntry {
   meta: string;
   description: string;
   features?: string[];
-  link?: string;
-  linkLabel?: string;
+  links?: ProjectLink[];
   /** Public paths to screenshot files, e.g. ['/projects/kiwidiag/01.jpg']. */
   screenshots?: string[];
 }
