@@ -10,7 +10,7 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Flutter · Bun · Dart · TS/JS',
         meta: 'Freelance · political social network',
         description:
-          'Public-debate platform for citizens, journalists and public figures. Flutter mobile app + Bun-powered REST API. Multi-role accounts with verification, feeds, posts, reactions, polls, hashtags and moderation. RGPD-compliant FR hosting, CI/CD pipeline.',
+          'Public-debate mobile platform — Flutter app + Bun REST API. Verified multi-role accounts, posts, polls, hashtags, moderation. GDPR-compliant FR hosting, CI/CD.',
         features: [
           'Multi-role identity with account verification',
           'Posts, polls, reactions, comments, hashtags',
@@ -35,7 +35,7 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Angular · TypeScript · RxJS · Elasticsearch',
         meta: 'Freelance · enterprise · regulatory texts',
         description:
-          "Front-end refactor of DigiDoc+, SNCF's internal documentary platform delivering rail prescription texts (regulations, instructions, safety & operation consignes) to every agent on the network — successor to DigiDoc / Syspre. Daily-use tool : the right text, in the right version, to the right agent. Angular / TypeScript / RxJS, faceted full-text search backed by Elasticsearch. Agile collaboration with back-end and SARDO business teams.",
+          "Front-end refactor of DigiDoc+, SNCF's internal platform delivering rail prescription texts (regulations, safety instructions) to every agent — successor to DigiDoc / Syspre. Angular / TypeScript / RxJS, faceted full-text search (Elasticsearch).",
         features: [
           'Faceted full-text search across the regulatory corpus (Elasticsearch)',
           'Navigation by themes, business activities, document types, regions',
@@ -227,7 +227,7 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Flutter · Bun · Dart · TS/JS',
         meta: 'Freelance · réseau social politique',
         description:
-          "Plateforme de débat public pour citoyens, journalistes et responsables politiques. App mobile Flutter + API REST sous Bun. Comptes multi-rôles avec vérification, fil d'actualité, posts, réactions, sondages, hashtags et modération. Hébergement FR conforme RGPD, CI/CD.",
+          "Plateforme mobile de débat public — app Flutter + API REST sous Bun. Comptes multi-rôles vérifiés, posts, sondages, hashtags, modération. Hébergement FR conforme RGPD, CI/CD.",
         features: [
           'Identité multi-rôles avec vérification de compte',
           'Posts, sondages, réactions, commentaires, hashtags',
@@ -252,7 +252,7 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Angular · TypeScript · RxJS · Elasticsearch',
         meta: 'Freelance · entreprise · textes réglementaires',
         description:
-          "Refonte front-end de DigiDoc+, la plateforme documentaire interne de la SNCF qui diffuse les textes de prescription ferroviaire (règlements, instructions, consignes de sécurité et d'exploitation) à l'ensemble des cheminots — successeur de DigiDoc / Syspre. Outil d'usage quotidien : le bon texte, dans la bonne version, au bon agent. Angular / TypeScript / RxJS, recherche plein texte à facettes adossée à Elasticsearch. Collaboration agile avec les équipes back-end et métier (SARDO).",
+          "Refonte front-end de DigiDoc+, la plateforme interne SNCF qui diffuse les textes de prescription ferroviaire (règlements, consignes de sécurité) à l'ensemble des cheminots — successeur de DigiDoc / Syspre. Angular / TypeScript / RxJS, recherche plein texte à facettes (Elasticsearch).",
         features: [
           'Recherche plein texte à facettes sur le corpus réglementaire (Elasticsearch)',
           'Navigation par thèmes, activités métiers, types de documents, régions',
