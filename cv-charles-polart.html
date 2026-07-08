@@ -4,239 +4,225 @@
 <meta charset="utf-8" />
 <title>CV — Charles Polart</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
   @page { size: A4; margin: 0; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 210mm; }
+
+  :root {
+    --paper:#ffffff; --card:#f7f5f0; --card2:#f1eee6; --line:#e4ded1; --line2:#d8d1c1;
+    --ink:#1c1b18; --soft:#585141; --mute:#8b8474;
+    --amber:#a5610a; --teal:#0e7490; --teal-ink:#0b6070; --green:#2f7d32; --indigo:#4b41ad;
+    --teal-tint:#ecf6f8; --teal-line:#d3e8ee; --indigo-tint:#efedfa; --indigo-line:#ddd8f4; --amber-tint:#fbf2e3;
+  }
+  html,body { width:210mm; }
   body {
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
-    color: #211e18;
-    font-size: 8.6pt;
-    line-height: 1.33;
-    padding: 6mm 12mm 3mm;
-    -webkit-print-color-adjust: exact;
+    font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,sans-serif;
+    color:var(--ink); background:var(--paper);
+    font-size:8.7pt; line-height:1.42; padding:11mm 12mm 8mm;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
   }
-  .mono { font-family: 'SF Mono', Menlo, monospace; }
-  .cjk { font-family: 'PingFang SC', 'Hiragino Sans GB', 'Songti SC', 'STHeiti', sans-serif; font-weight: 400; }
+  .mono{ font-family:'IBM Plex Mono','SF Mono',Menlo,monospace; }
+  .cjk{ font-family:'PingFang SC','Hiragino Sans GB','Songti SC',sans-serif; font-weight:400; }
 
-  /* ─── header ─── */
-  .prompt { font-family: 'SF Mono', Menlo, monospace; font-size: 7pt; color: #a89e8c; margin-bottom: 1.2mm; }
-  .prompt b { color: #b06a00; font-weight: 400; }
-  .cursor { color: #b06a00; }
-  .dot { color: #2e7d32; font-size: 6pt; vertical-align: 0.4pt; }
-  header { display: flex; justify-content: space-between; align-items: flex-end;
-           border: 1px solid #211e18; padding: 3mm 4.5mm; background: #ffffff; }
-  h1 { font-size: 22pt; font-weight: 700; letter-spacing: -0.015em; line-height: 1; }
-  .role { margin-top: 1.8mm; font-size: 10pt; font-weight: 600; color: #b06a00; }
-  .role span { font-weight: 400; color: #6f6859; }
-  .contact { text-align: right; font-size: 7.4pt; line-height: 1.65; color: #57503f; }
-  .contact .site { font-weight: 700; color: #b06a00; font-size: 8.2pt; }
+  .prompt{ font-family:'IBM Plex Mono',monospace; font-size:7.2pt; color:var(--mute); margin-bottom:2.4mm; }
+  .prompt b{ color:var(--amber); font-weight:500; }
+  .cur{ color:var(--amber); }
 
-  .statusbar {
-    display: flex; justify-content: space-between;
-    border: 1px solid #211e18; border-top: 0;
-    padding: 1.2mm 4.5mm; font-size: 6.5pt; color: #57503f;
-    background: #f7f2e7;
-  }
-  .statusbar b { color: #2e7d32; }
+  /* header */
+  .head{ display:grid; grid-template-columns:1fr 62mm; gap:8mm; align-items:end;
+         padding-bottom:4mm; border-bottom:1.2px dashed #c6bda9; }
+  h1{ font-size:27pt; font-weight:700; letter-spacing:-.02em; line-height:.98; }
+  h1 .d{ color:var(--amber); }
+  .role{ font-family:'IBM Plex Mono',monospace; font-size:8pt; color:var(--soft); margin-top:2mm; }
+  .role .s{ color:var(--teal-ink); }
+  .tag{ font-size:9.6pt; line-height:1.4; margin-top:3.2mm; max-width:98%; color:#2c2a25; }
+  .tag em{ font-style:normal; font-weight:600; color:var(--green); }
+  .tag b{ font-weight:600; color:var(--indigo); }
+  .status{ display:inline-flex; align-items:center; gap:2mm; margin-top:3.4mm;
+           background:#edf7ee; border:1px solid #cfe6d1; color:var(--green);
+           font-family:'IBM Plex Mono',monospace; font-size:6.9pt; font-weight:600;
+           padding:1mm 2.4mm; border-radius:999px; letter-spacing:.02em; }
+  .status .p{ width:5px; height:5px; border-radius:50%; background:var(--green); }
 
-  /* ─── corps en deux colonnes ─── */
-  .cols { display: grid; grid-template-columns: 1fr 52mm; column-gap: 7mm; margin-top: 4mm; }
+  .idcard{ background:var(--card); border:1px solid var(--line); border-radius:2mm; padding:3mm 3.4mm; }
+  .idcard .t{ font-family:'IBM Plex Mono',monospace; font-size:6.4pt; color:var(--mute); letter-spacing:.06em; margin-bottom:1.8mm; }
+  .idrow{ display:flex; gap:2mm; font-size:7.3pt; line-height:1.7; }
+  .idrow .k{ font-family:'IBM Plex Mono',monospace; color:var(--amber); width:15mm; flex:none; font-size:6.4pt; letter-spacing:.04em; padding-top:.3mm; }
+  .idrow .v{ color:var(--soft); } .idrow .v b{ color:var(--ink); font-weight:600; }
 
-  h2 { font-size: 9.5pt; font-weight: 700; letter-spacing: 0.1em; margin: 3mm 0 1.8mm;
-       display: flex; align-items: baseline; gap: 2mm; }
-  h2:first-of-type { margin-top: 0; }
-  h2 .no { font-family: 'SF Mono', Menlo, monospace; font-size: 8pt; font-weight: 400; color: #b06a00; }
-  h2::after { content: ''; flex: 1; border-top: 0.7px solid #ddd5c2; }
+  /* kpis */
+  .kpis{ display:grid; grid-template-columns:repeat(4,1fr); gap:3mm; margin-top:4mm; }
+  .kpi{ background:var(--card); border:1px solid var(--line); border-radius:2mm; padding:2.2mm 3mm; }
+  .kpi .num{ font-family:'IBM Plex Mono',monospace; font-size:14pt; font-weight:600; color:var(--green); line-height:1; height:5mm; display:flex; align-items:flex-end; }
+  .kpi .lbl{ font-family:'IBM Plex Mono',monospace; font-size:6pt; color:var(--mute); text-transform:uppercase; letter-spacing:.04em; margin-top:1.6mm; line-height:1.25; }
 
-  .entry { margin-bottom: 2.2mm; }
-  .entry-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.2mm; }
-  .entry-head h3 { font-size: 10pt; font-weight: 700; }
-  .entry-head h3 span { font-weight: 400; font-size: 7.8pt; color: #7d7563; }
-  .dates { font-family: 'SF Mono', Menlo, monospace; font-size: 6.8pt; color: #b06a00; }
+  /* sections */
+  section{ margin-top:6mm; }
+  h2{ display:flex; align-items:center; gap:2.4mm; margin-bottom:2.8mm; padding-bottom:1.4mm; border-bottom:1px solid #cbc2af; break-after:avoid; }
+  h2 .no{ font-family:'IBM Plex Mono',monospace; font-size:6.6pt; font-weight:600; color:#fff; background:var(--amber); padding:.5mm 1.4mm; border-radius:1mm; letter-spacing:.02em; }
+  h2 .tt{ font-size:11.5pt; font-weight:700; letter-spacing:.03em; text-transform:uppercase; }
+  h2 .path{ margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:6.6pt; color:var(--mute); }
 
-  .mission { margin-bottom: 1.4mm; padding-left: 3.6mm; position: relative; }
-  .mission::before { content: '>'; position: absolute; left: 0; top: 0;
-                     font-family: 'SF Mono', Menlo, monospace; font-size: 7.6pt; color: #b06a00; }
-  .mission-head { display: flex; justify-content: space-between; align-items: baseline; }
-  .mission-head b { font-size: 9.2pt; }
-  .stack { font-family: 'SF Mono', Menlo, monospace; font-size: 6.6pt; color: #a89e8c; }
-  .mission p { color: #3c372c; }
+  .profile{ background:var(--amber-tint); border:1px solid #ecdcbd; border-left:2.4px solid var(--amber);
+            border-radius:2mm; padding:2.8mm 3.4mm; font-size:8.7pt; line-height:1.5; color:#3a3223; }
+  .profile b{ font-weight:600; color:var(--ink); }
 
-  /* ─── rail droit : boxes ─── */
-  .rail .box { border: 1px solid #ddd5c2; padding: 2.8mm 3.2mm 2.2mm; margin-bottom: 3mm; }
-  .rail .box.tint { background: #f9f4e8; }
-  
-  
-  .label { font-family: 'SF Mono', Menlo, monospace; font-size: 6.8pt; letter-spacing: 0.16em;
-           color: #b06a00; text-transform: uppercase; display: block; margin-bottom: 1.6mm; }
-  .skill-group { margin-bottom: 2.2mm; }
-  .chips { display: flex; flex-wrap: wrap; gap: 0.9mm; margin-top: 0.7mm; }
-  .chip { border: 1px solid #d9d1bd; background: #fff; border-radius: 1mm; padding: 0.3mm 1.5mm; font-family: 'SF Mono', Menlo, monospace; font-size: 6.2pt; color: #57503f; }
-  .skill-group b { display: block; font-size: 8.2pt; }
-  .skill-group span { font-size: 7.6pt; color: #6f6859; }
-  .rail .line { font-size: 8pt; margin-bottom: 0.8mm; }
-  
-  .edu { margin-bottom: 2.4mm; }
-  .edu b { display: block; font-size: 8.4pt; }
-  .edu span { display: block; font-size: 7.6pt; color: #6f6859; }
-  .edu .dates { margin-top: 0.2mm; }
-  .ok { color: #2e7d32; font-weight: 700; white-space: nowrap; }
-  .okline { display: flex; justify-content: space-between; font-size: 7pt; }
+  /* skills as cards, title on top */
+  .skillgrid{ display:grid; grid-template-columns:1fr 1fr; gap:2.4mm; }
+  .skcard{ background:var(--card); border:1px solid var(--line); border-radius:1.8mm; padding:2mm 2.6mm 2.2mm; break-inside:avoid; }
+  .skcard.wide{ grid-column:1 / -1; }
+  .skh{ font-family:'IBM Plex Mono',monospace; font-size:6.8pt; font-weight:600; color:var(--amber);
+        text-transform:uppercase; letter-spacing:.05em; margin-bottom:1.6mm; }
+  .skh.ia{ color:var(--indigo); }
+  .chips{ display:flex; flex-wrap:wrap; gap:1.1mm; }
+  .chip{ font-family:'IBM Plex Mono',monospace; font-size:6.7pt; padding:.5mm 1.6mm; border-radius:1mm; background:var(--card2); border:1px solid var(--line); color:var(--soft); }
+  .chip.t{ background:var(--teal-tint); border-color:var(--teal-line); color:var(--teal-ink); }
+  .chip.t.pri{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .chip.ai{ background:var(--indigo-tint); border-color:var(--indigo-line); color:var(--indigo); }
+  .ainote{ font-size:7.6pt; color:var(--soft); line-height:1.45; margin-top:1.6mm; }
+  .ainote b{ color:var(--indigo); font-weight:600; }
+
+  /* experience */
+  .xp{ margin-bottom:4mm; }
+  .xp-top{ display:flex; justify-content:space-between; align-items:baseline; }
+  .xp-top, .xp-sub{ break-after:avoid; }
+  .xp-role{ font-size:9.4pt; font-weight:700; } .xp-role .co{ color:var(--amber); }
+  .xp-dates{ font-family:'IBM Plex Mono',monospace; font-size:6.9pt; color:var(--soft); flex:none; padding-left:3mm; }
+  .xp-sub{ font-family:'IBM Plex Mono',monospace; font-size:6.7pt; color:var(--mute); margin:.2mm 0 0; }
+
+  .missions{ display:grid; grid-template-columns:1fr 1fr; gap:1.8mm; align-items:stretch; margin-top:1.6mm; }
+  .mis{ padding:1.6mm 2.4mm; background:var(--card); border:1px solid var(--line); border-left:2.2px solid var(--teal); border-radius:1.4mm; break-inside:avoid; display:flex; flex-direction:column; }
+  .mis.wide{ grid-column:1 / -1; }
+  .mis.ai{ border-left-color:var(--indigo); }
+  .mis.soft{ border-left-color:var(--line2); }
+  .mis-nm{ font-size:8.4pt; font-weight:600; line-height:1.25; } .mis-nm .cl{ color:var(--amber); }
+  .mis-d{ font-family:'IBM Plex Mono',monospace; font-size:5.9pt; color:var(--mute); text-transform:uppercase; letter-spacing:.02em; margin:.6mm 0 .2mm; }
+  .mis-p{ font-size:7.6pt; color:#3c372c; line-height:1.38; margin:.7mm 0 1mm; } .mis-p b{ font-weight:600; color:var(--ink); }
+  .mis-stack{ display:flex; flex-wrap:wrap; gap:1mm; margin-top:auto; padding-top:.4mm; }
+
+  /* formation / langues */
+  .row2{ display:grid; grid-template-columns:1.35fr 1fr; gap:5mm; margin-top:6mm; }
+  .box{ background:var(--card); border:1px solid var(--line); border-radius:2mm; padding:2.6mm 3.2mm; break-inside:avoid; }
+  .edu{ margin-bottom:1.8mm; } .edu:last-child{ margin-bottom:0; }
+  .edu b{ font-size:8.4pt; } .edu span{ display:block; font-size:7.5pt; color:var(--soft); }
+  .edu .dt{ font-family:'IBM Plex Mono',monospace; font-size:6.5pt; color:var(--amber); }
+  .lang{ font-size:8.2pt; line-height:1.7; } .lang .lv{ color:var(--mute); }
+  .foot{ margin-top:4mm; padding-top:2mm; border-top:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:6.6pt; color:var(--mute); display:flex; justify-content:space-between; }
+  .foot .ok{ color:var(--green); }
 </style>
 </head>
 <body>
 
-<div class="prompt mono">charles@polart:~$ <b>cat charles-polart.cv</b><span class="cursor"> ▊</span></div>
+<div class="prompt">charles@polart:~$ <b>cat charles-polart.cv</b><span class="cur"> ▊</span></div>
 
-<header>
+<div class="head">
   <div>
-    <h1>Charles Polart</h1>
-    <div class="role">Développeur Full Stack <span>· Angular · Node · Flutter</span></div>
+    <h1>Charles Polart<span class="d">.</span></h1>
+    <div class="role"><span class="s">const</span> role = <span class="s">"Développeur Full Stack"</span> · Angular · Node · Flutter</div>
+    <p class="tag">Un dev qui <em>pense produit, pas juste code</em>. 8 ans de l'archi à la prod — du réseau social mobile à l'embarqué défense/aéro. <b>L'IA pilotée avec rigueur</b> comme accélérateur, du dev jusqu'aux produits.</p>
+    <span class="status"><span class="p"></span> DISPONIBLE — freelance · remote OK · nouveaux contrats</span>
   </div>
-  <div class="contact">
-    <div class="site mono">charlespolart.com</div>
-    <div>charles.polart@hotmail.fr</div>
-    <div>+33 6 27 75 77 15</div>
-    <div class="mono">github.com/charlespolart · in/charles-polart-638182170</div>
+  <div class="idcard">
+    <div class="t mono">~/contact.env</div>
+    <div class="idrow"><span class="k">WEB</span><span class="v"><b>charlespolart.com</b></span></div>
+    <div class="idrow"><span class="k">EMAIL</span><span class="v">charles.polart@hotmail.fr</span></div>
+    <div class="idrow"><span class="k">PHONE</span><span class="v">+33 6 27 75 77 15</span></div>
+    <div class="idrow"><span class="k">GITHUB</span><span class="v">github.com/charlespolart</span></div>
+    <div class="idrow"><span class="k">LINKEDIN</span><span class="v">in/charles-polart</span></div>
+    <div class="idrow"><span class="k">BASED</span><span class="v">Bretagne, FR · remote-first</span></div>
+    <div class="idrow"><span class="k">LANG</span><span class="v">FR natif · EN courant · <span class="cjk">中文</span></span></div>
   </div>
-</header>
-<div class="statusbar mono">
-  <div>STATUS: <span class="dot">●</span> <b>DISPONIBLE</b> — nouveaux contrats · freelance · remote OK</div>
-  <div>FR · Bretagne | EN courant · <span class="cjk">中文</span> | né 02.03.1995</div>
 </div>
 
-<div class="cols">
-<div class="main">
-
-  <h2><span class="no">[01]</span>PROFIL</h2>
-  <p>Développeur full stack, 8 ans d'expérience sur des applications web, mobiles (iOS &amp; Android)
-  et desktop. Spécialisé Angular, Node.js et Flutter, je prends un projet de A à Z : architecture,
-  backend, APIs, interfaces responsive, mise en production. Également un passif défense / aérospatial
-  en C++/Qt chez Silicom (CEA, Airbus).</p>
-
-  <h2><span class="no">[02]</span>EXPÉRIENCE</h2>
-
-  <div class="entry">
-    <div class="entry-head">
-      <h3>Développeur Freelance <span>web · mobile · desktop</span></h3>
-      <div class="dates">02/2017 — aujourd'hui</div>
-    </div>
-    <div class="mission">
-      <div class="mission-head"><b>Agora Nova</b><span class="stack">Flutter · Dart · Bun</span></div>
-      <p>App mobile + API REST d'un réseau social de débat public : comptes multi-rôles vérifiés, posts,
-      sondages, hashtags, modération. Hébergement FR conforme RGPD, CI/CD.</p>
-    </div>
-    <div class="mission">
-      <div class="mission-head"><b>SNCF · DigiDoc+</b><span class="stack">Angular · TS · RxJS</span></div>
-      <p>Refonte front-end de la plateforme documentaire interne qui diffuse les textes de prescription
-      ferroviaire (règlements, consignes de sécurité) à l'ensemble des cheminots. Recherche plein texte à
-      facettes (Elasticsearch), navigation par classification, favoris. Collaboration agile avec les équipes
-      back-end et métier.</p>
-    </div>
-    <div class="mission">
-      <div class="mission-head"><b>Kiwidiag · kiwidiag.com</b><span class="stack">Node · GraphQL · PostgreSQL</span></div>
-      <p>Backend de la marketplace de diagnostics immobiliers obligatoires (DPE, amiante, plomb, gaz…) :
-      comptes multi-rôles, réservation géolocalisée de diagnostiqueurs certifiés, paiements Stripe, SMS Twilio.</p>
-    </div>
-    <div class="mission">
-      <div class="mission-head"><b>Leroy Merlin</b><span class="stack">Angular · Node.js</span></div>
-      <p>Développement front et intégration sur le site.</p>
-    </div>
-    <div class="mission">
-      <div class="mission-head"><b>Autres missions</b></div>
-      <p>Backend d'un site d'intérim (capainterim.com) ; plateforme d'images pour une ONG humanitaire ;
-      logiciel de guidage de câblage (C# · WPF) ; extracteur de PDFs scientifiques (C++ · Qt).</p>
-    </div>
-  </div>
-
-  <div class="entry">
-    <div class="entry-head">
-      <h3>Développeur C++/Qt — Silicom <span>défense · aérospatial</span></h3>
-      <div class="dates">12/2020 — 05/2023</div>
-    </div>
-    <div class="mission">
-      <div class="mission-head"><b>CEA</b><span class="stack">C++ · Qt</span></div>
-      <p>Nouvelles fonctionnalités et TMA sur trois outils scientifiques : analyse de signaux sismiques /
-      infrasons / hydroacoustiques pour la surveillance nucléaire (Workspace), suivi des stations du réseau
-      sismique (Diva), impact sanitaire de rejets de polluants (Ceres).</p>
-    </div>
-    <div class="mission">
-      <div class="mission-head"><b>Airbus Defence &amp; Space</b><span class="stack">C++ · Qt</span></div>
-      <p>Nouvelles fonctionnalités d'un logiciel de communication sécurisée sur réseaux sans fil (Magellan).</p>
-    </div>
-  </div>
-
-  <div class="entry">
-    <div class="entry-head">
-      <h3>Stages d'ingénierie <span>défense · aérospatial · embarqué</span></h3>
-      <div class="dates">2016 — 2020</div>
-    </div>
-    <div class="mission"><div class="mission-head"><b>Thales · La Ruche</b><span class="stack">C# · C</span></div>
-      <p>Détection de drones sous Unity + simulateur radar (6 mois).</p></div>
-    <div class="mission"><div class="mission-head"><b>Sogitec · Dassault</b><span class="stack">C++</span></div>
-      <p>Rendu raytracing/rastérisation, simulation de vol (5 mois).</p></div>
-    <div class="mission"><div class="mission-head"><b>R&amp;D Tech France</b><span class="stack">C · C++</span></div>
-      <p>Dev embarqué : lasers, parachute drone, bras robot (7 mois).</p></div>
-  </div>
-
-  <h2><span class="no">[03]</span>APPS &amp; PROJETS</h2>
-  <div class="mission">
-    <div class="mission-head"><b>Dian Dian · <span class="cjk">点点</span></b><span class="stack">Flutter · Express · TS · Postgres</span></div>
-    <p>App de suivi visuel d'année (iOS / Android) : Flutter + Express/Postgres, WebSocket, publiée &amp; monétisée
-    (RevenueCat, AdMob), auto-hébergée Docker.</p>
-  </div>
-  <div class="mission">
-    <div class="mission-head"><b>Algo Trading Platform</b><span class="stack">Bun · TS · Hono · Postgres · Docker</span></div>
-    <p>Plateforme de trading algo crypto (spot + futures) : stratégies écrites en TypeScript, identiques en
-    backtest / paper / live. Backtester haute-fidélité, optimiseur walk-forward, bots live avec garde-fous,
-    auto-hébergé (Docker, CI/CD).</p>
-  </div>
-  <div class="mission">
-    <div class="mission-head"><b>Path Tracing Engine</b><span class="stack">C++ · Qt · OpenGL</span></div>
-    <p>Moteur de rendu 3D photoréaliste from scratch, multithreadé : .obj/.mtl, éditeur de matériaux,
-    arbres AABB, prévisu OpenGL — github.com/charlespolart/Pathtracing.</p>
-  </div>
-
+<div class="kpis">
+  <div class="kpi"><div class="num">8+</div><div class="lbl">ans d'expérience</div></div>
+  <div class="kpi"><div class="num">A→Z</div><div class="lbl">de l'archi à la prod</div></div>
+  <div class="kpi"><div class="num">IA</div><div class="lbl">dev augmenté + produits IA</div></div>
+  <div class="kpi"><div class="num">full-stack</div><div class="lbl">web · mobile · desktop</div></div>
 </div>
-<div class="rail">
 
-  <div class="box tint">
-    <span class="label">[04] compétences</span>
-    <div class="skill-group"><b>Front-end</b><div class="chips"><span class="chip">Angular</span><span class="chip">React</span><span class="chip">Astro</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Tailwind</span><span class="chip">HTML5</span><span class="chip">CSS3</span></div></div>
-    <div class="skill-group"><b>Back-end</b><div class="chips"><span class="chip">Node.js</span><span class="chip">Bun</span><span class="chip">Hono</span><span class="chip">NestJS</span><span class="chip">REST</span><span class="chip">GraphQL</span><span class="chip">Drizzle ORM</span><span class="chip">Microservices</span></div></div>
-    <div class="skill-group"><b>Data &amp; cloud</b><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">Redis</span><span class="chip">AWS S3 / R2</span><span class="chip">Cloudflare</span><span class="chip">Firebase</span><span class="chip">Docker</span></div></div>
-    <div class="skill-group"><b>DevOps &amp; outils</b><div class="chips"><span class="chip">Git</span><span class="chip">CI/CD</span><span class="chip">Vite</span><span class="chip">Caddy</span><span class="chip">Jest</span><span class="chip">Playwright</span><span class="chip">Agile/Scrum</span><span class="chip">TDD</span></div></div>
-    <div class="skill-group"><b>Logiciel</b><div class="chips"><span class="chip">C++</span><span class="chip">C#</span><span class="chip">Qt</span><span class="chip">WPF</span></div></div>
+<section>
+  <h2><span class="no">[01]</span><span class="tt">Profil</span><span class="path">whoami</span></h2>
+  <div class="profile">Développeur full stack, <b>8 ans</b> sur le web, le mobile (iOS &amp; Android) et le desktop — de l'architecture à la mise en prod. Spécialisé <b>Angular · Node · Flutter</b>, avec un passif <b>défense / aérospatial</b> en C++/Qt (CEA, Airbus). J'intègre l'<b>IA</b> au cœur de mon workflow et de mes produits : je livre vite, sans sacrifier la maintenabilité ni la sécurité.</div>
+</section>
+
+<section>
+  <h2><span class="no">[02]</span><span class="tt">Compétences</span><span class="path">skills/</span></h2>
+  <div class="skillgrid">
+    <div class="skcard"><div class="skh">▸ Front-end</div><div class="chips"><span class="chip t pri">Angular</span><span class="chip t">React</span><span class="chip t">Astro</span><span class="chip t pri">TypeScript</span><span class="chip t pri">Flutter</span><span class="chip t">Dart</span><span class="chip t">Tailwind</span></div></div>
+    <div class="skcard"><div class="skh">▸ Back-end</div><div class="chips"><span class="chip t pri">Node.js</span><span class="chip t">Bun</span><span class="chip t">Hono</span><span class="chip t">NestJS</span><span class="chip t">GraphQL</span><span class="chip t">REST</span></div></div>
+    <div class="skcard"><div class="skh">▸ Data · Cloud</div><div class="chips"><span class="chip t pri">PostgreSQL</span><span class="chip t">Redis</span><span class="chip t">Docker</span><span class="chip t">Cloudflare</span><span class="chip t">AWS S3/R2</span><span class="chip t">CI/CD</span></div></div>
+    <div class="skcard"><div class="skh">▸ Logiciel</div><div class="chips"><span class="chip t pri">C++</span><span class="chip t">C#</span><span class="chip t pri">Qt</span><span class="chip t">WPF</span><span class="chip t">Swift</span></div></div>
+    <div class="skcard wide"><div class="skh ia">▸ IA</div><div class="chips"><span class="chip ai">Claude Code</span><span class="chip ai">LLM APIs</span><span class="chip ai">Llama (local)</span><span class="chip ai">RAG · deep research</span><span class="chip ai">Prompt / agent steering</span><span class="chip ai">Eng. playbook</span></div><div class="ainote">Dev <b>agentique piloté</b> (Claude Code) structuré par un <b>playbook d'ingénierie</b> maison — pas du « vibe-coding ». Je conçois aussi des <b>produits IA</b> (STT + LLM on-device, cf. Murmure).</div></div>
   </div>
+</section>
 
-  <div class="box">
-    <span class="label">[05] langues</span>
-    <div class="line">Français — natif</div>
-    <div class="line">Anglais — courant</div>
-    <div class="line">Chinois (<span class="cjk">中文</span>) — notions</div>
-  </div>
+<section>
+  <h2><span class="no">[03]</span><span class="tt">Expérience</span><span class="path">experience/</span></h2>
 
-  <div class="box">
-    <span class="label">[06] formation</span>
-    <div class="edu">
-      <b>Epitech, Rennes</b>
-      <span>Expert en Technologies de l'Information (Master)</span>
-      <span class="dates">2014 — 2019</span>
+  <div class="xp">
+    <div class="xp-top"><div class="xp-role">Développeur Full Stack <span class="co">— Freelance</span></div><div class="xp-dates">02/2017 → auj.</div></div>
+    <div class="xp-sub">lead technique solo ou renfort d'équipe · archi → prod · +8 ans</div>
+    <div class="missions">
+      <div class="mis"><div class="mis-nm"><span class="cl">Agora Nova</span> · app mobile + API</div><div class="mis-d">réseau social de débat public</div><div class="mis-p">App iOS/Android + API REST : comptes vérifiés, sondages, modération, push. RGPD, CI/CD. <b>Livraison stores.</b></div><div class="mis-stack"><span class="chip t pri">Flutter</span><span class="chip t">Dart</span><span class="chip t">Bun</span><span class="chip t">PostgreSQL</span></div></div>
+      <div class="mis"><div class="mis-nm"><span class="cl">SNCF</span> · DigiDoc+</div><div class="mis-d">refonte front · plateforme documentaire</div><div class="mis-p">Refonte d'une app critique (milliers d'agents) : recherche full-text Elasticsearch, droits fins, workflow de validation.</div><div class="mis-stack"><span class="chip t pri">Angular</span><span class="chip t pri">TypeScript</span><span class="chip t">RxJS</span><span class="chip t">Elasticsearch</span></div></div>
+      <div class="mis"><div class="mis-nm"><span class="cl">Kiwidiag</span> · marketplace immo</div><div class="mis-d">kiwidiag.com · backend</div><div class="mis-p">API GraphQL, matching diagnostiqueurs/clients, paiements Stripe, géoloc, rapports PDF.</div><div class="mis-stack"><span class="chip t pri">Node.js</span><span class="chip t pri">GraphQL</span><span class="chip t">PostgreSQL</span><span class="chip t">Docker</span></div></div>
+      <div class="mis"><div class="mis-nm"><span class="cl">Leroy Merlin</span> · e-commerce</div><div class="mis-d">front + intégration · site principal</div><div class="mis-p">Features front et intégration sur le site du groupe — perf, accessibilité.</div><div class="mis-stack"><span class="chip t pri">Angular</span><span class="chip t">Node.js</span><span class="chip t">SCSS</span></div></div>
+      <div class="mis wide soft"><div class="mis-nm"><span class="cl">Autres missions</span> <span style="font-weight:400;color:var(--mute)">· web · desktop</span></div><div class="mis-p">Site d'intérim (capainterim.com) · plateforme d'images ONG · logiciel de câblage (C#/WPF) · extracteur de PDFs scientifiques (C++/Qt).</div></div>
     </div>
-    <div class="edu">
-      <b>Beijing Jiaotong University</b>
-      <span>Échange universitaire — Pékin, Chine</span>
-      <span class="dates">2017 — 2018</span>
+  </div>
+
+  <div class="xp">
+    <div class="xp-top"><div class="xp-role">Développeur C++/Qt <span class="co">— Silicom</span></div><div class="xp-dates">12/2020 → 05/2023</div></div>
+    <div class="xp-sub">défense &amp; aérospatial · temps réel · 2 ans 6 mois</div>
+    <div class="missions">
+      <div class="mis"><div class="mis-nm"><span class="cl">CEA</span> · surveillance nucléaire</div><div class="mis-d">3 outils scientifiques</div><div class="mis-p">Features + TMA : analyse de signaux sismiques / infrasons / hydroacoustiques (Workspace, Diva, Ceres).</div><div class="mis-stack"><span class="chip t pri">C++</span><span class="chip t pri">Qt</span></div></div>
+      <div class="mis"><div class="mis-nm"><span class="cl">Airbus Defence &amp; Space</span> · Magellan</div><div class="mis-d">communication sécurisée</div><div class="mis-p">Fonctionnalités d'un logiciel de comm. sécurisée sur réseaux sans fil hostiles.</div><div class="mis-stack"><span class="chip t pri">C++</span><span class="chip t pri">Qt</span></div></div>
     </div>
   </div>
 
-  <div class="box">
-    <span class="label">[07] system status</span>
-    <div class="line mono okline">> disponible <span class="ok">[ OK ]</span></div>
-    <div class="line mono okline">> remote <span class="ok">[ OK ]</span></div>
+  <div class="xp">
+    <div class="xp-top"><div class="xp-role">Stages d'ingénierie <span class="co">— Thales · Dassault · R&amp;D Tech</span></div><div class="xp-dates">2016 → 2020</div></div>
+    <div class="xp-sub">défense · aérospatial · embarqué</div>
+    <div class="missions">
+      <div class="mis soft"><div class="mis-nm"><span class="cl">Thales · La Ruche</span></div><div class="mis-d">C# · C · 6 mois</div><div class="mis-p">Détection de drones sous Unity + simulateur radar.</div></div>
+      <div class="mis soft"><div class="mis-nm"><span class="cl">Sogitec · Dassault</span></div><div class="mis-d">C++ · 5 mois</div><div class="mis-p">Rendu raytracing/rastérisation, simulation de vol.</div></div>
+      <div class="mis soft"><div class="mis-nm"><span class="cl">R&amp;D Tech France</span></div><div class="mis-d">C · C++ · 7 mois</div><div class="mis-p">Embarqué : lasers, parachute drone, bras robot.</div></div>
+    </div>
   </div>
+</section>
 
+<section>
+  <h2><span class="no">[04]</span><span class="tt">Apps &amp; Projets</span><span class="path">~/products</span></h2>
+  <div class="missions">
+    <div class="mis"><div class="mis-nm"><span class="cl">Dian Dian · <span class="cjk">点点</span></span></div><div class="mis-d">produit indé · iOS/Android · publié</div><div class="mis-p">Suivi visuel d'année (grille 12×31), publiée &amp; monétisée (RevenueCat). Backend + sync temps réel WebSocket.</div><div class="mis-stack"><span class="chip t pri">Flutter</span><span class="chip t">Express</span><span class="chip t">PostgreSQL</span><span class="chip t">WebSocket</span></div></div>
+    <div class="mis ai"><div class="mis-nm"><span class="cl">Murmure</span></div><div class="mis-d">produit indé · macOS · on-device AI</div><div class="mis-p">Dictée menu-bar <b>100% locale</b> : STT whisper.cpp (Metal), <b>LLM Llama local</b> pour formater, hotkey → colle partout.</div><div class="mis-stack"><span class="chip ai">whisper.cpp</span><span class="chip ai">Llama (local)</span><span class="chip t pri">Swift</span><span class="chip t">Metal</span></div></div>
+    <div class="mis"><div class="mis-nm"><span class="cl">Algo Trading Platform</span></div><div class="mis-d">perso · trading-bot</div><div class="mis-p">Trading crypto (spot + futures) : stratégies TypeScript identiques en backtest / paper / live, bots avec garde-fous.</div><div class="mis-stack"><span class="chip t pri">Bun</span><span class="chip t pri">TypeScript</span><span class="chip t">Hono</span><span class="chip t">PostgreSQL</span></div></div>
+    <div class="mis"><div class="mis-nm"><span class="cl">Path Tracing Engine</span></div><div class="mis-d">perso · rendu 3D</div><div class="mis-p">Moteur de rendu 3D photoréaliste from scratch, multithreadé (.obj/.mtl, éditeur de matériaux, arbres AABB).</div><div class="mis-stack"><span class="chip t pri">C++</span><span class="chip t pri">Qt</span><span class="chip t">OpenGL</span></div></div>
+  </div>
+</section>
+
+<div class="row2">
+  <section style="margin-top:0">
+    <h2><span class="no">[05]</span><span class="tt">Formation</span></h2>
+    <div class="box">
+      <div class="edu"><b>Epitech, Rennes</b><span>Expert en Technologies de l'Information (Master)</span><span class="dt">2014 — 2019</span></div>
+      <div class="edu"><b>Beijing Jiaotong University</b><span>Échange universitaire — Pékin, Chine</span><span class="dt">2017 — 2018</span></div>
+    </div>
+  </section>
+  <section style="margin-top:0">
+    <h2><span class="no">[06]</span><span class="tt">Langues</span></h2>
+    <div class="box lang">
+      <div>Français <span class="lv">— natif</span></div>
+      <div>Anglais <span class="lv">— courant</span></div>
+      <div>Chinois (<span class="cjk">中文</span>) <span class="lv">— notions</span></div>
+    </div>
+  </section>
 </div>
+
+<div class="foot">
+  <span>&gt; disponible <span class="ok">[ OK ]</span> · remote <span class="ok">[ OK ]</span></span>
+  <span>charlespolart.com</span>
 </div>
 
 </body>
