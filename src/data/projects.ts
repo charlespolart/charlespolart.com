@@ -129,7 +129,7 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Flutter · Dart · Express · TypeScript · Postgres · WebSocket',
         meta: 'Indie product · stores · 2025',
         description:
-          'Cross-platform visual year tracker : color-code each day of the year on a 12-month × 31-day grid, with a pixel-art, cozy-book aesthetic. End-to-end build — Flutter client (iOS / Android), Express + TypeScript + Postgres backend, real-time WebSocket sync across devices. JWT auth with refresh rotation, Sign in with Apple / Google, RevenueCat in-app purchases. Self-hosted on a single VPS via Docker Compose + Caddy, shipped through GitHub Actions → GHCR.',
+          'Cross-platform visual year tracker : color-code each day on a 12×31 grid, pixel-art aesthetic. End-to-end — Flutter (iOS / Android) + Express/Postgres backend, real-time WebSocket sync, RevenueCat IAP, self-hosted (Docker, CI/CD).',
         features: [
           'Year grid : 12 months × 31 days, pastel + custom colors, drag-reorder legends, quick-fill',
           'Real-time WebSocket sync across devices, multi-year trackers, PNG export, 7 themes + dark mode',
@@ -151,11 +151,26 @@ export const projects: Bilingual<ProjectGroups> = {
           '/projects/dian-dian/08.png',
         ],
       },
+      {
+        id: 'murmure',
+        num: '[10]',
+        title: 'Murmure',
+        stack: 'Swift · SwiftUI · whisper.cpp · llama.cpp · Metal',
+        meta: 'Indie product · macOS · on-device AI',
+        description:
+          'Menu-bar dictation app for macOS: hit a global hotkey, speak, and the text is pasted into any app — 100% on-device & offline, nothing ever leaves the machine. Local speech-to-text (whisper.cpp, Metal-accelerated) plus a local Llama LLM that cleans up and formats the final transcript.',
+        features: [
+          'On-device, offline transcription — zero cloud, zero data sent',
+          'Local Llama LLM formats the final transcript (punctuation, casing, structure)',
+          'Global hotkey + smart paste into any app via the Accessibility API',
+          'Multilingual auto-detection (FR / EN / 中文), live preview, custom vocabulary',
+        ],
+      },
     ],
     personal: [
       {
         id: 'algo-trading',
-        num: '[10]',
+        num: '[11]',
         title: 'Algo Trading Platform',
         stack: 'Bun · TypeScript · Hono · React · Postgres · Docker',
         meta: 'Personal · 2025—2026',
@@ -178,7 +193,7 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'pathtracing',
-        num: '[11]',
+        num: '[12]',
         title: 'Path Tracing Engine',
         stack: 'C++ · Qt · OpenGL · STL',
         meta: 'Personal · 2019—2022',
@@ -331,7 +346,7 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Flutter · Dart · Express · TypeScript · Postgres · WebSocket',
         meta: 'Produit indé · stores · 2025',
         description:
-          "Tracker visuel d'année cross-platform : colorie chaque jour de l'année sur une grille 12 mois × 31 jours, avec une esthétique pixel-art « cozy book ». Réalisé de bout en bout — client Flutter (iOS / Android), backend Express + TypeScript + Postgres, sync temps réel WebSocket entre appareils. Auth JWT avec rotation des refresh tokens, Sign in with Apple / Google, achats in-app RevenueCat. Auto-hébergé sur un VPS unique via Docker Compose + Caddy, déployé par GitHub Actions → GHCR.",
+          "Tracker visuel d'année cross-platform : colorie chaque jour sur une grille 12×31, esthétique pixel-art. De bout en bout — Flutter (iOS / Android) + backend Express/Postgres, sync temps réel WebSocket, IAP RevenueCat, auto-hébergé (Docker, CI/CD).",
         features: [
           'Grille annuelle : 12 mois × 31 jours, couleurs pastel + custom, légendes réordonnables (drag), remplissage rapide',
           'Sync temps réel WebSocket entre appareils, trackers multi-années, export PNG, 7 thèmes + mode sombre',
@@ -353,11 +368,26 @@ export const projects: Bilingual<ProjectGroups> = {
           '/projects/dian-dian/08.png',
         ],
       },
+      {
+        id: 'murmure',
+        num: '[10]',
+        title: 'Murmure',
+        stack: 'Swift · SwiftUI · whisper.cpp · llama.cpp · Metal',
+        meta: 'Produit indé · macOS · on-device AI',
+        description:
+          "App de dictée menu-bar pour macOS : un raccourci global, tu parles, et le texte est collé dans n'importe quelle app — 100% local & hors-ligne, rien ne quitte jamais la machine. STT local (whisper.cpp, accéléré Metal) + un LLM Llama local qui nettoie et formate la transcription finale.",
+        features: [
+          'Transcription on-device, hors-ligne — zéro cloud, zéro donnée envoyée',
+          'LLM Llama local pour formater la transcription finale (ponctuation, casse, structure)',
+          "Raccourci global + collage intelligent dans n'importe quelle app (API Accessibilité)",
+          'Détection multilingue (FR / EN / 中文), aperçu live, vocabulaire custom',
+        ],
+      },
     ],
     personal: [
       {
         id: 'algo-trading',
-        num: '[10]',
+        num: '[11]',
         title: 'Algo Trading Platform',
         stack: 'Bun · TypeScript · Hono · React · Postgres · Docker',
         meta: 'Perso · 2025—2026',
@@ -380,7 +410,7 @@ export const projects: Bilingual<ProjectGroups> = {
       },
       {
         id: 'pathtracing',
-        num: '[11]',
+        num: '[12]',
         title: 'Path Tracing Engine',
         stack: 'C++ · Qt · OpenGL · STL',
         meta: 'Perso · 2019—2022',

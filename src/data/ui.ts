@@ -23,9 +23,9 @@ export const ui: Bilingual<UIStrings> = {
     },
     about: {
       paragraphs: [
-        'Full stack developer with <span class="hl">8 years</span> of experience building web and mobile (<span class="hl">iOS &amp; Android</span>) applications. Specialized in <span class="hl">Angular</span>, <span class="hl">Node.js</span> and <span class="hl">Flutter</span>.',
-        'Expert in complex application architecture — from design to production. Comfortable owning a project end-to-end : <span class="hl">backend</span>, <span class="hl">APIs</span>, <span class="hl">responsive UIs</span>, <span class="hl">mobile</span>.',
-        'Currently <span class="green">freelance</span> — recent missions for <span class="green">Agora Nova</span>, <span class="green">SNCF</span>, <span class="green">Leroy Merlin</span>. Past defense / aerospace work in C++/Qt at <span class="hl">Silicom</span> (CEA, Airbus).',
+        'Full stack developer, <span class="hl">8 years</span> building web, mobile (<span class="hl">iOS &amp; Android</span>) and desktop apps — from architecture to production. A dev who <span class="green">thinks product, not just code</span>.',
+        'Specialized in <span class="hl">Angular</span>, <span class="hl">Node.js</span> and <span class="hl">Flutter</span>. I put <span class="green">AI at the core</span> of my work : agentic dev steered with <span class="hl">Claude Code</span> (structured by an engineering playbook, not &ldquo;vibe-coding&rdquo;) and on-device LLM products &mdash; see <span class="green">Murmure</span>.',
+        'Currently <span class="green">freelance</span> &mdash; recent missions for <span class="green">Agora Nova</span>, <span class="green">SNCF</span>, <span class="green">Leroy Merlin</span>. Past <span class="hl">defense / aerospace</span> work in C++/Qt at Silicom (CEA, Airbus).',
       ],
     },
     contact: {
@@ -76,9 +76,9 @@ export const ui: Bilingual<UIStrings> = {
     },
     about: {
       paragraphs: [
-        'Développeur full stack avec <span class="hl">8 ans d&rsquo;expérience</span> dans la création d&rsquo;applications web et mobiles (<span class="hl">iOS &amp; Android</span>). Spécialisé en <span class="hl">Angular</span>, <span class="hl">Node.js</span> et <span class="hl">Flutter</span>.',
-        'Expert en architecture d&rsquo;applications complexes — de la conception à la mise en production. Capable de gérer un projet de A à Z : <span class="hl">backend</span>, <span class="hl">APIs</span>, <span class="hl">interfaces responsive</span>, <span class="hl">mobile</span>.',
-        'Actuellement <span class="green">freelance</span> — missions récentes pour <span class="green">Agora Nova</span>, <span class="green">SNCF</span>, <span class="green">Leroy Merlin</span>. Passif défense / aérospatial en C++/Qt chez <span class="hl">Silicom</span> (CEA, Airbus).',
+        'Développeur full stack, <span class="hl">8 ans</span> à construire des applications web, mobiles (<span class="hl">iOS &amp; Android</span>) et desktop — de l&rsquo;architecture à la production. Un dev qui <span class="green">pense produit, pas juste code</span>.',
+        'Spécialisé en <span class="hl">Angular</span>, <span class="hl">Node.js</span> et <span class="hl">Flutter</span>. Je place l&rsquo;<span class="green">IA au cœur</span> de mon travail : dev agentique piloté avec <span class="hl">Claude Code</span> (structuré par un playbook d&rsquo;ingénierie, pas du «&nbsp;vibe-coding&nbsp;») et des produits LLM on-device &mdash; cf. <span class="green">Murmure</span>.',
+        'Actuellement <span class="green">freelance</span> &mdash; missions récentes pour <span class="green">Agora Nova</span>, <span class="green">SNCF</span>, <span class="green">Leroy Merlin</span>. Passif <span class="hl">défense / aérospatial</span> en C++/Qt chez Silicom (CEA, Airbus).',
       ],
     },
     contact: {

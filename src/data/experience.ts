@@ -4,16 +4,22 @@ export const experience: Bilingual<ExperienceEntry[]> = {
   en: [
     {
       id: 'app-studio',
-      title: 'Mobile App Publisher',
+      title: 'Indie App Publisher',
       dateStart: '2025',
       dateEnd: 'now',
-      tag: 'Cross-platform mobile apps · built, published & monetized',
+      tag: 'Cross-platform apps + on-device AI · built, published & monetized',
       items: [
         {
           client: 'Dian Dian · 点点',
           project: 'cross-platform year tracker',
           description:
-            'Flutter app (iOS / Android) + Express / TypeScript / Postgres backend, real-time WebSocket sync, JWT auth, Sign in with Apple / Google, RevenueCat in-app purchases, AdMob. Self-hosted (Docker, CI/CD).',
+            'Flutter app (iOS / Android) + Express / TypeScript / Postgres backend, real-time WebSocket sync, JWT auth, RevenueCat in-app purchases. Self-hosted (Docker, CI/CD).',
+        },
+        {
+          client: 'Murmure',
+          project: 'on-device AI dictation (macOS)',
+          description:
+            'Native macOS menu-bar dictation, 100% on-device & offline : whisper.cpp STT (Metal) + a local Llama LLM to clean & format the transcript, global hotkey, smart paste anywhere. Swift / SwiftUI.',
         },
       ],
     },
@@ -137,16 +143,22 @@ export const experience: Bilingual<ExperienceEntry[]> = {
   fr: [
     {
       id: 'app-studio',
-      title: "Éditeur d'applications mobiles",
+      title: "Éditeur d'applications",
       dateStart: '2025',
       dateEnd: 'now',
-      tag: 'Apps mobiles cross-platform · conçues, publiées & monétisées',
+      tag: 'Apps cross-platform + IA on-device · conçues, publiées & monétisées',
       items: [
         {
           client: 'Dian Dian · 点点',
           project: "suivi visuel d'année cross-platform",
           description:
-            "App Flutter (iOS / Android) + backend Express / TypeScript / Postgres, sync temps réel WebSocket, auth JWT, Sign in with Apple / Google, achats in-app RevenueCat, AdMob. Auto-hébergée (Docker, CI/CD).",
+            "App Flutter (iOS / Android) + backend Express / TypeScript / Postgres, sync temps réel WebSocket, auth JWT, achats in-app RevenueCat. Auto-hébergée (Docker, CI/CD).",
+        },
+        {
+          client: 'Murmure',
+          project: 'dictée IA on-device (macOS)',
+          description:
+            "Dictée menu-bar macOS native, 100% locale & hors-ligne : STT whisper.cpp (Metal) + un LLM Llama local pour nettoyer & formater la transcription, raccourci global, collage intelligent partout. Swift / SwiftUI.",
         },
       ],
     },

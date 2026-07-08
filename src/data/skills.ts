@@ -48,6 +48,19 @@ export const skills: Bilingual<SkillCategory[]> = {
       label: 'software dev',
       items: ['C++', 'C#', 'Qt', 'WPF'],
     },
+    {
+      key: 'ai',
+      label: 'AI',
+      items: [
+        'Claude Code',
+        'LLM APIs',
+        'Llama (local)',
+        'RAG',
+        'Deep research',
+        'Prompt / agent steering',
+        'Engineering playbook',
+      ],
+    },
   ],
   fr: [
     {
@@ -95,6 +108,19 @@ export const skills: Bilingual<SkillCategory[]> = {
       key: 'software',
       label: 'logiciel',
       items: ['C++', 'C#', 'Qt', 'WPF'],
+    },
+    {
+      key: 'ai',
+      label: 'IA',
+      items: [
+        'Claude Code',
+        'LLM APIs',
+        'Llama (local)',
+        'RAG',
+        'Recherche approfondie',
+        'Prompt / agent steering',
+        "Playbook d'ingénierie",
+      ],
     },
   ],
 };
