@@ -54,7 +54,7 @@ export const skills: Bilingual<SkillCategory[]> = {
       items: [
         'Claude Code',
         'LLM APIs',
-        'Llama (local)',
+        'Local LLMs (MLX)',
         'RAG',
         'Deep research',
         'Prompt / agent steering',
@@ -115,7 +115,7 @@ export const skills: Bilingual<SkillCategory[]> = {
       items: [
         'Claude Code',
         'LLM APIs',
-        'Llama (local)',
+        'LLMs locaux (MLX)',
         'RAG',
         'Recherche approfondie',
         'Prompt / agent steering',

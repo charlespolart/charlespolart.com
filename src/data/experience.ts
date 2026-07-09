@@ -19,7 +19,7 @@ export const experience: Bilingual<ExperienceEntry[]> = {
           client: 'Murmure',
           project: 'on-device AI dictation (macOS)',
           description:
-            'Native macOS menu-bar dictation, 100% on-device & offline : whisper.cpp STT (Metal) + a local Llama LLM to clean & format the transcript, global hotkey, smart paste anywhere. Swift / SwiftUI.',
+            'Native macOS menu-bar dictation, 100% on-device & offline : whisper.cpp STT (Metal) + a local Qwen3 LLM (MLX) to clean & format the transcript, global hotkey, smart paste anywhere. Swift / SwiftUI.',
         },
       ],
     },
@@ -158,7 +158,7 @@ export const experience: Bilingual<ExperienceEntry[]> = {
           client: 'Murmure',
           project: 'dictée IA on-device (macOS)',
           description:
-            "Dictée menu-bar macOS native, 100% locale & hors-ligne : STT whisper.cpp (Metal) + un LLM Llama local pour nettoyer & formater la transcription, raccourci global, collage intelligent partout. Swift / SwiftUI.",
+            "Dictée menu-bar macOS native, 100% locale & hors-ligne : STT whisper.cpp (Metal) + un LLM Qwen3 local (MLX) pour nettoyer & formater la transcription, raccourci global, collage intelligent partout. Swift / SwiftUI.",
         },
       ],
     },

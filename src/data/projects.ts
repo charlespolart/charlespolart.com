@@ -126,13 +126,13 @@ export const projects: Bilingual<ProjectGroups> = {
         id: 'murmure',
         num: '[09]',
         title: 'Murmure',
-        stack: 'Swift · SwiftUI · whisper.cpp · llama.cpp · Metal',
+        stack: 'Swift · SwiftUI · whisper.cpp · MLX · Metal',
         meta: 'Indie product · macOS · on-device AI',
         description:
-          'Menu-bar dictation app for macOS: hit a global hotkey, speak, and the text is pasted into any app — 100% on-device & offline, nothing ever leaves the machine. Local speech-to-text (whisper.cpp, Metal-accelerated) plus a local Llama LLM that cleans up and formats the final transcript.',
+          'Menu-bar dictation app for macOS: hit a global hotkey, speak, and the text is pasted into any app — 100% on-device & offline, nothing ever leaves the machine. Local speech-to-text (whisper.cpp, Metal-accelerated) plus a local Qwen3 LLM (MLX) that cleans up and formats the final transcript.',
         features: [
           'On-device, offline transcription — zero cloud, zero data sent',
-          'Local Llama LLM formats the final transcript (punctuation, casing, structure)',
+          'Local Qwen3 (MLX) formats the final transcript (punctuation, casing, structure)',
           'Global hotkey + smart paste into any app via the Accessibility API',
           'Multilingual auto-detection (FR / EN / 中文), live preview, custom vocabulary',
         ],
@@ -343,13 +343,13 @@ export const projects: Bilingual<ProjectGroups> = {
         id: 'murmure',
         num: '[09]',
         title: 'Murmure',
-        stack: 'Swift · SwiftUI · whisper.cpp · llama.cpp · Metal',
+        stack: 'Swift · SwiftUI · whisper.cpp · MLX · Metal',
         meta: 'Produit indé · macOS · on-device AI',
         description:
-          "App de dictée menu-bar pour macOS : un raccourci global, tu parles, et le texte est collé dans n'importe quelle app — 100% local & hors-ligne, rien ne quitte jamais la machine. STT local (whisper.cpp, accéléré Metal) + un LLM Llama local qui nettoie et formate la transcription finale.",
+          "App de dictée menu-bar pour macOS : un raccourci global, tu parles, et le texte est collé dans n'importe quelle app — 100% local & hors-ligne, rien ne quitte jamais la machine. STT local (whisper.cpp, accéléré Metal) + un LLM Qwen3 local (MLX) qui nettoie et formate la transcription finale.",
         features: [
           'Transcription on-device, hors-ligne — zéro cloud, zéro donnée envoyée',
-          'LLM Llama local pour formater la transcription finale (ponctuation, casse, structure)',
+          'LLM Qwen3 local (MLX) pour formater la transcription finale (ponctuation, casse, structure)',
           "Raccourci global + collage intelligent dans n'importe quelle app (API Accessibilité)",
           'Détection multilingue (FR / EN / 中文), aperçu live, vocabulaire custom',
         ],
