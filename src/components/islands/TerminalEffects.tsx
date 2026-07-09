@@ -375,11 +375,11 @@ export default function TerminalEffects({ locale }: Props) {
           const py = ((e.clientY - rect.top) / rect.height) * 100;
           card.style.setProperty('--px', `${px}%`);
           card.style.setProperty('--py', `${py}%`);
-          // Softer tilt : ±2° (was ±5°) and longer perspective (1600 vs 1000)
-          // → less dramatic 3D effect, more like a subtle parallax response.
-          qrx(((py - 50) / 50) * -2);
-          qry(((px - 50) / 50) * 2);
-          qy(-2);
+          // Very subtle tilt : ±1° and a 1px lift — barely-there parallax
+          // response, deliberately understated so it doesn't feel gimmicky.
+          qrx(((py - 50) / 50) * -1);
+          qry(((px - 50) / 50) * 1);
+          qy(-1);
         };
         const onLeave = () => {
           qrx(0);
