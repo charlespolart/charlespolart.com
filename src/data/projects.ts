@@ -137,6 +137,14 @@ export const projects: Bilingual<ProjectGroups> = {
           'Smart paste into any app (Accessibility API) with evidence-based paste verification',
           'Liquid Glass UI: Dynamic Island notch mode, customizable pills, per-feature model lifecycle (download / unload / delete)',
         ],
+        screenshots: [
+          '/projects/murmure/01.jpg',
+          '/projects/murmure/02.jpg',
+          '/projects/murmure/03.jpg',
+          '/projects/murmure/04.jpg',
+          '/projects/murmure/05.jpg',
+          '/projects/murmure/06.jpg',
+        ],
       },
       {
         id: 'dian-dian',
@@ -354,6 +362,14 @@ export const projects: Bilingual<ProjectGroups> = {
           'Aperçu live pendant la dictée (modèle de streaming dédié), vocabulaire custom qui amorce les deux moteurs',
           "Collage intelligent dans n'importe quelle app (API Accessibilité), avec vérification du collage basée sur des preuves",
           'UI Liquid Glass : mode Dynamic Island, pastilles personnalisables, cycle de vie des modèles par feature (téléchargement / déchargement / suppression)',
+        ],
+        screenshots: [
+          '/projects/murmure/01.jpg',
+          '/projects/murmure/02.jpg',
+          '/projects/murmure/03.jpg',
+          '/projects/murmure/04.jpg',
+          '/projects/murmure/05.jpg',
+          '/projects/murmure/06.jpg',
         ],
       },
       {
