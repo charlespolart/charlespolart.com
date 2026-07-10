@@ -129,12 +129,13 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Swift · SwiftUI · whisper.cpp · MLX · Metal',
         meta: 'Indie product · macOS · on-device AI',
         description:
-          'Menu-bar dictation app for macOS: hit a global hotkey, speak, and the text is pasted into any app — 100% on-device & offline, nothing ever leaves the machine. Local speech-to-text (whisper.cpp, Metal-accelerated) plus a local Qwen3 LLM (MLX) that cleans up and formats the final transcript.',
+          'Menu-bar dictation app for macOS: hit a global hotkey, speak, and the text is pasted into any app — 100% on-device & offline, nothing ever leaves the machine. Local STT (whisper.cpp, Metal, Silero VAD) + a local Qwen3 LLM (MLX) that cleans up the final transcript (punctuation, casing, hesitations) behind a diff-based guardrail that makes it impossible for the AI to alter meaning.',
         features: [
-          'On-device, offline transcription — zero cloud, zero data sent',
-          'Local Qwen3 (MLX) formats the final transcript (punctuation, casing, structure)',
-          'Global hotkey + smart paste into any app via the Accessibility API',
-          'Multilingual auto-detection (FR / EN / 中文), live preview, custom vocabulary',
+          'On-device, offline transcription in ~99 auto-detected languages — zero cloud, zero data sent',
+          'Local Qwen3 LLM (MLX) formats the transcript, segment-aligned & diff-guarded: cleanup can never corrupt what was said',
+          'Live preview while speaking (dedicated streaming model), custom vocabulary priming both engines',
+          'Smart paste into any app (Accessibility API) with evidence-based paste verification',
+          'Liquid Glass UI: Dynamic Island notch mode, customizable pills, per-feature model lifecycle (download / unload / delete)',
         ],
       },
       {
@@ -346,12 +347,13 @@ export const projects: Bilingual<ProjectGroups> = {
         stack: 'Swift · SwiftUI · whisper.cpp · MLX · Metal',
         meta: 'Produit indé · macOS · on-device AI',
         description:
-          "App de dictée menu-bar pour macOS : un raccourci global, tu parles, et le texte est collé dans n'importe quelle app — 100% local & hors-ligne, rien ne quitte jamais la machine. STT local (whisper.cpp, accéléré Metal) + un LLM Qwen3 local (MLX) qui nettoie et formate la transcription finale.",
+          "App de dictée menu-bar pour macOS : un raccourci global, tu parles, et le texte est collé dans n'importe quelle app — 100% local & hors-ligne, rien ne quitte jamais la machine. STT local (whisper.cpp, Metal, Silero VAD) + un LLM Qwen3 local (MLX) qui nettoie la transcription finale (ponctuation, casse, hésitations) derrière un garde-fou basé sur un diff qui rend impossible toute altération du sens par l'IA.",
         features: [
-          'Transcription on-device, hors-ligne — zéro cloud, zéro donnée envoyée',
-          'LLM Qwen3 local (MLX) pour formater la transcription finale (ponctuation, casse, structure)',
-          "Raccourci global + collage intelligent dans n'importe quelle app (API Accessibilité)",
-          'Détection multilingue (FR / EN / 中文), aperçu live, vocabulaire custom',
+          'Transcription on-device, hors-ligne, ~99 langues auto-détectées — zéro cloud, zéro donnée envoyée',
+          'LLM Qwen3 local (MLX) formate la transcription, aligné par segment & garde-fou diff : le nettoyage ne peut jamais corrompre ce qui a été dit',
+          'Aperçu live pendant la dictée (modèle de streaming dédié), vocabulaire custom qui amorce les deux moteurs',
+          "Collage intelligent dans n'importe quelle app (API Accessibilité), avec vérification du collage basée sur des preuves",
+          'UI Liquid Glass : mode Dynamic Island, pastilles personnalisables, cycle de vie des modèles par feature (téléchargement / déchargement / suppression)',
         ],
       },
       {
