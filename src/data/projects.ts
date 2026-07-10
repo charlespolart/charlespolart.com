@@ -1,7 +1,88 @@
-import type { Bilingual, ProjectGroups } from './types';
+import type { Bilingual, ProjectEntry, ProjectGroups, ProjectLink } from './types';
+
+// ── Language-agnostic per-project assets ──────────────────────────────────
+// Screenshots and links are identical across locales, so they're declared ONCE
+// here (keyed by project id) and attached automatically to both EN and FR via
+// withMedia() below — single source of truth, the two can never desync.
+const screenshotsById: Record<string, string[]> = {
+  'agora-nova': [
+    '/projects/agora-nova/01.png',
+    '/projects/agora-nova/02.png',
+    '/projects/agora-nova/03.png',
+    '/projects/agora-nova/04.png',
+    '/projects/agora-nova/05.png',
+    '/projects/agora-nova/06.png',
+    '/projects/agora-nova/07.png',
+    '/projects/agora-nova/08.png',
+  ],
+  sncf: ['/projects/sncf/01.png', '/projects/sncf/02.png', '/projects/sncf/03.png', '/projects/sncf/04.png'],
+  kiwidiag: ['/projects/kiwidiag/01.png', '/projects/kiwidiag/02.png'],
+  workspace: ['/projects/workspace/01.png'],
+  consolweb: ['/projects/consolweb/01.png'],
+  capa: ['/projects/capa/01.png', '/projects/capa/02.png'],
+  murmure: [
+    '/projects/murmure/01.jpg',
+    '/projects/murmure/02.jpg',
+    '/projects/murmure/03.jpg',
+    '/projects/murmure/04.jpg',
+    '/projects/murmure/05.jpg',
+    '/projects/murmure/06.jpg',
+  ],
+  'dian-dian': [
+    '/projects/dian-dian/01.png',
+    '/projects/dian-dian/02.png',
+    '/projects/dian-dian/03.png',
+    '/projects/dian-dian/04.png',
+    '/projects/dian-dian/05.png',
+    '/projects/dian-dian/06.png',
+    '/projects/dian-dian/07.png',
+    '/projects/dian-dian/08.png',
+  ],
+  'algo-trading': [
+    '/projects/algo-trading/01.png',
+    '/projects/algo-trading/02.png',
+    '/projects/algo-trading/03.png',
+    '/projects/algo-trading/04.png',
+    '/projects/algo-trading/05.png',
+    '/projects/algo-trading/06.png',
+  ],
+  pathtracing: [
+    '/projects/pathtracing/01.png',
+    '/projects/pathtracing/02.png',
+    '/projects/pathtracing/03.png',
+    '/projects/pathtracing/04.png',
+    '/projects/pathtracing/05.png',
+    '/projects/pathtracing/06.png',
+    '/projects/pathtracing/07.png',
+  ],
+};
+
+const linksById: Record<string, ProjectLink[]> = {
+  kiwidiag: [{ url: 'https://www.kiwidiag.com', label: 'kiwidiag.com' }],
+  capa: [{ url: 'https://www.capainterim.com', label: 'capainterim.com' }],
+  'dian-dian': [
+    { url: 'https://apps.apple.com/app/id6761432329', label: 'App Store' },
+    { url: 'https://diandian.overridedev.com', label: 'diandian.overridedev.com' },
+  ],
+  pathtracing: [
+    { url: 'https://github.com/charlespolart/Pathtracing', label: 'github.com/charlespolart/Pathtracing' },
+  ],
+};
+
+// Attach the shared screenshots/links to every entry by id, in both locales.
+const attachMedia = (p: ProjectEntry): ProjectEntry => ({
+  ...p,
+  ...(p.id in screenshotsById && { screenshots: screenshotsById[p.id] }),
+  ...(p.id in linksById && { links: linksById[p.id] }),
+});
+const withMedia = (g: ProjectGroups): ProjectGroups => ({
+  work: g.work.map(attachMedia),
+  apps: g.apps.map(attachMedia),
+  personal: g.personal.map(attachMedia),
+});
 
 export const projects: Bilingual<ProjectGroups> = {
-  en: {
+  en: withMedia({
     work: [
       {
         id: 'agora-nova',
@@ -16,16 +97,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Posts, polls, reactions, comments, hashtags',
           'Moderation tools + role-based access',
           'CI/CD deploy on RGPD-compliant FR infrastructure',
-        ],
-        screenshots: [
-          '/projects/agora-nova/01.png',
-          '/projects/agora-nova/02.png',
-          '/projects/agora-nova/03.png',
-          '/projects/agora-nova/04.png',
-          '/projects/agora-nova/05.png',
-          '/projects/agora-nova/06.png',
-          '/projects/agora-nova/07.png',
-          '/projects/agora-nova/08.png',
         ],
       },
       {
@@ -42,12 +113,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Documents + modules (sub-parts of text) — versions, variants, abrogations',
           'Identification cards, favorites, history, parution alerts',
         ],
-        screenshots: [
-          '/projects/sncf/01.png',
-          '/projects/sncf/02.png',
-          '/projects/sncf/03.png',
-          '/projects/sncf/04.png',
-        ],
       },
       {
         id: 'kiwidiag',
@@ -63,8 +128,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Surveyor availability + booking flow with geolocation',
           'Stripe payments, Twilio SMS verification, reviews',
         ],
-        links: [{ url: 'https://www.kiwidiag.com', label: 'kiwidiag.com' }],
-        screenshots: ['/projects/kiwidiag/01.png', '/projects/kiwidiag/02.png'],
       },
       {
         id: 'workspace',
@@ -79,7 +142,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Diva : time-series monitoring of seismic-network stations',
           'Ceres : health impact assessment of pollutant releases into the environment',
         ],
-        screenshots: ['/projects/workspace/01.png'],
       },
       {
         id: 'magellan',
@@ -98,7 +160,6 @@ export const projects: Bilingual<ProjectGroups> = {
         meta: 'Freelance',
         description:
           'Desktop app that opens multi-format wiring schematics. Layered PCB viewer guiding technicians point-by-point in the optimal wiring order.',
-        screenshots: ['/projects/consolweb/01.png'],
       },
       {
         id: 'capa',
@@ -108,8 +169,6 @@ export const projects: Bilingual<ProjectGroups> = {
         meta: 'Freelance',
         description:
           'Backend for a temp-work matchmaking site : job search, account + CV upload, full admin for ads / news / users.',
-        links: [{ url: 'https://www.capainterim.com', label: 'capainterim.com' }],
-        screenshots: ['/projects/capa/01.png', '/projects/capa/02.png'],
       },
       {
         id: 'axion',
@@ -137,14 +196,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Smart paste into any app (Accessibility API) with evidence-based paste verification',
           'Liquid Glass UI: Dynamic Island notch mode, customizable pills, per-feature model lifecycle (download / unload / delete)',
         ],
-        screenshots: [
-          '/projects/murmure/01.jpg',
-          '/projects/murmure/02.jpg',
-          '/projects/murmure/03.jpg',
-          '/projects/murmure/04.jpg',
-          '/projects/murmure/05.jpg',
-          '/projects/murmure/06.jpg',
-        ],
       },
       {
         id: 'dian-dian',
@@ -159,20 +210,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Real-time WebSocket sync across devices, multi-year trackers, PNG export, 7 themes + dark mode',
           'Stats : days filled, best streak, yearly %, distribution, monthly + day-of-week breakdown',
           'Premium : RevenueCat (monthly / yearly / lifetime + trial), custom pixel-art paywall, AdMob',
-        ],
-        links: [
-          { url: 'https://apps.apple.com/app/id6761432329', label: 'App Store' },
-          { url: 'https://diandian.overridedev.com', label: 'diandian.overridedev.com' },
-        ],
-        screenshots: [
-          '/projects/dian-dian/01.png',
-          '/projects/dian-dian/02.png',
-          '/projects/dian-dian/03.png',
-          '/projects/dian-dian/04.png',
-          '/projects/dian-dian/05.png',
-          '/projects/dian-dian/06.png',
-          '/projects/dian-dian/07.png',
-          '/projects/dian-dian/08.png',
         ],
       },
     ],
@@ -191,14 +228,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Live / paper / testnet bots : virtual allocation, risk guards, kill switch, Telegram alerts',
           'Self-hosted on VPS : Docker, Caddy (auto-TLS + mTLS), CI/CD to GHCR',
         ],
-        screenshots: [
-          '/projects/algo-trading/01.png',
-          '/projects/algo-trading/02.png',
-          '/projects/algo-trading/03.png',
-          '/projects/algo-trading/04.png',
-          '/projects/algo-trading/05.png',
-          '/projects/algo-trading/06.png',
-        ],
       },
       {
         id: 'pathtracing',
@@ -214,20 +243,10 @@ export const projects: Bilingual<ProjectGroups> = {
           'OpenGL preview with mouse-driven camera',
           'JSON scene save / import',
         ],
-        links: [{ url: 'https://github.com/charlespolart/Pathtracing', label: 'github.com/charlespolart/Pathtracing' }],
-        screenshots: [
-          '/projects/pathtracing/01.png',
-          '/projects/pathtracing/02.png',
-          '/projects/pathtracing/03.png',
-          '/projects/pathtracing/04.png',
-          '/projects/pathtracing/05.png',
-          '/projects/pathtracing/06.png',
-          '/projects/pathtracing/07.png',
-        ],
       },
     ],
-  },
-  fr: {
+  }),
+  fr: withMedia({
     work: [
       {
         id: 'agora-nova',
@@ -242,16 +261,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Posts, sondages, réactions, commentaires, hashtags',
           'Outils de modération + accès par rôles',
           'CI/CD vers infra FR RGPD',
-        ],
-        screenshots: [
-          '/projects/agora-nova/01.png',
-          '/projects/agora-nova/02.png',
-          '/projects/agora-nova/03.png',
-          '/projects/agora-nova/04.png',
-          '/projects/agora-nova/05.png',
-          '/projects/agora-nova/06.png',
-          '/projects/agora-nova/07.png',
-          '/projects/agora-nova/08.png',
         ],
       },
       {
@@ -268,12 +277,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Documents + modules (parties de texte) — versions, variantes, abrogations',
           "Fiches d'identification, favoris, historique, alertes de parution",
         ],
-        screenshots: [
-          '/projects/sncf/01.png',
-          '/projects/sncf/02.png',
-          '/projects/sncf/03.png',
-          '/projects/sncf/04.png',
-        ],
       },
       {
         id: 'kiwidiag',
@@ -289,8 +292,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Dispo des diagnostiqueurs + flow de réservation géolocalisé',
           'Paiements Stripe, vérification SMS Twilio, avis',
         ],
-        links: [{ url: 'https://www.kiwidiag.com', label: 'kiwidiag.com' }],
-        screenshots: ['/projects/kiwidiag/01.png', '/projects/kiwidiag/02.png'],
       },
       {
         id: 'workspace',
@@ -305,7 +306,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Diva : surveillance temporelle des stations du réseau sismique',
           'Ceres : évaluation des conséquences sanitaires des rejets de polluants',
         ],
-        screenshots: ['/projects/workspace/01.png'],
       },
       {
         id: 'magellan',
@@ -324,7 +324,6 @@ export const projects: Bilingual<ProjectGroups> = {
         meta: 'Freelance',
         description:
           "App desktop qui ouvre des schémas de câblage multi-formats. Vue par couches PCB, guide le technicien point par point dans l'ordre optimal.",
-        screenshots: ['/projects/consolweb/01.png'],
       },
       {
         id: 'capa',
@@ -334,8 +333,6 @@ export const projects: Bilingual<ProjectGroups> = {
         meta: 'Freelance',
         description:
           "Backend d'un site d'intérim : recherche d'annonces, compte + upload CV, partie admin complète pour annonces / actus / utilisateurs.",
-        links: [{ url: 'https://www.capainterim.com', label: 'capainterim.com' }],
-        screenshots: ['/projects/capa/01.png', '/projects/capa/02.png'],
       },
       {
         id: 'axion',
@@ -363,14 +360,6 @@ export const projects: Bilingual<ProjectGroups> = {
           "Collage intelligent dans n'importe quelle app (API Accessibilité), avec vérification du collage basée sur des preuves",
           'UI Liquid Glass : mode Dynamic Island, pastilles personnalisables, cycle de vie des modèles par feature (téléchargement / déchargement / suppression)',
         ],
-        screenshots: [
-          '/projects/murmure/01.jpg',
-          '/projects/murmure/02.jpg',
-          '/projects/murmure/03.jpg',
-          '/projects/murmure/04.jpg',
-          '/projects/murmure/05.jpg',
-          '/projects/murmure/06.jpg',
-        ],
       },
       {
         id: 'dian-dian',
@@ -385,20 +374,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Sync temps réel WebSocket entre appareils, trackers multi-années, export PNG, 7 thèmes + mode sombre',
           'Stats : jours remplis, meilleure série, % annuel, distribution, répartition par mois + jour de la semaine',
           'Premium : RevenueCat (mensuel / annuel / à vie + essai), paywall pixel-art custom, AdMob',
-        ],
-        links: [
-          { url: 'https://apps.apple.com/app/id6761432329', label: 'App Store' },
-          { url: 'https://diandian.overridedev.com', label: 'diandian.overridedev.com' },
-        ],
-        screenshots: [
-          '/projects/dian-dian/01.png',
-          '/projects/dian-dian/02.png',
-          '/projects/dian-dian/03.png',
-          '/projects/dian-dian/04.png',
-          '/projects/dian-dian/05.png',
-          '/projects/dian-dian/06.png',
-          '/projects/dian-dian/07.png',
-          '/projects/dian-dian/08.png',
         ],
       },
     ],
@@ -417,14 +392,6 @@ export const projects: Bilingual<ProjectGroups> = {
           'Bots live / paper / testnet : allocation virtuelle, garde-fous de risque, kill switch, alertes Telegram',
           'Auto-hébergé sur VPS : Docker, Caddy (auto-TLS + mTLS), CI/CD vers GHCR',
         ],
-        screenshots: [
-          '/projects/algo-trading/01.png',
-          '/projects/algo-trading/02.png',
-          '/projects/algo-trading/03.png',
-          '/projects/algo-trading/04.png',
-          '/projects/algo-trading/05.png',
-          '/projects/algo-trading/06.png',
-        ],
       },
       {
         id: 'pathtracing',
@@ -440,17 +407,7 @@ export const projects: Bilingual<ProjectGroups> = {
           'Prévisu OpenGL avec placement caméra à la souris',
           'Sérialisation des scènes en JSON (save / import)',
         ],
-        links: [{ url: 'https://github.com/charlespolart/Pathtracing', label: 'github.com/charlespolart/Pathtracing' }],
-        screenshots: [
-          '/projects/pathtracing/01.png',
-          '/projects/pathtracing/02.png',
-          '/projects/pathtracing/03.png',
-          '/projects/pathtracing/04.png',
-          '/projects/pathtracing/05.png',
-          '/projects/pathtracing/06.png',
-          '/projects/pathtracing/07.png',
-        ],
       },
     ],
-  },
+  }),
 };
